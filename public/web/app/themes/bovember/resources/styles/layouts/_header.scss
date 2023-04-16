@@ -1,0 +1,31 @@
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 2rem 1rem;
+    max-width: 15%;
+
+    .brand {
+        font-family: $american_captain;
+        font-size: 2rem;
+        color: $white;
+    }
+
+    #main-navigation {
+        font-family: $sf_pro_text;
+        font-weight: 400;
+        color: $white;
+
+        .nav {
+            flex-direction: column;
+
+            .menu-item {
+                a {
+                    color: $white;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
