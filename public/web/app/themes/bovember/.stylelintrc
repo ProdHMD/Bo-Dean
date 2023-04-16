@@ -1,6 +1,0 @@
-{
-  "extends": [
-    "@roots/sage/stylelint-config",
-    "@roots/bud-sass/stylelint-config"
-  ]
-}
