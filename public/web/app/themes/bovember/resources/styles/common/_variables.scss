@@ -1,10 +1,19 @@
+/** Colors */
 $black: #1f2023;
 $red: #de1f2b;
 $white: #f9f7f2;
 
-$american_captain: 'American Captain', sans-serif;
-$sf_pro_text: 'SF Pro Text', sans-serif;
+/** Social media colors */
+$instagram: #c32aa3;
+$facebook: #1877f2;
+$twitter: #1da1f2;
+$youtube: #ff0000;
 
+/** Font variables */
+$american_captain: american-captain, sans-serif;
+$sf_pro_text: sf-pro-text, sans-serif;
+
+/** WordPress grid breakpoint */
 $grid-breakpoints: (
     wpmd: 783px,
 );

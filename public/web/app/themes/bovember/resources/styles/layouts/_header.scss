@@ -1,20 +1,27 @@
+/** Header container */
 #header {
     position: absolute;
     top: 0;
     left: 0;
     padding: 2rem 1rem;
-    max-width: 15%;
+    width: 15%;
 
+    /** Main logo */
     .brand {
         font-family: $american_captain;
-        font-size: 2rem;
+        font-size: 3rem;
         color: $white;
+        text-decoration: none;
     }
 
+    /** Main navigation */
     #main-navigation {
         font-family: $sf_pro_text;
         font-weight: 400;
+        font-size: 1.25rem;
+        line-height: 1.2;
         color: $white;
+        margin-bottom: 1rem;
 
         .nav {
             flex-direction: column;
@@ -24,6 +31,82 @@
                     color: $white;
                     text-decoration: none;
                     text-transform: uppercase;
+
+                    &:hover,
+                    &:active {
+                        text-decoration: line-through;
+                    }
+                }
+            }
+        }
+    }
+
+    /** Bottom navigation */
+    #bottom-navigation {
+        font-family: $sf_pro_text;
+        font-weight: 400;
+        color: $white;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+
+        .credits {
+            font-size: 1rem;
+
+            a {
+                color: $white;
+                text-decoration: none;
+                
+                &:hover,
+                &:active {
+                    text-decoration: line-through;
+                }
+            }
+        }
+
+        .socials {
+            .social-list {
+                .social {
+                    display: inline;
+
+                    a {
+                        color: $white;
+
+                        svg {
+                            max-width: 1.25rem;
+                        }
+                    }
+
+                    &.instagram {
+                        a {
+                            &:hover {
+                                color: $instagram;
+                            }
+                        }
+                    }
+
+                    &.facebook {
+                        a {
+                            &:hover {
+                                color: $facebook;
+                            }
+                        }
+                    }
+
+                    &.twitter {
+                        a {
+                            &:hover {
+                                color: $twitter;
+                            }
+                        }
+                    }
+
+                    &.youtube {
+                        a {
+                            &:hover {
+                                color: $youtube;
+                            }
+                        }
+                    }
                 }
             }
         }

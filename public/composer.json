@@ -42,7 +42,9 @@
     "roots/wp-password-bcrypt": "1.1.0",
     "wpackagist-theme/twentytwentythree": "^1.0",
     "roots/acorn": "^3.1",
-    "wpackagist-plugin/classic-editor": "^1.6"
+    "wpackagist-plugin/classic-editor": "^1.6",
+    "blade-ui-kit/blade-icons": "^1.5",
+    "owenvoke/blade-fontawesome": "^2.2"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

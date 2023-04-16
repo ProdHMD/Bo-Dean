@@ -59,8 +59,5 @@ export default async (app) => {
     .set('settings.spacing.padding', true)
     .set('settings.spacing.units', ['px', '%', 'em', 'rem', 'vw', 'vh'])
     .set('settings.typography.customFontSize', false)
-    //.useTailwindColors()
-    //.useTailwindFontFamily()
-    //.useTailwindFontSize()
     .enable();
 };

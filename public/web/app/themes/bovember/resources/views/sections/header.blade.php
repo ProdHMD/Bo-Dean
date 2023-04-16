@@ -8,4 +8,20 @@
       {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav', 'echo' => false]) !!}
     </nav>
   @endif
+
+  <nav class="nav-secondary" aria-label="Credits and Socials" id="bottom-navigation">
+    <div class="credits">
+      <span>Site by <a href="https://lljb3.com">ProdHMD</a>
+    </div>
+    <div class="socials">
+      <ul class="social-list list-unstyled">
+        <li class="social instagram"><a href="https://instagram.com/bovemberdean"><x-fab-instagram /></a></li>
+        <li class="social facebook"><a href="https://facebook.com/bovemberdean"><x-fab-facebook /></a></li>
+        <li class="social twitter"><a href="https://twitter.com/realbodean"><x-fab-twitter /></a></li>
+        <li class="social youtube"><a href="https://youtube.com/bodeantv"><x-fab-youtube /></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="nav-tertiary" aria-label="Music Player" id="music-player"></div>
 </header>

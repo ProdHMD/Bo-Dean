@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "@roots/sage/stylelint-config",
+    "@roots/bud-sass/stylelint-config"
+  ],
+  "rules": {
+    "import-notation": false,
+    "color-hex-length": false,
+    "no-descending-specificity": false
+  }
+}

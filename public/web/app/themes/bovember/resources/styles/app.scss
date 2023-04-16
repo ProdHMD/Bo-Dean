@@ -1,8 +1,10 @@
+/** Import Bootstrap */
 @import "bootstrap";
 
-@import 'common/fonts';
-@import 'common/variables';
+/** Import common styles */
+@import "common/fonts";
+@import "common/variables";
 
-@import 'layouts/header';
-@import 'layouts/pages';
-
+/** Import layouts */
+@import "layouts/header";
+@import "layouts/pages";

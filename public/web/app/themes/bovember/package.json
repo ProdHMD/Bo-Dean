@@ -11,6 +11,10 @@
   "scripts": {
     "dev": "bud dev",
     "build": "bud build",
+    "lint": "yarn lint:js && yarn lint:css",
+    "lint:js": "eslint resources/scripts",
+    "lint:css": "stylelint \"resources/**/*.{css,scss,vue}\"",
+    "test": "yarn lint",
     "translate": "yarn translate:pot && yarn translate:update",
     "translate:pot": "wp i18n make-pot . ./resources/lang/sage.pot --include=\"app,resources\"",
     "translate:update": "wp i18n update-po ./resources/lang/sage.pot ./resources/lang/*.po",
@@ -21,8 +25,11 @@
   "devDependencies": {
     "@popperjs/core": "^2.11.7",
     "@roots/bud": "6.12.0",
-    "@roots/bud-postcss": "^6.12.0",
+    "@roots/bud-eslint": "^6.12.0",
+    "@roots/bud-prettier": "^6.12.0",
     "@roots/bud-sass": "^6.12.0",
+    "@roots/bud-stylelint": "^6.12.0",
+    "@roots/eslint-config": "^6.12.0",
     "@roots/sage": "6.12.0",
     "bootstrap": "^5.2.3"
   }

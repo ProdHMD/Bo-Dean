@@ -1,6 +1,8 @@
+/** App container */
 #app {
     position: relative;
 
+    /** Content container */
     #main {
         padding: 0;
         padding-right: 2rem;
@@ -8,7 +10,9 @@
         min-height: 100vh;
         background-color: $black;
         color: $white;
+        font-family: $sf_pro_text;
 
+        /** If logged in, fix height */
         body.logged-in & {
             min-height: calc(100vh - 32px);
 
