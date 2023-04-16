@@ -1,0 +1,31 @@
+/** Theme Colors */
+$white: #f9f7f2 !default;
+$red: #de1f2b !default;
+$black: #1f2023 !default;
+
+/** Font Faces */
+@font-face {
+  font-family: american-captain;
+  src: url("/fonts/american-captain.ttf");
+}
+
+@font-face {
+  font-family: sf-pro-text-regular;
+  src: url("/fonts/SF-Pro-Text-Regular.otf");
+}
+
+@font-face {
+  font-family: sf-pro-text-light;
+  src: url("/fonts/SF-Pro-Text-Light.otf");
+}
+
+@font-face {
+  font-family: sf-pro-text-bold;
+  src: url("/fonts/SF-Pro-Text-Bold.otf");
+}
+
+/** Theme Fonts */
+$american_captain: "american-captain", sans-serif;
+$sf_pro_text_regular: "sf-pro-text-regular", sans-serif;
+$sf_pro_text_light: "sf-pro-text-light", sans-serif;
+$sf_pro_text_bold: "sf-pro-text-bold", sans-serif;
