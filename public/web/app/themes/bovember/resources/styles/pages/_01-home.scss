@@ -1,0 +1,43 @@
+/** Home page */
+.home {
+    #main {
+        #wrapper {
+            align-content: center;
+            align-items: center;
+            height: 100vh;
+
+            #content {
+                display: flex;
+                flex-flow: column wrap;
+                align-content: center;              
+
+                h1 {
+                    font-size: 8rem;
+                    line-height: 1;
+                }
+
+                h2 {
+                    font-size: 5rem;
+                    line-height: 1;
+                    margin-top: -1.5rem;
+                    color: transparent;
+                    -webkit-text-stroke-width: 1px;
+                    -webkit-text-stroke-color: $white;
+                }
+            }
+        }
+    }
+
+    /** If logged in, fix height */
+    &.logged-in {
+        #main {
+            #wrapper {
+                height: calc(100vh - 32px);
+
+                @include media-breakpoint-down(wpmd) {
+                    height: calc(100vh - 46px);
+                }
+            }
+        }
+    }
+}

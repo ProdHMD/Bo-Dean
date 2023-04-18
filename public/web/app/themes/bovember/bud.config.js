@@ -37,6 +37,10 @@ export default async (app) => {
     .setProxyUrl('http://example.test')
     .watch(['resources/views', 'app']);
 
+  app.provide({
+    jquery: ["jQuery", "$"],
+  })
+
   /**
    * Generate WordPress `theme.json`
    *

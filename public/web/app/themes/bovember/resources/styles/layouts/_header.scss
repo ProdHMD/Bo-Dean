@@ -3,13 +3,16 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 2rem 1rem;
+    padding: 1.5rem;
+    padding-right: 1rem;
     width: 15%;
+    z-index: 9999;
 
     /** Main logo */
     .brand {
         font-family: $american_captain;
-        font-size: 3rem;
+        font-size: 3.75rem;
+        line-height: 1;
         color: $white;
         text-decoration: none;
     }
@@ -21,6 +24,7 @@
         font-size: 1.25rem;
         line-height: 1.2;
         color: $white;
+        margin-top: 0.25rem;
         margin-bottom: 1rem;
 
         .nav {
@@ -34,6 +38,12 @@
 
                     &:hover,
                     &:active {
+                        text-decoration: line-through;
+                    }
+                }
+
+                &.current-menu-item {
+                    a {
                         text-decoration: line-through;
                     }
                 }
@@ -67,6 +77,7 @@
             .social-list {
                 .social {
                     display: inline;
+                    margin-right: 0.25rem;
 
                     a {
                         color: $white;

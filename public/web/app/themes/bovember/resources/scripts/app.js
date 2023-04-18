@@ -1,4 +1,6 @@
+// Import external dependencies
 import domReady from '@roots/sage/client/dom-ready';
+import 'jquery';
 
 // Import Bootstrap
 import 'bootstrap';
@@ -7,7 +9,11 @@ import 'bootstrap';
  * Application entrypoint
  */
 domReady(async () => {
-  // ...
+  // Import bgJS if canvas classed element exists
+  if (document.querySelector('.canvas')) {
+    const {bg} = await import('@scripts/modules/bg');
+    bg();
+  }
 });
 
 /**
