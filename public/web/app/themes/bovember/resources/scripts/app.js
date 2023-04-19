@@ -5,14 +5,26 @@ import 'jquery';
 // Import Bootstrap
 import 'bootstrap';
 
+// Import kool dependencies
+import LocomotiveScroll from 'locomotive-scroll';
+
 /**
  * Application entrypoint
  */
 domReady(async () => {
-  // Import bgJS if canvas classed element exists
+  // Import bgJS if .canvas exists
   if (document.querySelector('.canvas')) {
     const {bg} = await import('@scripts/modules/bg');
     bg();
+  }
+
+  // Init locomotive scroll
+  if ($('#container').innerHeight() < $('#wrapper').innerHeight()) {
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+    });
+    scroll;
   }
 });
 

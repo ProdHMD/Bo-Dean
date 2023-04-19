@@ -1,15 +1,26 @@
 /** Home page */
-.home {
-    #main {
+.main {
+    &#home {
+        padding: 0 2rem;
+
         #wrapper {
             align-content: center;
             align-items: center;
             height: 100vh;
 
+            /** If logged in, fix height */
+            .logged-in & {
+                height: calc(100vh - 32px);
+
+                @include media-breakpoint-down(wpmd) {
+                    height: calc(100vh - 46px);
+                }
+            }
+
             #content {
                 display: flex;
                 flex-flow: column wrap;
-                align-content: center;              
+                align-content: center;
 
                 h1 {
                     font-size: 8rem;
@@ -23,19 +34,6 @@
                     color: transparent;
                     -webkit-text-stroke-width: 1px;
                     -webkit-text-stroke-color: $white;
-                }
-            }
-        }
-    }
-
-    /** If logged in, fix height */
-    &.logged-in {
-        #main {
-            #wrapper {
-                height: calc(100vh - 32px);
-
-                @include media-breakpoint-down(wpmd) {
-                    height: calc(100vh - 46px);
                 }
             }
         }

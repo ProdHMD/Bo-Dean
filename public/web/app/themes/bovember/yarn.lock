@@ -3101,6 +3101,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@barba/core@npm:^2.9.7":
+  version: 2.9.7
+  resolution: "@barba/core@npm:2.9.7"
+  dependencies:
+    is-promise: ^2.1.0
+    path-to-regexp: ^3.0.0
+  checksum: 4cd40664810242acf752667e773aab0c56fed4fa482b6c6091f5a127588e39ca4ac1c125bbaf33de07b8509b60c4a60337bb880dd4c40ab13a8a6bcee7e18e96
+  languageName: node
+  linkType: hard
+
 "@csstools/cascade-layer-name-parser@npm:^1.0.0":
   version: 1.0.1
   resolution: "@csstools/cascade-layer-name-parser@npm:1.0.1"
@@ -5849,6 +5859,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bezier-easing@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "bezier-easing@npm:2.1.0"
+  checksum: ec22666b5385979b3e7a63eaf2631395b1be5beb3aed4f14cc70ae9eb09032082584f7e3eec045e4c122466987ed7e159f5b39f82b8a9870cd55e75b0d55a7d5
+  languageName: node
+  linkType: hard
+
 "big-integer@npm:^1.6.44":
   version: 1.6.51
   resolution: "big-integer@npm:1.6.51"
@@ -5867,6 +5884,13 @@ __metadata:
   version: 2.2.0
   resolution: "binary-extensions@npm:2.2.0"
   checksum: ccd267956c58d2315f5d3ea6757cf09863c5fc703e50fbeb13a7dc849b812ef76e3cf9ca8f35a0c48498776a7478d7b4a0418e1e2b8cb9cb9731f2922aaad7f8
+  languageName: node
+  linkType: hard
+
+"bindall-standalone@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "bindall-standalone@npm:1.0.5"
+  checksum: 670a96a55a2609cbcf7f6a7066641e988d89467dbe479d1385fe12f3863253e81b7aab19d479fe718d81f8cd84fb40886bbe5b4b065e8220930f0fccc58465c0
   languageName: node
   linkType: hard
 
@@ -9390,6 +9414,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-promise@npm:^2.1.0":
+  version: 2.2.2
+  resolution: "is-promise@npm:2.2.2"
+  checksum: 18bf7d1c59953e0ad82a1ed963fb3dc0d135c8f299a14f89a17af312fc918373136e56028e8831700e1933519630cc2fd4179a777030330fde20d34e96f40c78
+  languageName: node
+  linkType: hard
+
 "is-regex@npm:^1.1.4":
   version: 1.1.4
   resolution: "is-regex@npm:1.1.4"
@@ -9777,6 +9808,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lethargy@npm:^1.0.2":
+  version: 1.0.9
+  resolution: "lethargy@npm:1.0.9"
+  checksum: 2ca67fe57752cb86224b6799b87e8819e0d7636eafe16c59a596c9e1125ac6ee9f17eb5e92ef853926137cc70fa9798396e7aa38563751a75109450de9979fb8
+  languageName: node
+  linkType: hard
+
 "levn@npm:^0.4.1":
   version: 0.4.1
   resolution: "levn@npm:0.4.1"
@@ -9887,6 +9925,17 @@ __metadata:
   dependencies:
     p-locate: ^5.0.0
   checksum: 72eb661788a0368c099a184c59d2fee760b3831c9c1c33955e8a19ae4a21b4116e53fa736dc086cdeb9fce9f7cc508f2f92d2d3aae516f133e16a2bb59a39f5a
+  languageName: node
+  linkType: hard
+
+"locomotive-scroll@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "locomotive-scroll@npm:4.1.4"
+  dependencies:
+    bezier-easing: ^2.1.0
+    smoothscroll-polyfill: ^0.4.4
+    virtual-scroll: ^1.5.2
+  checksum: 28ee6ca336dd8e72c7d97d9f8a551900f0535fc51a86b650034ec04acecc1e1554d1c5936f95cfd460a6571a9ee5af354bc3bd1a6c7aecd1b1063a4c8ab68eba
   languageName: node
   linkType: hard
 
@@ -11405,6 +11454,13 @@ __metadata:
   version: 0.1.7
   resolution: "path-to-regexp@npm:0.1.7"
   checksum: 69a14ea24db543e8b0f4353305c5eac6907917031340e5a8b37df688e52accd09e3cebfe1660b70d76b6bd89152f52183f28c74813dbf454ba1a01c82a38abce
+  languageName: node
+  linkType: hard
+
+"path-to-regexp@npm:^3.0.0":
+  version: 3.2.0
+  resolution: "path-to-regexp@npm:3.2.0"
+  checksum: c3d35cda3b26d9e604d789b9a1764bb9845f53ca8009d5809356b4677a3c064b0f01117a05a5b4b77bafd5ae002a82592e3f3495e885c22961f8b1dab8bd6ae7
   languageName: node
   linkType: hard
 
@@ -13100,6 +13156,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sage@workspace:."
   dependencies:
+    "@barba/core": ^2.9.7
     "@popperjs/core": ^2.11.7
     "@roots/bud": 6.12.0
     "@roots/bud-eslint": ^6.12.0
@@ -13109,6 +13166,7 @@ __metadata:
     "@roots/eslint-config": ^6.12.0
     "@roots/sage": 6.12.0
     bootstrap: ^5.2.3
+    locomotive-scroll: ^4.1.4
   languageName: unknown
   linkType: soft
 
@@ -13451,6 +13509,13 @@ __metadata:
   version: 4.2.0
   resolution: "smart-buffer@npm:4.2.0"
   checksum: b5167a7142c1da704c0e3af85c402002b597081dd9575031a90b4f229ca5678e9a36e8a374f1814c8156a725d17008ae3bde63b92f9cfd132526379e580bec8b
+  languageName: node
+  linkType: hard
+
+"smoothscroll-polyfill@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "smoothscroll-polyfill@npm:0.4.4"
+  checksum: b99ff7d91689d563ec69cb1d29713b332a24c88ac3dc4ef9ef9fbe4137305336e67253211067c5f786478dbdabd2aa6c2033709d4d8feca327b09eca8d5a0e7b
   languageName: node
   linkType: hard
 
@@ -14134,6 +14199,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-emitter@npm:^1.0.0":
+  version: 1.2.0
+  resolution: "tiny-emitter@npm:1.2.0"
+  checksum: f21f76da7c1c7fbc60c4ff32c43db8ef601aa98ffc79b75ab1e2d6308c0695d9aa5bd0c941e3a234d8e49ca994ab574692754d5617bd7d2b48b880857e0e3154
+  languageName: node
+  linkType: hard
+
 "titleize@npm:^3.0.0":
   version: 3.0.0
   resolution: "titleize@npm:3.0.0"
@@ -14677,6 +14749,18 @@ __metadata:
     unist-util-stringify-position: ^3.0.0
     vfile-message: ^3.0.0
   checksum: 9a2fc257ecc0329fe7598ab5deba2fcca26f476279ce8a779d58722aed28f9c6726196ff718f23ed430b30b0dbd04d5ab3983f33b70ec540a685f4f6415f8a37
+  languageName: node
+  linkType: hard
+
+"virtual-scroll@npm:^1.5.2":
+  version: 1.5.2
+  resolution: "virtual-scroll@npm:1.5.2"
+  dependencies:
+    bindall-standalone: ^1.0.5
+    lethargy: ^1.0.2
+    object-assign: ^4.0.1
+    tiny-emitter: ^1.0.0
+  checksum: ea1064a2f77b168c24cf71052a54ecbc88eb4efd4f2043a81d1f699a61f83e4600aadb6db30ddc66bce78e67b67afa7217f9d75fa485bf6121a6399c382ec1ee
   languageName: node
   linkType: hard
 

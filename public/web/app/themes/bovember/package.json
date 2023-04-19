@@ -23,6 +23,7 @@
     "translate:mo": "wp i18n make-mo ./resources/lang ./resources/lang"
   },
   "devDependencies": {
+    "@barba/core": "^2.9.7",
     "@popperjs/core": "^2.11.7",
     "@roots/bud": "6.12.0",
     "@roots/bud-eslint": "^6.12.0",
@@ -31,6 +32,7 @@
     "@roots/bud-stylelint": "^6.12.0",
     "@roots/eslint-config": "^6.12.0",
     "@roots/sage": "6.12.0",
-    "bootstrap": "^5.2.3"
+    "bootstrap": "^5.2.3",
+    "locomotive-scroll": "^4.1.4"
   }
 }

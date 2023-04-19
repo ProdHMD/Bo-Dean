@@ -4,7 +4,7 @@
     overflow: hidden;
 
     /** Content container */
-    #main {
+    .main {
         padding: 0;
         padding-right: 2rem;
         padding-left: 15%;
@@ -26,7 +26,6 @@
         /** Container with hidden scrollbar */
         #container {
             max-height: 100%;
-            overflow: auto;
 
             &::-webkit-scrollbar {
                 display: none;
@@ -78,10 +77,6 @@
                 width: 100%;
                 height: 100%;
                 transform: translate(-50%,-50%);
-
-                .about & {
-                    height: auto !important;
-                }
             }
         }
     }

@@ -1,13 +1,26 @@
-.about {
-    #main {
+.main {
+    &#about {
         #content {
-            h1 {
-                margin-top: 50%;
-                font-size:  2.875rem;
+            #about-container {
+                #main-content {
+                    margin-top: 35%;
+                    padding-bottom: 15%;
+
+                    h1 {
+                        font-size:  2.875rem;
+                    }
+                }
             }
 
-            #main-content {
-                margin-bottom: 15%;
+            .canvas {
+                .background-media {
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translate(0, -50%);
+                    height: auto !important;
+                    min-width: 100%;
+                }
             }
         }
     }
