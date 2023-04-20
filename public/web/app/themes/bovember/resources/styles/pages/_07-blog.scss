@@ -1,0 +1,99 @@
+/** Blog page */
+.main {
+    &#blog {
+        #content {
+            #blog-container {
+                #main-content {
+                    margin-top: 10%;
+                    margin-left: 5%;
+                    padding-bottom: 15%;
+                    padding-right: 10%;
+
+                    .page-header {
+                        display: none;
+                    }
+
+                    .post {
+                        font-family: $sf_pro_text;
+
+                        .entry-title {
+                            font-family: $sf_pro_text;
+                            font-weight: 700;
+                            font-size: 3rem;
+                            text-transform: uppercase;
+                            line-height: 1;
+                            margin-bottom: 0;
+                        }
+
+                        .dt-published {
+                            font-size: 2rem;
+                        }
+
+                        .entry-summary {
+                            a {
+                                color: $white;
+                                font-size: 2rem;
+                                line-height: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &#blog-post {
+        #content {
+            #blog-container {
+                #main-content {
+                    margin-top: 10%;
+                    margin-left: 5%;
+                    padding-bottom: 15%;
+                    padding-right: 10%;
+
+                    .page-header {
+                        display: none;
+                    }
+
+                    .post {
+                        font-family: $sf_pro_text;
+
+                        .blog-nav {
+                            margin-bottom: 3rem;
+
+                            a {
+                                font-size: 1.5rem;
+                                text-transform: uppercase;
+                                color: $white;
+                            }
+                        }
+
+                        .p-name {
+                            font-family: $sf_pro_text;
+                            font-weight: 700;
+                            font-size: 5rem;
+                            text-transform: uppercase;
+                            line-height: 1;
+                            color: $red;
+                        }
+
+                        .dt-published {
+                            font-size: 1.5rem;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .e-content {
+                            margin-top: 2rem;
+
+                            p {
+                                font-size: 1.125rem;
+                                font-size: 400;
+                                line-height: 1.1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

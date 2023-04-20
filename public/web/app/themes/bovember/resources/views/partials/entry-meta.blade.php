@@ -1,8 +1,8 @@
 <time class="dt-published" datetime="{{ get_post_time('c', true) }}">
-  {{ get_the_date() }}
+  {{ get_the_date('m.d.Y') }}
 </time>
 
-<p>
+<p class="d-none">
   <span>{{ __('By', 'sage') }}</span>
   <a href="{{ get_author_posts_url(get_the_author_meta('ID')) }}" class="p-author h-card">
     {{ get_the_author() }}

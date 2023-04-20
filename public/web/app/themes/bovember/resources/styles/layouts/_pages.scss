@@ -2,17 +2,19 @@
 #app {
     position: relative;
     overflow: hidden;
+    background-color: $black;
 
     /** Content container */
     .main {
+        position: relative;
         padding: 0;
         padding-right: 2rem;
         padding-left: 15%;
         height: 100vh;
         overflow: hidden;
-        background-color: $black;
         color: $white;
         font-family: $sf_pro_text;
+        z-index: 1;
 
         /** If logged in, fix height */
         body.logged-in & {
@@ -55,28 +57,38 @@
                 color: $red;
             }
         }
+    }
 
-        /** Background media styling */
-        .page-container {
-            z-index: 1;
-            position: relative;
+    /** Background media styling */
+    .canvas {
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0;
+
+        &.show {
+            opacity: 0.5;
         }
 
-        .canvas {
+        .background-media {
             position: absolute;
-            inset: 0 auto auto 0;
+            top: 50%;
+            left: 50%;
             width: 100%;
             height: 100%;
-            z-index: 0;
-            opacity: 0.5;
+            transform: translate(-50%,-50%);
+        }
 
+        &#about {
             .background-media {
                 position: absolute;
                 top: 50%;
-                left: 50%;
-                width: 100%;
-                height: 100%;
-                transform: translate(-50%,-50%);
+                left: 0;
+                transform: translate(0, -50%);
+                height: auto !important;
+                min-width: 100%;
             }
         }
     }

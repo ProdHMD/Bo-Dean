@@ -1,31 +1,25 @@
 // Import external dependencies
 import domReady from '@roots/sage/client/dom-ready';
 import 'jquery';
-
-// Import Bootstrap
 import 'bootstrap';
 
-// Import kool dependencies
-import LocomotiveScroll from 'locomotive-scroll';
+// Import custom modules
+import { bg } from './modules/bg.js';
+import { locomotive } from './modules/locomotive.js';
+import { barbainit } from './modules/barbainit.js';
 
 /**
  * Application entrypoint
  */
 domReady(async () => {
-  // Import bgJS if .canvas exists
-  if (document.querySelector('.canvas')) {
-    const {bg} = await import('@scripts/modules/bg');
-    bg();
-  }
+  // Init bgJS
+  bg();
 
-  // Init locomotive scroll
-  if ($('#container').innerHeight() < $('#wrapper').innerHeight()) {
-    const scroll = new LocomotiveScroll({
-      el: document.querySelector('[data-scroll-container]'),
-      smooth: true,
-    });
-    scroll;
-  }
+  // Init locomotiveJS
+  locomotive();
+
+  // Init barbaInitJS
+  barbainit();
 });
 
 /**

@@ -1,6 +1,6 @@
-/** Home page */
+/** Contact page */
 .main {
-    &#home {
+    &#contact {
         padding: 0 2rem;
 
         #wrapper {
@@ -21,19 +21,20 @@
                 display: flex;
                 flex-flow: column wrap;
                 align-content: center;
+                text-transform: uppercase;
 
-                h1 {
-                    font-size: 9.625rem;
+                h1,h2 {
+                    font-family: $sf_pro_text;
+                    font-size: 3rem;
                     line-height: 1;
+                    font-weight: 700;
+                    color: $red;
+                    margin-bottom: 0;
                 }
 
-                h2 {
-                    font-size: 6.25rem;
-                    line-height: 1;
-                    margin-top: -1.5rem;
-                    color: transparent;
-                    -webkit-text-stroke-width: 0.125rem;
-                    -webkit-text-stroke-color: $white;
+                p {
+                    font-size: 1.5rem;
+                    font-weight: 700;
                 }
             }
         }

@@ -1,25 +1,24 @@
+/** About page */
 .main {
     &#about {
         #content {
             #about-container {
                 #main-content {
                     margin-top: 35%;
+                    margin-left: 5%;
                     padding-bottom: 15%;
+                    padding-right: 10%;
 
                     h1 {
-                        font-size:  2.875rem;
+                        font-size:  3rem;
+                        margin-bottom: 1rem;
                     }
-                }
-            }
 
-            .canvas {
-                .background-media {
-                    position: absolute;
-                    top: 50%;
-                    left: 0;
-                    transform: translate(0, -50%);
-                    height: auto !important;
-                    min-width: 100%;
+                    p {
+                        font-size: 1.5rem;
+                        line-height: 1.25;
+                        margin-bottom: 1.25rem;
+                    }
                 }
             }
         }
