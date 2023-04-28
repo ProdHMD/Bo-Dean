@@ -23,5 +23,8 @@
     </div>
   </nav>
 
-  <div class="nav-tertiary" aria-label="Music Player" id="music-player"></div>
+  <div class="nav-tertiary" aria-label="Music Player" id="music-player">
+    <div class="equalizer"><x-fas-chart-simple /></div>
+    <div class="song-name">Lavish</div>
+  </div>
 </header>

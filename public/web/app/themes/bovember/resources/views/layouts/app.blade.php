@@ -1,12 +1,22 @@
 <?php
     global $post;
-    $post_id = $post->ID;
-    if (is_home()) {
-      $post_slug = 'blog';
-    } else if (is_single()) {
-      $post_slug = 'blog-post';
+    if ($post) {
+      $post_id = $post->ID;
+
+      if (is_home()) {
+        $post_slug = 'blog';
+      } else if (is_singular('album')) {
+        $post_slug = 'album';
+      } else if (is_singular('gallery')) {
+        $post_slug = 'gallery';
+      } else if (is_single()) {
+        $post_slug = 'blog-post';
+      }  else {
+        $post_slug = $post->post_name; 
+      }
     } else {
-      $post_slug = $post->post_name; 
+      $post_id = '';
+      $post_slug = '';
     }
 ?>
 
@@ -14,9 +24,9 @@
   {{ __('Skip to content') }}
 </a>
 
-<main id="<?php echo $post_slug; ?>" class="main" data-barba="container" data-barba-namespace="<?php echo $post_slug; ?>">
-  @include('sections.header')
+@include('sections.header')
 
+<main id="<?php echo $post_slug; ?>" <?php body_class('main'); ?> data-barba="container" data-barba-namespace="<?php echo $post_slug; ?>">
   <div class="container-fluid" id="container">
     <div class="row" id="wrapper">
       <div class="col-md-12" id="content">
@@ -26,4 +36,6 @@
   </div>
 </main>
 
-@include('sections.background')
+<?php if (is_page('home') || is_page('shows') || is_page('about') || is_home()) : ?>
+  @include('sections.background')
+<?php endif; ?>

@@ -28,6 +28,30 @@
       "type": "composer",
       "url": "https://wpackagist.org",
       "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "gplvault/gplvault",
+        "version": "4.2.4",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://s3-us-west-2.amazonaws.com/gplvault/Plugins/gplvault/gplvault-updater.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIW2NOEZ5VENFRN7A%2F20230421%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230421T225930Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=cafc4078a416364c8dca8d2cfc3d5000d538b35c86a6fc3f485dceca01573048",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "acf/acfpro",
+        "version": "6.1.4",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://www.gplvault.com/files/29102/",
+          "type": "zip"
+        }
+      }
     }
   ],
   "require": {
@@ -45,7 +69,9 @@
     "wpackagist-plugin/classic-editor": "^1.6",
     "blade-ui-kit/blade-icons": "^1.5",
     "owenvoke/blade-fontawesome": "^2.2",
-    "wpackagist-plugin/woocommerce": "^7.6"
+    "wpackagist-plugin/woocommerce": "^7.6",
+    "gplvault/gplvault": "^4.2",
+    "acf/acfpro": "^6.1"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

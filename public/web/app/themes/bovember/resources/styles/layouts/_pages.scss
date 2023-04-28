@@ -1,3 +1,11 @@
+/** HTML, body */
+html {
+    overflow: hidden;
+    font-family: $sf_pro_text;
+    user-select: none;
+    line-height: normal;
+}
+
 /** App container */
 #app {
     position: relative;

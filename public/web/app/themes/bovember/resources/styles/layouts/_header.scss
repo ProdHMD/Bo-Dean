@@ -122,5 +122,30 @@
                 }
             }
         }
+
+        /** Music player */
+        #music-player {
+            display: flex;
+            align-items: flex-end;
+            font-family: $sf_pro_text;
+            text-transform: uppercase;
+            font-size: 1.125rem;
+            color: $white;
+
+            .equalizer {
+                display: inline-block;
+                width: 1.125rem;
+                margin-right: 0.25rem;
+
+                > svg {
+                    margin-top: 1px;
+                }
+            }
+
+            .song-name {
+                display: inline-block;
+                line-height: 1;
+            }
+        }
     }
 }

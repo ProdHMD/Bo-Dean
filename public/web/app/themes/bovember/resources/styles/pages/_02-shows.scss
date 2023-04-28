@@ -1,0 +1,43 @@
+/** Shows page */
+.main {
+    &#shows {
+        padding: 0 2rem;
+
+        #content {
+            #shows-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 15%;
+
+                    .show-container {
+                        font-family: $sf_pro_text;
+                        font-weight: 400;
+                        text-transform: uppercase;
+                        margin-bottom: 4.375rem;
+                        line-height: normal;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .city-name {
+                            font-size: 1.75rem;
+                        }
+
+                        .location-name {
+                            font-family: $sf_pro_text;
+                            font-size: 3.5rem;
+                            font-weight: 700;
+                            color: $red;
+                            margin-bottom: 0;
+                        }
+                        
+                        .date-time {
+                            font-size: 3rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

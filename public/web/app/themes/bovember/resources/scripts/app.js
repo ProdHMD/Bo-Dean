@@ -4,14 +4,18 @@ import 'jquery';
 import 'bootstrap';
 
 // Import custom modules
+import { header } from './modules/header.js';
 import { bg } from './modules/bg.js';
 import { locomotive } from './modules/locomotive.js';
-import { barbainit } from './modules/barbainit.js';
+//import { barbainit } from './modules/barbainit.js';
 
 /**
  * Application entrypoint
  */
 domReady(async () => {
+  // Init headerJS
+  header();
+
   // Init bgJS
   bg();
 
@@ -19,7 +23,7 @@ domReady(async () => {
   locomotive();
 
   // Init barbaInitJS
-  barbainit();
+  //barbainit();
 });
 
 /**
