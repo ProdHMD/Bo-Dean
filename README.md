@@ -30,6 +30,6 @@ Please follow the installation methods at https://roots.io/sage/docs/installatio
 1. Change the .env: https://roots.io/bedrock/docs/environment-variables/
 
 2. Update the WP_ENV to production, staging, or development
-* Warning: Do not create multiple installations of this on the same server!
+**Warning: Do not create multiple installations of this on the same server!**
 
 ## Enjoy!
