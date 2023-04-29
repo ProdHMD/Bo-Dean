@@ -8,26 +8,26 @@ Please follow the installation methods at https://roots.io/sage/docs/installatio
 ## Step 1 - Install Bedrock
 
 1. Globally install composer
-    1. sudo apt update
-    2. sudo apt install wget php-cli php-zip unzip
-    3. wget -O composer-setup.php https://getcomposer.org/installer
-    4. sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    1. `sudo apt update`
+    2. `sudo apt install wget php-cli php-zip unzip`
+    3. `wget -O composer-setup.php https://getcomposer.org/installer`
+    4. `sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer`
 
 2. Run the following in the public directory:
-    1. composer install
+    1. `composer install`
 
 ## Step 2 - Install Sage
 
 1. Install the latest node.js LTS release
-    volta install node
+    `volta install node`
 
 2. Globally install Yarn
-    npm install --global yarn
+    `npm install --global yarn`
 
 3. Direct your terminal path to web/app/themes/bovember and run the following:
-    1. yarn
-    2. yarn build
-    3. wp acorn optimize:clear
+    1. `yarn`
+    2. `yarn build`
+    3. `wp acorn optimize:clear`
 
 ## Step 3 - Change enviornment variables
 
