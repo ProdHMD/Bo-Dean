@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="row page-container" id="blog-container">
-    <div class="col-md-12" id="main-content">
+  <div class="row page-container" id="blog-container" data-scroll-container>
+    <div class="col-md-12" id="main-content" data-scroll-section>
       @include('partials.page-header')
 
       @if (! have_posts())

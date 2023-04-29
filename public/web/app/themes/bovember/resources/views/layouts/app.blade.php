@@ -9,9 +9,17 @@
         $post_slug = 'album';
       } else if (is_singular('gallery')) {
         $post_slug = 'gallery';
+      } else if (is_shop() || is_product_category() || is_product_tag()) {
+        $post_slug = 'shop';
+      } else if (is_cart()) {
+        $post_slug = 'cart';
+      } else if (is_checkout()) {
+        $post_slug = 'checkout';
+      } else if (is_account_page()) {
+        $post_slug = 'my-account';
       } else if (is_single()) {
         $post_slug = 'blog-post';
-      }  else {
+      } else {
         $post_slug = $post->post_name; 
       }
     } else {

@@ -64,6 +64,7 @@ return [
          |     @include('MyPlugin::some.view.or.partial.here')
          */
         // 'MyPlugin' => WP_PLUGIN_DIR . '/my-plugin/resources/views',
+        'SageWoocommerce' => get_theme_file_path('/vendor/roots/sage-woocommerce/src/resources/views'),
     ],
 
     /*

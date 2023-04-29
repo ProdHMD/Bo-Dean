@@ -1,0 +1,62 @@
+/** Shop pages */
+.main {
+    /** Shop page */
+    &#shop {
+        #content {
+            #shop-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 15%;
+                }
+            }
+        }
+    }
+
+    /** Cart page */
+    &#cart {
+        #content {
+            #cart-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 15%;
+                }
+            }
+        }
+    }
+
+    /** Checkout page */
+    &#checkout {
+        #content {
+            #checkout-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 15%;
+                }
+            }
+        }
+    }
+
+    /** My Account page */
+    &#my-account {
+        #content {
+            #my-account-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 15%;
+                }
+            }
+        }
+    }
+
+    /** Refund Returns Policy page */
+    &#refund-returns {
+        #content {
+            #refund-returns-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 15%;
+                }
+            }
+        }
+    }
+}

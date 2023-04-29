@@ -1,0 +1,41 @@
+/** Videos page */
+.main {
+    &#videos {
+        #content {
+            #videos-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 15%;
+
+                    #video-gallery-container {
+                        .youtube-item {
+                            margin-bottom: 3rem;
+
+                            .thumbnail {
+                                img {
+                                    min-width: 100%;
+                                }
+                            }
+
+                            .title {
+                                font-family: $sf_pro_text;
+                                font-size: 2.5rem;
+                                font-weight: 700;
+                                color: $red;
+                                text-transform: uppercase;
+                                margin-top: 1rem;
+                            }
+
+                            .year {
+                                font-family: $sf_pro_text;
+                                font-size: 2.5rem;
+                                font-weight: 400;
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

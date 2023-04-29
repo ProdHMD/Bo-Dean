@@ -10,8 +10,8 @@
     $query = new WP_Query($args);
 ?>
 
-<div class="row page-container" id="<?php echo $post_slug; ?>-container">
-    <div class="col-md-12" id="main-content">
+<div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
+    <div class="col-md-12" id="main-content" data-scroll-section>
         <h1 class="d-none">{!! $title !!}</h1>
         
         <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>

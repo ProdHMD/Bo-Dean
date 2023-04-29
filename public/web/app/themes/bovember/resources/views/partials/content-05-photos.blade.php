@@ -4,7 +4,7 @@
 
     /** CPT args and query */
     $args = array(
-        'post_type' => 'album',
+        'post_type' => 'gallery',
         'posts_per_page' => -1,
     );
     $query = new WP_Query($args);
@@ -12,7 +12,7 @@
     /** CPT taxonomy */
     $album_types = get_terms(
         array(
-            'taxonomy' => 'album_type',
+            'taxonomy' => 'location',
             'hide_empty' => false,
         )
     );
@@ -22,44 +22,35 @@
     <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
         <h1 class="d-none">{!! $title !!}</h1>
 
-        <?php if (!empty($album_types)) : ?>
-            <div class="container-fluid" id="album-types-container">
-                <ul class="album-types list-unstyled">
-                    <li class="album-type">
-                        <button class="type-link" data-filter="*">All</button>
-                    </li>
-                    <?php foreach ($album_types as $album_type) : ?>
-                        <li class="album-type">
-                            <button class="type-link" data-filter="<?php echo '.' . $album_type->slug ?>">
-                                <?php echo $album_type->name; ?>
-                            </button>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <div class="container-fluid" id="albums-container">
+        <div class="container-fluid" id="galleries-container">
             <?php if ($query->have_posts()) : ?>
-                <ol class="row list-unstyled isotope" id="album-row">
+                <ul class="row list-unstyled" id="gallery-list">
                     <?php while ($query->have_posts()) : $query->the_post();?>
                         <?php
                             /** CPT ACF data */
                             $id = get_the_id();
+                            $title = get_the_title($id);
                             $permalink = get_permalink($id);
                             $thumbnail = get_the_post_thumbnail($id, 'large', array('class'=>"img-fluid attachment-post-thumbnail center-block"));
-                            $type = get_the_terms($id, 'album_type');
+                            $location = get_the_terms($id, 'location');
+                            $date = get_field('album_date');
                         ?>
 
-                        <li class="col-md-6 isotope-item transition <?php echo $type[0]->slug; ?>" data-category="transition">
-                            <div class="album-thumbnail">
+                        <li class="col-md-6 gallery">
+                            <div class="gallery-thumbnail">
                                 <a href="<?php echo $permalink; ?>">
                                     <?php echo $thumbnail; ?>
                                 </a>
                             </div>
+
+                            <div class="gallery-info">
+                                <span class="date"><?php echo $date; ?></span>
+                                <h2 class="title"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></h2>
+                                <span class="location"><?php echo $location[0]->name; ?></span>
+                            </div>
                         </li>
                     <?php endwhile; wp_reset_postdata(); ?>
-                </ol>
+                </ul>
             <?php endif; ?>
         </div>
     </div>

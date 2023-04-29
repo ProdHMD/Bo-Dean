@@ -24,7 +24,13 @@ export const header = async (err) => {
     if ($.inArray($('main').attr('id'), ['blog','blog-post']) >= 0) {
       $('#header .nav li.blog').addClass('current-menu-item current_page_item');
       $('#header .nav li.blog').siblings().removeClass('current-menu-item current_page_item');
-    } else if ($.inArray($('main').attr('id'), ['cart','checkout','my-account','refund-returns']) >= 0) {
+    } else if ($.inArray($('main').attr('id'), ['music','album']) >= 0) {
+        $('#header .nav li.music').addClass('current-menu-item current_page_item');
+        $('#header .nav li.music').siblings().removeClass('current-menu-item current_page_item');
+    } else if ($.inArray($('main').attr('id'), ['photos','gallery']) >= 0) {
+        $('#header .nav li.photos').addClass('current-menu-item current_page_item');
+        $('#header .nav li.photos').siblings().removeClass('current-menu-item current_page_item');
+    } else if ($.inArray($('main').attr('id'), ['shop','cart','checkout','my-account','refund-returns']) >= 0) {
       $('#header .nav li.shop').addClass('current-menu-item current_page_item');
       $('#header .nav li.shop').siblings().removeClass('current-menu-item current_page_item');
     }

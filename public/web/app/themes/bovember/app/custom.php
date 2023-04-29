@@ -29,3 +29,29 @@ function my_acf_init() {
     acf_update_setting('google_api_key', 'AIzaSyB_enXfVfVwec5Up6rnvhucQUeT4fvf62c');
 }
 add_action('acf/init', 'my_acf_init');
+
+/**
+ * Set new image sizes
+ * 
+ * @return void
+ */
+add_image_size('gallery-thumb', 500, 350, true);
+
+/**
+ * Set up WooCommerce support
+ * 
+ * @return void
+ */
+add_theme_support('wc-product-gallery-zoom');
+add_theme_support('wc-product-gallery-lightbox');
+add_theme_support('wc-product-gallery-slider');
+
+/**
+ * Add support for WooCommerce Subscription templates
+ * 
+ * @return void
+ */
+add_filter('sage-woocommerce/templates', function ($paths) {
+    $paths[] = WP_PLUGIN_DIR . '/woocommerce-subscriptions/templates/';
+    return $paths;
+});
