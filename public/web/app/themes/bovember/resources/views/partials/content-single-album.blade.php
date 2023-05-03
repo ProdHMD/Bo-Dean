@@ -1,14 +1,16 @@
 <?php require_once( ABSPATH . 'wp-admin/includes/media.php' ); ?>
 
+<div class="sticky-header row">
+  <div class="col-md-9 offset-md-1">
+    <div class="cpt-nav">
+      <a href="/music/">Back to Music</a>
+    </div>
+  </div>
+</div>
+
 <div class="row page-container" id="album-container" data-scroll-container>
   <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
     <article @php(post_class('row h-entry'))>
-      <header class="col-md-12">
-        <div class="album-nav">
-          <a href="/music/">Back to Music</a>
-        </div>
-      </header>
-
       <div class="col-md-12 e-content">
         <div class="row" id="title">
           <div class="col-md-6 offset-md-3" id="album-thumbnail">

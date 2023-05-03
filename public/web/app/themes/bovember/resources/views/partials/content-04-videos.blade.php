@@ -46,7 +46,7 @@
                             }
                         ?>
                         <div class="youtube-item text-center">
-                            <a href="https://www.youtube.com/embed/<?php echo $item->snippet->resourceId->videoId; ?>" class="thumbnail">
+                            <a href="https://www.youtube.com/watch?v=<?php echo $item->snippet->resourceId->videoId; ?>" class="thumbnail" data-fancybox="gallery">
                                 <img src="<?php echo $thumbnail; ?>" alt="<?php echo $item->snippet->title; ?>" class="img-fluid">
                             </a>
                             <h2 class="title"><?php echo $item->snippet->title; ?></h2>

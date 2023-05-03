@@ -5,7 +5,9 @@ export const barbainit = async (err) => {
     console.error(err);
   }
 
-  barba.init({});
+  barba.init({
+    
+  });
 };
 
 import.meta.webpackHot?.accept(barbainit);

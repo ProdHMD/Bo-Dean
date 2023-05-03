@@ -11,6 +11,8 @@
         $post_slug = 'gallery';
       } else if (is_shop() || is_product_category() || is_product_tag()) {
         $post_slug = 'shop';
+      } else if (is_product()) {
+        $post_slug = 'single-product';
       } else if (is_cart()) {
         $post_slug = 'cart';
       } else if (is_checkout()) {
@@ -38,7 +40,18 @@
   <div class="container-fluid" id="container">
     <div class="row" id="wrapper">
       <div class="col-md-12" id="content">
+        <?php if (is_cart() || is_checkout() || is_account_page()) : ?>
+          <div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
+            <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
+              <h1 class="page-title"><?php the_title(); ?></h1>
+        <?php endif; ?>
+        
         @yield('content')
+
+        <?php if (is_cart() || is_checkout() || is_account_page()) : ?>
+            </div>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
   </div>

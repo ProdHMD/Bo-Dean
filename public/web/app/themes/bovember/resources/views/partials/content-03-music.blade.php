@@ -17,11 +17,8 @@
         )
     );
 ?>
-
-<div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
-    <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
-        <h1 class="d-none">{!! $title !!}</h1>
-
+<div class="row page-header" id="music-header">
+    <div class="col-md-9 offset-md-1" id="isotope-content">
         <?php if (!empty($album_types)) : ?>
             <div class="container-fluid" id="album-types-container">
                 <ul class="album-types list-unstyled">
@@ -38,6 +35,14 @@
                 </ul>
             </div>
         <?php endif; ?>
+    </div>
+</div>
+
+<div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
+    <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
+        <h1 class="d-none">{!! $title !!}</h1>
+
+        
 
         <div class="container-fluid" id="albums-container">
             <?php if ($query->have_posts()) : ?>

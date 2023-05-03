@@ -40,6 +40,28 @@ html {
             &::-webkit-scrollbar {
                 display: none;
             }
+
+            /** Top nav on CPT pages */
+            #wrapper {
+                #content {
+                    .sticky-header {
+                        background-color: $black;
+                        padding-top: 3%;
+                        position: relative;
+                        z-index: 2;
+
+                        .cpt-nav {
+                            margin-bottom: 3rem;
+
+                            a {
+                                font-size: 1.5rem;
+                                text-transform: uppercase;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /** Basic link styling */

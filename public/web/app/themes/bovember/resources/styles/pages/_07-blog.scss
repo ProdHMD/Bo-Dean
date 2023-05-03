@@ -6,9 +6,7 @@
             #blog-container {
                 #main-content {
                     margin-top: 10%;
-                    margin-left: 5%;
                     padding-bottom: 15%;
-                    padding-right: 10%;
 
                     .page-header {
                         display: none;
@@ -16,6 +14,7 @@
 
                     .post {
                         font-family: $sf_pro_text;
+                        margin-bottom: 3rem;
 
                         .entry-title {
                             font-family: $sf_pro_text;
@@ -48,10 +47,7 @@
         #content {
             #blog-container {
                 #main-content {
-                    margin-top: 10%;
-                    margin-left: 5%;
                     padding-bottom: 15%;
-                    padding-right: 10%;
 
                     .page-header {
                         display: none;
@@ -59,16 +55,6 @@
 
                     .post {
                         font-family: $sf_pro_text;
-
-                        .blog-nav {
-                            margin-bottom: 3rem;
-
-                            a {
-                                font-size: 1.5rem;
-                                text-transform: uppercase;
-                                color: $white;
-                            }
-                        }
 
                         .p-name {
                             font-family: $sf_pro_text;
@@ -91,6 +77,48 @@
                                 font-size: 1.125rem;
                                 font-size: 400;
                                 line-height: 1.1;
+                            }
+                        }
+
+                        .post-thumbnail {
+                            overflow: hidden;
+                            max-height: 50vh;
+
+                            .attachment-post-thumbnail {
+                                transform: translateY(-25%);
+                            }
+                        }
+
+                        #related-posts {
+                            margin-top: 5rem;
+                            
+                            .section-title {
+                                font-family: $sf_pro_text;
+                                font-size: 3rem;
+                                font-weight: 700;
+                                color: $white;
+                                text-transform: uppercase;
+                                margin-bottom: 2rem;
+                            }
+
+                            .related-item {
+                                .title {
+                                    h3 {
+                                        font-family: $sf_pro_text;
+                                        font-size: 3rem;
+                                        font-weight: 700;
+                                        color: $red;
+                                        text-transform: uppercase;
+                                    }
+                                }
+
+                                .date {
+                                    font-size: 1.5rem;
+                                }
+
+                                .link {
+                                    font-size: 1.5rem;
+                                }
                             }
                         }
                     }

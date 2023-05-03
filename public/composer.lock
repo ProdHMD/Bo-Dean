@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b0e25f9f6d5d81cdba364e5fada742d",
+    "content-hash": "b4a9c7b734e509d636627a291599ba5b",
     "packages": [
         {
             "name": "acf/acfpro",
-            "version": "6.1.4",
+            "version": "6.1.5",
             "dist": {
                 "type": "zip",
-                "url": "https://www.gplvault.com/files/29102/"
+                "url": "/home/lljb3/Downloads/advanced-custom-fields-pro.zip"
             },
             "type": "wordpress-plugin"
         },
@@ -5328,6 +5328,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/classic-editor/"
+        },
+        {
+            "name": "wpackagist-plugin/webp-converter-for-media",
+            "version": "5.8.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/webp-converter-for-media/",
+                "reference": "tags/5.8.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/webp-converter-for-media.5.8.6.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/webp-converter-for-media/"
         },
         {
             "name": "wpackagist-plugin/woocommerce",

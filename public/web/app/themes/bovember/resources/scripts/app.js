@@ -7,6 +7,7 @@ import 'bootstrap';
 import { header } from './modules/header.js';
 import { bg } from './modules/bg.js';
 import { locomotive } from './modules/locomotive.js';
+import { shop } from './modules/shop.js';
 //import { barbainit } from './modules/barbainit.js';
 
 /**
@@ -21,6 +22,9 @@ domReady(async () => {
 
   // Init locomotiveJS
   locomotive();
+
+  // Init shopJS
+  shop();
 
   // Init barbaInitJS
   //barbainit();

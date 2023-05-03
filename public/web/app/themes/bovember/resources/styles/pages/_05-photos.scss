@@ -69,21 +69,10 @@
         #content {
             #gallery-container {
                 #main-content {
-                    margin-top: 3%;
                     padding-bottom: 15%;
 
                     .gallery {
                         font-family: $sf_pro_text;
-
-                        .gallery-nav {
-                            margin-bottom: 3rem;
-
-                            a {
-                                font-size: 1.5rem;
-                                text-transform: uppercase;
-                                color: $white;
-                            }
-                        }
 
                         .e-content {
                             .gallery-container {

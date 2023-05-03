@@ -4,8 +4,9 @@ web/app/plugins/*
 web/app/mu-plugins/*/
 web/app/themes/twentytwentythree/
 web/app/upgrade
-web/app/uploads/*
+web/app/uploads
 !web/app/uploads/.gitkeep
+web/app/uploads-webpc
 web/app/cache/*
 
 # WordPress

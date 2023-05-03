@@ -3,42 +3,49 @@
     /** Music page */
     &#music {
         #content {
+            #music-header {
+                background-color: $black;
+                padding-top: 3%;
+                position: relative;
+                z-index: 2;
+
+                .album-types {
+                    display: flex;
+                    margin-bottom: 3rem;
+
+                    .album-type {
+                        margin: 0 0.5rem;
+
+                        &:first-child {
+                            margin-left: 0;
+                        }
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        .type-link {
+                            background: none;
+                            border: none;
+                            padding: 0;
+                            color: $white;
+                            text-transform: uppercase;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+            
             #music-container {
                 #main-content {
-                    margin-top: 10%;
+                    margin-top: 0;
                     padding-bottom: 15%;
 
                     #album-types-container {
                         margin-bottom: 2rem;
-                        
-
-                        .album-types {
-                            display: flex;
-
-                            .album-type {
-                                margin: 0 0.5rem;
-
-                                &:first-child {
-                                    margin-left: 0;
-                                }
-
-                                &:last-child {
-                                    margin-right: 0;
-                                }
-
-                                .type-link {
-                                    background: none;
-                                    border: none;
-                                    padding: 0;
-                                    color: $white;
-                                    text-transform: uppercase;
-
-                                    &:hover {
-                                        text-decoration: underline;
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -50,7 +57,6 @@
         #content {
             #album-container {
                 #main-content {
-                    margin-top: 3%;
                     padding-bottom: 15%;
 
                     .album {

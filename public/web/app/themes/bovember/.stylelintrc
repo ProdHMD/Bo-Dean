@@ -6,6 +6,8 @@
   "rules": {
     "import-notation": false,
     "color-hex-length": false,
-    "no-descending-specificity": false
+    "no-descending-specificity": false,
+    "selector-class-pattern": false,
+    "selector-id-pattern": false
   }
 }

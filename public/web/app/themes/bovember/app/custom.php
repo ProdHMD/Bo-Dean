@@ -55,3 +55,50 @@ add_filter('sage-woocommerce/templates', function ($paths) {
     $paths[] = WP_PLUGIN_DIR . '/woocommerce-subscriptions/templates/';
     return $paths;
 });
+
+/**
+ * Change add to cart text on single product page
+ * 
+ * @return void
+ */
+add_filter('woocommerce_single_product_summary', 'woocommerce_description_hook_change'); 
+function woocommerce_description_hook_change() {
+	global $product;
+	$product_data = $product->get_data();
+	$product_description = $product_data['description'];
+	$short_description = $product_data['short_description'];
+	if ($product_description && !$short_description) {
+		echo '<div class="woocommerce-product-details__short-description">' . $product_description . '</div>';
+	}
+}
+
+/**
+ * Get related posts of post
+ * @since 1.0.0
+ * 
+ * @return void
+ */
+function get_related_posts($post_id, $related_count, $args = array()) {
+	$terms = get_the_terms($post_id, 'category');
+	
+	if (empty($terms)) $terms = array();
+	
+	$term_list = wp_list_pluck($terms, 'slug');
+	
+	$related_args = array(
+		'post_type' => 'post',
+		'posts_per_page' => $related_count,
+		'post_status' => 'publish',
+		'post__not_in' => array($post_id),
+		'orderby' => 'rand',
+		'tax_query' => array(
+			array(
+			'taxonomy' => 'category',
+			'field' => 'slug',
+			'terms' => $term_list
+			)
+		)
+	);
+
+	return new WP_Query($related_args);
+}
