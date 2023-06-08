@@ -39,3 +39,26 @@
         }
     }
 }
+
+/** Fancybox styling */
+#fancybox-videos {
+    .fancybox__backdrop {
+        background: $black;
+    }
+
+    .f-thumbs {
+        .f-thumbs__slide {
+            min-width: 10vw;
+            min-height: 10vh;
+
+            .f-thumbs__slide__button {
+                border-radius: 0;
+
+                &::after {
+                    border-radius: 0;
+                    border: none;
+                }
+            }
+        }
+    }
+}

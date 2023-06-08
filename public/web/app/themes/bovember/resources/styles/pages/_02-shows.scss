@@ -41,3 +41,89 @@
         }
     }
 }
+
+/** Fancybox styling */
+.fancybox__container {
+    .show-details {
+        background-color: $black;
+        text-align: center;
+        color: $white;
+        width: 35vw;
+
+        .header {
+            margin-bottom: 3rem;
+            align-items: center;
+            
+            .brand {
+                font-family: $american_captain;
+                font-weight: 700;
+                text-align: left;
+
+                h2 {
+                    font-size: 2.5rem;
+                }
+            }
+
+            .go-back {
+                font-family: $sf_pro_text;
+                text-align: right;
+                text-transform: uppercase;
+
+                a {
+                    color: $white;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .location-name {
+            font-family: $sf_pro_text;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+        }
+
+        .show-name {
+            font-family: $sf_pro_text;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: $red;
+            margin-bottom: 1rem;
+        }
+
+        #ticket-providers {
+            font-family: $sf_pro_text;
+            margin-top: 2rem;
+
+            .list-title {
+                font-size: 1.25rem;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+            }
+
+            .provider {
+                margin-bottom: 1rem;
+
+                a {
+                    display: inline-block;
+                    background-color: $red;
+                    color: $black;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    padding: 1rem 1.5rem;
+                    border-radius: 2px;
+                    
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -41,9 +41,7 @@
 <div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
     <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
         <h1 class="d-none">{!! $title !!}</h1>
-
         
-
         <div class="container-fluid" id="albums-container">
             <?php if ($query->have_posts()) : ?>
                 <ol class="row list-unstyled isotope" id="album-row">
@@ -56,7 +54,7 @@
                             $type = get_the_terms($id, 'album_type');
                         ?>
 
-                        <li class="col-md-6 isotope-item transition <?php echo $type[0]->slug; ?>" data-category="transition">
+                        <li class="isotope-item transition <?php echo $type[0]->slug; ?> col-md-6" data-category="transition">
                             <div class="album-thumbnail">
                                 <a href="<?php echo $permalink; ?>">
                                     <?php echo $thumbnail; ?>

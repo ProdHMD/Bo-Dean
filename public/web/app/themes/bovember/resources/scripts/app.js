@@ -8,6 +8,8 @@ import { header } from './modules/header.js';
 import { bg } from './modules/bg.js';
 import { locomotive } from './modules/locomotive.js';
 import { shop } from './modules/shop.js';
+import { fancyboxinit } from './modules/fancyboxinit.js';
+import { isotopeinit } from './modules/isotopeinit.js';
 //import { barbainit } from './modules/barbainit.js';
 
 /**
@@ -25,6 +27,12 @@ domReady(async () => {
 
   // Init shopJS
   shop();
+
+  // Init fancyboxInitJS
+  fancyboxinit();
+
+  // Init isotopeJS
+  isotopeinit();
 
   // Init barbaInitJS
   //barbainit();

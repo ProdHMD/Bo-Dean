@@ -130,6 +130,8 @@
                                     margin-bottom: 0;
                                     
                                     .link-item {
+                                        margin-bottom: calc(var(--bs-gutter-x) * 1);
+
                                         a {
                                             display: flex;
                                             align-items: center;

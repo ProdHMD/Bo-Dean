@@ -24,7 +24,7 @@
   </nav>
 
   <div class="nav-tertiary" aria-label="Music Player" id="music-player">
-    <div class="equalizer"><x-fas-chart-simple /></div>
+    <div class="equalizer play"><span class="bars"></span></div>
     <div class="song-name">Lavish</div>
   </div>
 </header>

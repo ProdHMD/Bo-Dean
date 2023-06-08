@@ -37,4 +37,9 @@ Please follow the installation methods at https://roots.io/sage/docs/installatio
 
 *Warning: Do not create multiple installations of this on the same server!*
 
+## Notes
+
+ACF Pro will need to be manually downloaded to the downloads folder of your local machine, then you can update thru composer
+Download link: https://www.gplvault.com/files/29102/
+
 **Enjoy!**

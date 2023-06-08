@@ -14,7 +14,7 @@
     <div class="col-md-12" id="main-content" data-scroll-section>
         <h1 class="d-none">{!! $title !!}</h1>
         
-        <?php $i = 0; if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
+        <?php $i = 0; $j = 0; if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
             <?php
                 /** CPT ACF data */
                 $date_time = get_field('date_time');
@@ -52,7 +52,16 @@
                 <span class="date-time"><?php echo ($date_time) ? ($date_time) : ''; ?></span>
             </div>
 
-            <div class="d-none show-details" id="tour-id-<?php echo $i++; ?>">
+            <div class="show-details" id="tour-id-<?php echo $j++; ?>" style="display:none;">
+                <div class="header row">
+                    <div class="brand col-md-6">
+                        <h2>Bo Dean</h2>
+                    </div>
+                    <div class="go-back col-md-6">
+                        <a href="#" class="close" data-fancybox-close>Back to Shows</a>
+                    </div>
+                </div>
+
                 <span class="location-name">
                     <?php if ($location) : ?>
                         <?php if ($location['name'] && $place_name) :  ?>
@@ -64,9 +73,11 @@
                         <?php endif; ?>
                     <?php endif; ?>
                 </span>
+
                 <h2 class="show-name"><?php the_title(); ?></h2>
+
                 <ul class="list-unstyled" id="ticket-providers">
-                    <span class="list-title">Get tickets:</span>
+                    <div class="list-title">Get tickets:</div>
                     <li class="provider"><a href="<?php echo ($ticket_url) ? $ticket_url : ''; ?>" target="_blank">Facebook Events</a></li>
                 </ul>
             </div>

@@ -4,6 +4,7 @@
     </div>
 
     <div class="canvas" id="about">
-        <img src="<?php echo get_the_post_thumbnail_url($post_id, 'full'); ?>" alt="Bo Dean" class="background-media">
+        <?php $about_page = url_to_postid('/about'); ?>
+        <img src="<?php echo get_the_post_thumbnail_url($about_page, 'full'); ?>" alt="Bo Dean" class="background-media">
     </div>
 </div>

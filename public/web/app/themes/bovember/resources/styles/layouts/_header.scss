@@ -6,7 +6,7 @@
         left: 0;
         padding: 3.125rem 0 0 3.125rem;
         width: 15%;
-        z-index: 9999;
+        z-index: 1000;
 
         /** Main logo */
         .brand {
@@ -57,7 +57,7 @@
             font-weight: 400;
             color: $white;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
 
             .credits {
                 font-size: 1.125rem;
@@ -134,11 +134,35 @@
 
             .equalizer {
                 display: inline-block;
-                width: 1.125rem;
+                width: 1.25rem;
                 margin-right: 0.25rem;
+                line-height: 0.9;
 
-                > svg {
-                    margin-top: 1px;
+                .bars {
+                    display: inline-block;
+                    width: 1.25rem;
+                    height: 1.125rem;
+                    
+                    --c: linear-gradient(currentcolor 0 0);
+
+                    background: var(--c) 0% 100%,
+                                var(--c) 50% 100%,
+                                var(--c) 100% 100%;
+                    background-size: 0.25rem 100%;
+                    background-repeat: no-repeat;
+                }
+
+                &.play {
+                    .bars {
+                        animation: bars 1s infinite linear;
+                    }
+                }
+
+                &.stop {
+                    .bars {
+                        animation: none;
+                        background-size: 0.25rem 25%;
+                    }
                 }
             }
 
@@ -147,5 +171,24 @@
                 line-height: 1;
             }
         }
+    }
+}
+
+/** Bars animation */
+@keyframes bars {
+    20% {
+        background-size: 0.25rem 60%, 0.25rem 100%, 0.25rem 100%;
+    }
+
+    40% {
+        background-size: 0.25rem 80%, 0.25rem 60%, 0.25rem 100%;
+    }
+
+    60% {
+        background-size: 0.25rem 100%, 0.25rem 80%, 0.25rem 60%;
+    }
+
+    80% {
+        background-size: 0.25rem 100%, 0.25rem 100%, 0.25rem 80%;
     }
 }

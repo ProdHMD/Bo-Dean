@@ -7,7 +7,7 @@
     $channel_id = 'UCtlIU9DLLzmvti8z-KYfC8w';
     $video_id = 'IVqEx8sl5Sg';
     $playlist_id = 'PL110D4DA154B62487';
-    $max_results = 5;
+    $max_results = 3;
 
     /** Get videos from channel */
     $api_data = @file_get_contents('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&s=true&maxResults=' . $max_results . '&playlistId=' . $playlist_id . '&key=' . $api_key . '');
@@ -20,11 +20,11 @@
 ?>
 
 <div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
-    <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
+    <div class="col-md-9 offset-md-1" id="main-content">
         <h1 class="d-none">{!! $title !!}</h1>
 
-        <div class="container-fluid" id="video-gallery-container">
-            <?php if (!empty($video_list->items)) : ?>
+        <div class="container-fluid" id="video-gallery-container" data-scroll-section>
+            <?php $i = 0; $j = 0; if (!empty($video_list->items)) : ?>
                 <?php foreach ($video_list->items as $item) : ?>
                     <?php if ($item->snippet->resourceId->videoId && $item->snippet->title !== 'Private video') : ?>
                         <?php
@@ -45,8 +45,8 @@
                                 $thumbnail = $thumbnail_hq;
                             }
                         ?>
-                        <div class="youtube-item text-center">
-                            <a href="https://www.youtube.com/watch?v=<?php echo $item->snippet->resourceId->videoId; ?>" class="thumbnail" data-fancybox="gallery">
+                        <div class="youtube-item text-center" id="youtube-item-id<?php echo $i++; ?>" data-scroll>
+                            <a href="https://www.youtube.com/watch?v=<?php echo $item->snippet->resourceId->videoId; ?>" class="thumbnail" data-fancybox="gallery" id="item<?php echo $j++; ?>">
                                 <img src="<?php echo $thumbnail; ?>" alt="<?php echo $item->snippet->title; ?>" class="img-fluid">
                             </a>
                             <h2 class="title"><?php echo $item->snippet->title; ?></h2>
