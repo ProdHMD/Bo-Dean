@@ -33,16 +33,8 @@ export const fancyboxinit = async (err) => {
     });
 
     // Run Fancybox
-    Fancybox.bind("[data-fancybox]", {
+    Fancybox.bind("[data-fancybox='gallery']", {
       // Your custom options
-      on: {
-        reveal: (fancybox, slide) => {
-          const target = document.getElementById(`youtube-item-id${slide.index}`);
-          if (fancybox.isCurrentSlide(slide)) {
-            scroll.scrollTo(target, {offset: -250});
-          }
-        },
-      },
       animated: true,
       id: 'videos',
       closeButton: true,
@@ -58,6 +50,20 @@ export const fancyboxinit = async (err) => {
           left: [],
           middle: [],
           right: ['close'],
+        },
+      },
+      on: {
+        done: (fancybox, slide) => {
+          const target = document.getElementById(`youtube-item-id${slide.index}`);
+          if (fancybox.isCurrentSlide(slide)) {
+            scroll.scrollTo(target, {offset: -250});
+            scroll.update();
+          }
+        },
+        destroy: (fancybox, slide) => {
+          if (fancybox.isCurrentSlide(slide)) {
+            scroll.update();
+          }
         },
       },
     });

@@ -24,7 +24,22 @@
   </nav>
 
   <div class="nav-tertiary" aria-label="Music Player" id="music-player">
-    <div class="equalizer play"><span class="bars"></span></div>
-    <div class="song-name">Lavish</div>
+    <?php if (have_rows('track', 'option')) : ?>
+      <ul id="playlist" class="d-none">
+        <?php while (have_rows('track', 'option')) : the_row(); ?>
+          <li class="track">
+            <span class="details" data-audio-link="<?php the_sub_field('audio_file'); ?>">
+              <?php the_sub_field('song_title'); ?>
+            </span>
+          </li>
+        <?php endwhile; ?>
+      </ul>
+    <?php endif; ?>
+
+    <audio id="player">
+      <source src="" type="audio/mp3" />
+    </audio>
+
+    <div class="song-name"></div>
   </div>
 </header>

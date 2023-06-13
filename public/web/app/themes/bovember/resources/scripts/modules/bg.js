@@ -4,9 +4,9 @@ export const bg = async (err) => {
   }
 
   /** Run onPage function */
-  if ($.inArray($('main').attr('id'), ['home','shows','blog','about']) >= 0) {
-    onPage();
-  }
+  $('#home.canvas').removeClass('show');
+  $('#about.canvas').removeClass('show');
+  onPage();
 
   /** Turn on background if on certain pages */
   function onPage() {

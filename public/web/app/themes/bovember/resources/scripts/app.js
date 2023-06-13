@@ -5,12 +5,13 @@ import 'bootstrap';
 
 // Import custom modules
 import { header } from './modules/header.js';
+import { music } from './modules/music.js';
 import { bg } from './modules/bg.js';
 import { locomotive } from './modules/locomotive.js';
 import { shop } from './modules/shop.js';
 import { fancyboxinit } from './modules/fancyboxinit.js';
 import { isotopeinit } from './modules/isotopeinit.js';
-//import { barbainit } from './modules/barbainit.js';
+import { barbainit } from './modules/barbainit.js';
 
 /**
  * Application entrypoint
@@ -18,6 +19,9 @@ import { isotopeinit } from './modules/isotopeinit.js';
 domReady(async () => {
   // Init headerJS
   header();
+
+  // Init musicJS
+  music();
 
   // Init bgJS
   bg();
@@ -35,7 +39,7 @@ domReady(async () => {
   isotopeinit();
 
   // Init barbaInitJS
-  //barbainit();
+  barbainit();
 });
 
 /**

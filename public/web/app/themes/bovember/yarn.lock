@@ -6606,6 +6606,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.26.1":
+  version: 3.31.0
+  resolution: "core-js@npm:3.31.0"
+  checksum: f7cf9b3010f7ca99c026d95b61743baca1a85512742ed2b67e8f65a72ac4f4fe0b90b00057783e886bdd39d3a295f42f845d33e7cba3973ed263df978343ab79
+  languageName: node
+  linkType: hard
+
 "cosmiconfig@npm:^8.0.0, cosmiconfig@npm:^8.1.0":
   version: 8.1.3
   resolution: "cosmiconfig@npm:8.1.3"
@@ -6858,6 +6865,13 @@ __metadata:
     loader-utils: ^2.0.0
     papaparse: ^5.2.0
   checksum: 9a4de4dd7bc29aead2ca0134f4b970068d465f804bd256f11be6687f18d535a18bf9edabee55edff02c609fb7c3156bdadc33b04fa8b5df84eb2bef6dffe16d4
+  languageName: node
+  linkType: hard
+
+"custom-event-polyfill@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "custom-event-polyfill@npm:1.0.7"
+  checksum: f9ff2cf13e482a75b3cf83dce9e2c6e3063c5ac1b9c23ac440e4f27e875b0873445b11811237f3f30aeb1216e9ad20f9f9d30ccf5b1b658a4e50dd0b3e67b629
   languageName: node
   linkType: hard
 
@@ -9966,6 +9980,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"loadjs@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "loadjs@npm:4.2.0"
+  checksum: 2144723f55c75260ce6781b36009c40d098d96fe06e3ec5c85ba250cf96c3a0aa37169b829e818c40bcba7c5141a8e52736fec193333bb6260ab95f9a493a2ef
+  languageName: node
+  linkType: hard
+
 "locate-path@npm:^2.0.0":
   version: 2.0.0
   resolution: "locate-path@npm:2.0.0"
@@ -11635,6 +11656,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"plyr@npm:^3.7.8":
+  version: 3.7.8
+  resolution: "plyr@npm:3.7.8"
+  dependencies:
+    core-js: ^3.26.1
+    custom-event-polyfill: ^1.0.7
+    loadjs: ^4.2.0
+    rangetouch: ^2.0.1
+    url-polyfill: ^1.1.12
+  checksum: 7eac9ea02269059a95f2ed945ab03932f472ae1c2e2c4789c6d3b08b62c4b477fe5a1a507f3530c7394a3450a937df8ef9c0fdedb6819f86b1ccc05ef1935d62
+  languageName: node
+  linkType: hard
+
 "postcss-attribute-case-insensitive@npm:^6.0.2":
   version: 6.0.2
   resolution: "postcss-attribute-case-insensitive@npm:6.0.2"
@@ -12650,6 +12684,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rangetouch@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "rangetouch@npm:2.0.1"
+  checksum: 2aa7c0901d28356ef0c02021656ed7d11fc6652f01ffe92806862fc4593e75f7a5d52d4455fa1b0ab2123d438e03dc091315949dbfad9562a680440ac0dfeb7d
+  languageName: node
+  linkType: hard
+
 "raw-body@npm:2.5.1":
   version: 2.5.1
   resolution: "raw-body@npm:2.5.1"
@@ -13257,6 +13298,7 @@ __metadata:
     isotope-layout: ^3.0.6
     jquery-bridget: ^3.0.1
     locomotive-scroll: ^4.1.4
+    plyr: ^3.7.8
   languageName: unknown
   linkType: soft
 
@@ -14717,6 +14759,13 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"url-polyfill@npm:^1.1.12":
+  version: 1.1.12
+  resolution: "url-polyfill@npm:1.1.12"
+  checksum: 3214cc82424c215e921dacadac56b4b099f995d24e14078369bea9ff8aa74d1a4c803ab03021e61e0a275bee7979d212d046092dba3aab73cf232ee6739ddee4
   languageName: node
   linkType: hard
 

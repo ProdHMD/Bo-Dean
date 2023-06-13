@@ -132,6 +132,11 @@
             font-size: 1.125rem;
             color: $white;
 
+            .plyr__controls {
+                line-height: 0.9;
+                cursor: pointer;
+            }
+
             .equalizer {
                 display: inline-block;
                 width: 1.25rem;
