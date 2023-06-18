@@ -1,5 +1,5 @@
 /** Import Bootstrap */
-@import "bootstrap";
+@import "bootstrap/scss/bootstrap";
 
 /** Import Fancybox */
 @import "@fancyapps/ui/dist/fancybox/fancybox.css";
@@ -7,6 +7,7 @@
 /** Import common styles */
 @import "common/fonts";
 @import "common/variables";
+@import "common/typography";
 
 /** Import layouts */
 @import "layouts/header";
