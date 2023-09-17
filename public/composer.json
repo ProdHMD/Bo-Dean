@@ -33,10 +33,10 @@
       "type": "package",
       "package": {
         "name": "gplvault/gplvault",
-        "version": "4.2.4",
+        "version": "5.0.1",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "https://s3-us-west-2.amazonaws.com/gplvault/Plugins/gplvault/gplvault-updater.zip?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIW2NOEZ5VENFRN7A%2F20230421%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230421T225930Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=cafc4078a416364c8dca8d2cfc3d5000d538b35c86a6fc3f485dceca01573048",
+          "url" : "gplv-plugins/gplvault-updater.zip",
           "type": "zip"
         }
       }
@@ -45,10 +45,10 @@
       "type": "package",
       "package": {
         "name": "acf/acfpro",
-        "version": "6.1.6",
+        "version": "6.2.1.1",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "/home/lljb3/Downloads/advanced-custom-fields-pro.zip",
+          "url": "gplv-plugins/advanced-custom-fields-pro.zip",
           "type": "zip"
         }
       }
@@ -61,7 +61,7 @@
     "oscarotero/env": "^2.1",
     "roots/bedrock-autoloader": "^1.0",
     "roots/bedrock-disallow-indexing": "^2.0",
-    "roots/wordpress": "6.2.2",
+    "roots/wordpress": "^6.2.2",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
     "wpackagist-theme/twentytwentythree": "^1.0",
@@ -69,8 +69,8 @@
     "wpackagist-plugin/classic-editor": "^1.6",
     "blade-ui-kit/blade-icons": "^1.5",
     "owenvoke/blade-fontawesome": "^2.2",
-    "wpackagist-plugin/woocommerce": "^7.6",
-    "gplvault/gplvault": "^4.2",
+    "wpackagist-plugin/woocommerce": "^8.1",
+    "gplvault/gplvault": "^5.0",
     "generoi/sage-woocommerce": "^1.0",
     "wpackagist-plugin/webp-converter-for-media": "^5.8",
     "acf/acfpro": "^6.1"
