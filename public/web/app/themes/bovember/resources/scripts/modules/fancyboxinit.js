@@ -1,5 +1,4 @@
 import { Fancybox } from '@fancyapps/ui';
-import LocomotiveScroll from 'locomotive-scroll';
 
 export const fancyboxinit = async (err) => {
   if (err) {
@@ -26,12 +25,6 @@ export const fancyboxinit = async (err) => {
 
   /** The videos page fancybox function */
   function videos() {
-    // Run new Locomotive scroll instance
-    const scroll = new LocomotiveScroll({
-      el: document.querySelector('[data-scroll-container]'),
-      smooth: true,
-    });
-
     // Run Fancybox
     Fancybox.bind("[data-fancybox='gallery']", {
       // Your custom options
@@ -50,20 +43,6 @@ export const fancyboxinit = async (err) => {
           left: [],
           middle: [],
           right: ['close'],
-        },
-      },
-      on: {
-        done: (fancybox, slide) => {
-          const target = document.getElementById(`youtube-item-id${slide.index}`);
-          if (fancybox.isCurrentSlide(slide)) {
-            scroll.scrollTo(target, {offset: -250});
-            scroll.update();
-          }
-        },
-        destroy: (fancybox, slide) => {
-          if (fancybox.isCurrentSlide(slide)) {
-            scroll.update();
-          }
         },
       },
     });

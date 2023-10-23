@@ -99,7 +99,15 @@ export const music = async (err) => {
       audio.src = link.attr('data-audio-link');
       player.play();
     }
+
+    // Pause on video click
+    $('.youtube-item > a').on('click', function() {
+      player.pause();
+      console.log('Music player is paused.');
+    });
   }
+
+  console.log('Music player is playing.');
 };
 
 import.meta.webpackHot?.accept(music);

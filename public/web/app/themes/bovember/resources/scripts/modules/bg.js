@@ -4,24 +4,24 @@ export const bg = async (err) => {
   }
 
   /** Run onPage function */
-  $('#home.canvas').removeClass('show');
-  $('#about.canvas').removeClass('show');
+  $('#canvas #home.canvas').removeClass('show');
+  $('#canvas #about.canvas').removeClass('show');
   onPage();
 
   /** Turn on background if on certain pages */
   function onPage() {
     // Pass thru the show class to the correpsonding canvas element
     if ($.inArray($('main').attr('id'), ['home','shows','blog']) >= 0) {
-      $('#home.canvas').addClass('show');
-      $('#about.canvas').removeClass('show');
+      $('#canvas #home.canvas').addClass('show');
+      $('#canvas #about.canvas').removeClass('show');
       setCanvas();
     } else if ($.inArray($('main').attr('id'), ['about']) >= 0) {
-      $('#about.canvas').addClass('show');
-      $('#home.canvas').removeClass('show');
+      $('#canvas #about.canvas').addClass('show');
+      $('#canvas #home.canvas').removeClass('show');
       setCanvas();
     } else {
-      $('#home.canvas').removeClass('show');
-      $('#about.canvas').removeClass('show');
+      $('#canvas #home.canvas').removeClass('show');
+      $('#canvas #about.canvas').removeClass('show');
     }
 
     // Add resize listener

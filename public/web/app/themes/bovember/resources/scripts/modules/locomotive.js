@@ -13,6 +13,8 @@ export const locomotive = async (err) => {
     });
     scroll;
   }
+
+  console.log('Scroll is loaded.');
 };
 
 import.meta.webpackHot?.accept(locomotive);
