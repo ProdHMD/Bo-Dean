@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<div class="row page-container" id="album-container" data-scroll-container>
+<div class="row page-container" id="album-container">
   <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
     <article @php(post_class('row h-entry'))>
       <div class="col-md-12 e-content">

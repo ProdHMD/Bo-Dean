@@ -35,28 +35,27 @@
 </a>
 
 @include('sections.header')
+<div data-scroll-container>
+  <main id="<?php echo $post_slug; ?>" <?php body_class('main'); ?> data-barba="container" data-barba-namespace="<?php echo $post_slug; ?>">
+    <div class="container-fluid" id="container">
+      <div class="row" id="wrapper">
+        <div class="col-md-12" id="content">
+          <?php if (is_cart() || is_checkout() || is_account_page()) : ?>
+            <div class="row page-container" id="<?php echo $post_slug; ?>-container">
+              <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
+                <h1 class="page-title"><?php the_title(); ?></h1>
+          <?php endif; ?>
+          
+          @yield('content')
 
-<main id="<?php echo $post_slug; ?>" <?php body_class('main'); ?> data-barba="container" data-barba-namespace="<?php echo $post_slug; ?>">
-  <div class="container-fluid" id="container">
-    <div class="row" id="wrapper">
-      <div class="col-md-12" id="content">
-        <?php if (is_cart() || is_checkout() || is_account_page()) : ?>
-          <div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
-            <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
-              <h1 class="page-title"><?php the_title(); ?></h1>
-        <?php endif; ?>
-        
-        @yield('content')
-
-        <?php if (is_cart() || is_checkout() || is_account_page()) : ?>
+          <?php if (is_cart() || is_checkout() || is_account_page()) : ?>
+              </div>
             </div>
-          </div>
-        <?php endif; ?>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</div>
 
-<?php if (is_page('home') || is_page('shows') || is_page('about') || is_home()) : ?>
-  @include('sections.background')
-<?php endif; ?>
+@include('sections.background')

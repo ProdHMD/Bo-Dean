@@ -17,7 +17,7 @@ the readme will list any important changes.
 @extends('layouts.app')
 
 @section('content')
-<div class="row page-container" id="shop-container" data-scroll-container>
+<div class="row page-container" id="shop-container">
   <div class="col-md-12" id="main-content" data-scroll-section>
     <h1 class="d-none">{!! woocommerce_page_title(false) !!}</h1>
 

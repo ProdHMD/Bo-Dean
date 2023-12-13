@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div class="row page-container" id="blog-container" data-scroll-container>
+<div class="row page-container" id="blog-container">
   <div class="col-md-9 offset-md-1" id="main-content" data-scroll-section>
     <article @php(post_class('h-entry'))>
       <header>

@@ -9,8 +9,12 @@ html {
 /** App container */
 #app {
     position: relative;
-    overflow: hidden;
     background-color: $black;
+
+    > [data-scroll-container] {
+        position: relative;
+        z-index: 1;
+    }
 
     /** Content container */
     .main {
@@ -18,26 +22,16 @@ html {
         padding: 0;
         padding-right: 2rem;
         padding-left: 15%;
-        height: 100vh;
-        overflow: hidden;
         color: $white;
         font-family: $sf_pro_text;
         z-index: 1;
-
-        /** If logged in, fix height */
-        body.logged-in & {
-            height: calc(100vh - 32px);
-
-            @include media-breakpoint-down(wpmd) {
-                height: calc(100vh - 46px);
-            }
-        }
 
         /** Container with hidden scrollbar */
         #container {
             max-height: 100%;
 
-            &::-webkit-scrollbar {
+            &::-webkit-scrollbar,
+            .c-scrollbar {
                 display: none;
             }
 
@@ -97,9 +91,11 @@ html {
         height: 100%;
         z-index: 0;
         opacity: 0;
+        display: none;
 
         &.show {
             opacity: 0.5;
+            display: block;
         }
 
         .background-media {

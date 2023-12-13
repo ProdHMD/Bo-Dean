@@ -6,7 +6,7 @@
     <?php wp_head(); ?>
   </head>
 
-  <body class="body <?php echo (is_user_logged_in()) ? 'logged-in' : '' ?>">
+  <body class="body<?php echo (is_user_logged_in()) ? ' logged-in' : ''; ?>">
     <?php wp_body_open(); ?>
     <?php do_action('get_header'); ?>
 

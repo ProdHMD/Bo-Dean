@@ -103,11 +103,10 @@ export const music = async (err) => {
     // Pause on video click
     $('.youtube-item > a').on('click', function() {
       player.pause();
-      console.log('Music player is paused.');
+      $('#music-player .equalizer').addClass('stop');
+      $('#music-player .equalizer').removeClass('play');
     });
   }
-
-  console.log('Music player is playing.');
 };
 
 import.meta.webpackHot?.accept(music);

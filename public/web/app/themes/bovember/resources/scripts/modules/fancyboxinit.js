@@ -18,7 +18,6 @@ export const fancyboxinit = async (err) => {
   function shows() {
     // Run Fancybox
     Fancybox.bind("[data-fancybox]", {
-      // Your custom options
       closeButton: false,
     });
   }
@@ -26,8 +25,7 @@ export const fancyboxinit = async (err) => {
   /** The videos page fancybox function */
   function videos() {
     // Run Fancybox
-    Fancybox.bind("[data-fancybox='gallery']", {
-      // Your custom options
+    Fancybox.bind("[data-fancybox='videos']", {
       animated: true,
       id: 'videos',
       closeButton: true,
@@ -51,8 +49,7 @@ export const fancyboxinit = async (err) => {
   /** The photos page fancybox function */
   function photos() {
     // Run Fancybox
-    Fancybox.bind("[data-fancybox]", {
-      // Your custom options
+    Fancybox.bind("[data-fancybox='gallery']", {
       animated: true,
       id: 'photos',
       closeButton: false,

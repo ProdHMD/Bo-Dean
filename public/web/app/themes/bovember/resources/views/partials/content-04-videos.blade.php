@@ -19,7 +19,7 @@
     }
 ?>
 
-<div class="row page-container" id="<?php echo $post_slug; ?>-container" data-scroll-container>
+<div class="row page-container" id="<?php echo $post_slug; ?>-container">
     <div class="col-md-9 offset-md-1" id="main-content">
         <h1 class="d-none">{!! $title !!}</h1>
 
@@ -45,8 +45,8 @@
                                 $thumbnail = $thumbnail_hq;
                             }
                         ?>
-                        <div class="youtube-item text-center" id="youtube-item-id<?php echo $i++; ?>" data-scroll>
-                            <a href="https://www.youtube.com/watch?v=<?php echo $item->snippet->resourceId->videoId; ?>" class="thumbnail" data-fancybox="gallery" id="item<?php echo $j++; ?>">
+                        <div class="youtube-item text-center" id="youtube-item-id<?php echo $i++; ?>">
+                            <a href="https://www.youtube.com/watch?v=<?php echo $item->snippet->resourceId->videoId; ?>" class="thumbnail" data-fancybox="videos" id="item<?php echo $j++; ?>">
                                 <img src="<?php echo $thumbnail; ?>" alt="<?php echo $item->snippet->title; ?>" class="img-fluid">
                             </a>
                             <h2 class="title"><?php echo $item->snippet->title; ?></h2>
