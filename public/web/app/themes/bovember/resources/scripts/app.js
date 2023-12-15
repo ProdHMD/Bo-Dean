@@ -11,6 +11,7 @@ import { locomotive } from './modules/locomotive.js';
 import { shop } from './modules/shop.js';
 import { fancyboxinit } from './modules/fancyboxinit.js';
 import { isotopeinit } from './modules/isotopeinit.js';
+import { album } from './modules/album.js';
 import { barbainit } from './modules/barbainit.js';
 
 /**
@@ -37,6 +38,9 @@ domReady(async () => {
 
   // Init isotopeJS
   isotopeinit();
+
+  // Init albumJs
+  album();
 
   // Init barbaInitJS
   barbainit();

@@ -4,6 +4,7 @@ import { bg } from './bg.js';
 import { locomotive } from './locomotive.js';
 import { shop } from './shop.js';
 import { isotopeinit } from './isotopeinit.js';
+import { album } from './album.js';
 
 export const barbainit = async (err) => {
   if (err) {
@@ -22,6 +23,9 @@ export const barbainit = async (err) => {
 
     // Init isotopeJS
     isotopeinit();
+
+    // Init albumJs
+    album(); 
   });
 
   barba.init({
@@ -69,7 +73,7 @@ export const barbainit = async (err) => {
         $('#canvas #about.canvas').removeClass('show');
       },
       afterEnter() {
-        locomotive;
+        album();
       },
     }, {
       namespace: 'videos',

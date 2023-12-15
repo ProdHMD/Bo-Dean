@@ -19,12 +19,15 @@ export const music = async (err) => {
       </div>
     `;
 
-    // Set variables
+    // Set up player
     const player = new Plyr('#player', {
       // Set the options
+      debug: false,
       autoplay: false,
-      //loop: true,
-      volume: 0.75,
+      autopause: false,
+      clickToPlay: false,
+      muted: true,
+      volume: 0,
       controls,
       displayDuration: false,
       markers: {
@@ -55,6 +58,65 @@ export const music = async (err) => {
     $('#music-player .equalizer').addClass('stop');
     $('#playlist .track:first-child').addClass('current');
 
+    // Set up playlist
+    var current = 0;
+    var playlist = $('#playlist');
+    var tracks = playlist.children('.track');
+    var length = tracks.length;
+    var link;
+
+    // If playback ends, go to the next song
+    player.on('ended', function() {
+      current++;
+      if (current == length) {
+        current = 0;
+        link = playlist.find('.track .details')[0];
+      } else {
+        link = playlist.find('.track .details')[current];
+      }
+      console.log(current+' and '+length);
+      run($(link), player);
+    });
+
+    // The run playlist function
+    function run(link, audioPlayer) {
+      audioPlayer.src = link.attr('data-audio-link');
+      audioPlayer.name = link.text();
+      var parent = link.parent();
+      parent.addClass('current').siblings().removeClass('current');
+      $('#music-player .equalizer').addClass('stop').removeClass('play');
+      $('.song-name').text();
+      player.source = {
+        type: 'audio',
+        title: audioPlayer.name,
+        sources: [
+          {
+            src: audioPlayer.src,
+            type: 'audio/mp3',
+          },
+        ],
+      };
+      $('#music-player .equalizer').removeClass('stop').addClass('play');
+      $('.song-name').text(audioPlayer.name);
+      player.play();
+
+      // Reinit play button
+      $('#music-player .equalizer').on('click', function() {
+        $(this).toggleClass(function() {
+          if ($(this).hasClass('play')) {
+            player.pause();
+            $(this).removeClass('play');
+            return 'stop';
+          } else {
+            player.volume = 0.75;
+            player.play();
+            $(this).removeClass('stop');
+            return 'play';
+          }
+        });
+      });
+    }
+
     // Set up play button
     $('#music-player .equalizer').on('click', function() {
       $(this).toggleClass(function() {
@@ -63,6 +125,7 @@ export const music = async (err) => {
           $(this).removeClass('play');
           return 'stop';
         } else {
+          player.volume = 0.75;
           player.play();
           $(this).removeClass('stop');
           return 'play';
@@ -70,38 +133,8 @@ export const music = async (err) => {
       });
     });
 
-    // Set up playlist variables
-    var current = 1;
-    var playlist = $('#playlist');
-    var tracks = playlist.find('.track .details');
-    var len = tracks.length - 1;
-    var link;
-    var source = $('#player source');
-
-    // Set up playlist
-    player.on('ended', function() {
-      current++
-
-      if (current == len) {
-        current = 0;
-        link = playlist.find('span')[0];
-      } else {
-        link = playlist.find('span')[current];
-      }
-
-      run($(link), source);
-    });
-
-    // Run function
-    function run(link, audio) {
-      var par = link.parent();
-      par.addClass('current').siblings().removeClass('current');
-      audio.src = link.attr('data-audio-link');
-      player.play();
-    }
-
-    // Pause on video click
-    $('.youtube-item > a').on('click', function() {
+    // Pause on video or album click
+    $('.youtube-item > a, #tracklist > .track').on('click', function() {
       player.pause();
       $('#music-player .equalizer').addClass('stop');
       $('#music-player .equalizer').removeClass('play');

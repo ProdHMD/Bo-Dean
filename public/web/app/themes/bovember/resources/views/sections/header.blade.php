@@ -3,9 +3,15 @@
     {!! $siteName !!}
   </a>
 
-  @if (has_nav_menu('primary_navigation'))
+  @if (has_nav_menu('primary_navigation') && !is_woocommerce())
     <nav class="nav-primary" aria-label="{{ wp_get_nav_menu_name('primary_navigation') }}" id="main-navigation">
       {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav', 'echo' => false]) !!}
+    </nav>
+  @endif
+
+  @if (has_nav_menu('shop_navigation') && is_woocommerce())
+    <nav class="nav-primary" aria-label="{{ wp_get_nav_menu_name('shop_navigation') }}" id="main-navigation">
+      {!! wp_nav_menu(['theme_location' => 'shop_navigation', 'menu_class' => 'nav', 'echo' => false]) !!}
     </nav>
   @endif
 
@@ -23,23 +29,25 @@
     </div>
   </nav>
 
-  <div class="nav-tertiary" aria-label="Music Player" id="music-player">
-    <?php if (have_rows('track', 'option')) : ?>
-      <ul id="playlist" class="d-none">
-        <?php while (have_rows('track', 'option')) : the_row(); ?>
-          <li class="track">
-            <span class="details" data-audio-link="<?php the_sub_field('audio_file'); ?>">
-              <?php the_sub_field('song_title'); ?>
-            </span>
-          </li>
-        <?php endwhile; ?>
-      </ul>
-    <?php endif; ?>
+  @if (has_nav_menu('primary_navigation') && !is_woocommerce())
+    <div class="nav-tertiary" aria-label="Music Player" id="music-player">
+      <?php if (have_rows('track', 'option')) : $count = -1; ?>
+        <ul id="playlist" class="d-none">
+          <?php while (have_rows('track', 'option')) : the_row(); $count++; ?>
+            <li class="track">
+              <span class="details" data-id="<?php echo $count; ?>" data-audio-link="<?php the_sub_field('audio_file'); ?>">
+                <?php the_sub_field('song_title'); ?>
+              </span>
+            </li>
+          <?php endwhile; ?>
+        </ul>
+      <?php endif; ?>
 
-    <audio id="player">
-      <source src="" type="audio/mp3" />
-    </audio>
+      <audio id="player">
+        <source src="" type="audio/mp3" />
+      </audio>
 
-    <div class="song-name"></div>
-  </div>
+      <div class="song-name"></div>
+    </div>
+  @endif
 </header>

@@ -58,6 +58,7 @@ add_action('after_setup_theme', function () {
      */
     register_nav_menus([
         'primary_navigation' => __('Primary Navigation', 'sage'),
+        'shop_navigation' => __('Shop Navigation', 'sage'),
     ]);
 
     /**

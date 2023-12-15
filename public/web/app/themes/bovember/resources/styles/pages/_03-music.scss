@@ -60,6 +60,7 @@
 
                     .album {
                         font-family: $sf_pro_text;
+                        padding-bottom: 2rem;
 
                         .album-nav {
                             margin-bottom: 3rem;
@@ -115,6 +116,34 @@
 
                                         .track-play-pause {
                                             width: 5%;
+
+                                            .play-btn {
+                                                display: block;
+                                            }
+
+                                            .pause-btn {
+                                                display: none;
+                                            }
+
+                                            &.play {
+                                                .play-btn {
+                                                    display: block;
+                                                }
+
+                                                .pause-btn {
+                                                    display: none;
+                                                }
+                                            }
+
+                                            &.stop {
+                                                .play-btn {
+                                                    display: none;
+                                                }
+
+                                                .pause-btn {
+                                                    display: block;
+                                                }
+                                            }
 
                                             svg {
                                                 height: 24px;

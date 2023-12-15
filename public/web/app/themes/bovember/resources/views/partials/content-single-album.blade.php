@@ -22,6 +22,10 @@
         </div>
 
         <div class="row" id="tracklist-container">
+          <audio id="track-player">
+            <source src="" type="audio/mp3" />
+          </audio>
+          
           <?php if (have_rows('track')) : ?>
             <ol class="col-md-8 offset-md-2 list-unstyled" id="tracklist">
               <?php while (have_rows('track')) : the_row(); ?>
@@ -31,15 +35,21 @@
                   $track_name = get_sub_field('song_title');
                   $file = get_sub_field('file_name');
                   $file_path = get_attached_file($file['id']);
+                  $file_url = $file['url'];
                   $file_info = wp_read_audio_metadata($file_path);
                   $file_length = $file_info['length_formatted'];
                 ?>
 
                 <li class="track">
+                  <span class="details d-none" data-id="<?php echo $track_no; ?>" data-audio-link="<?php echo $file_url; ?>"><?php echo $track_name; ?></span>
+
                   <div class="track-no"><?php echo str_pad($track_no, 2, '0', STR_PAD_LEFT); ?></div>
                   <div class="track-name"><?php echo $track_name; ?></div>
                   <div class="track-length"><?php echo $file_length; ?></div>
-                  <div class="track-play-pause"><x-fas-play /></div>
+                  <div class="track-play-pause play">
+                    <span class="play-btn"><x-fas-play /></span>
+                    <span class="pause-btn"><x-fas-pause /></span>
+                  </div>
                 </li>
               <?php endwhile; ?>
             </ol>
