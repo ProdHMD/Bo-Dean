@@ -1,4 +1,5 @@
 import Plyr from 'plyr';
+import barba from '@barba/core';
 
 export const music = async (err) => {
   if (err) {
@@ -55,7 +56,11 @@ export const music = async (err) => {
     $('.song-name').text(name);
 
     // Set button
-    $('#music-player .equalizer').addClass('stop');
+    if (player.playing) {
+      $('#music-player .equalizer').removeClass('stop').addClass('play');
+    } else {
+      $('#music-player .equalizer').addClass('stop').removeClass('play');
+    }
     $('#playlist .track:first-child').addClass('current');
 
     // Set up playlist
@@ -74,7 +79,6 @@ export const music = async (err) => {
       } else {
         link = playlist.find('.track .details')[current];
       }
-      console.log(current+' and '+length);
       run($(link), player);
     });
 
@@ -134,10 +138,21 @@ export const music = async (err) => {
     });
 
     // Pause on video or album click
-    $('.youtube-item > a, #tracklist > .track').on('click', function() {
-      player.pause();
-      $('#music-player .equalizer').addClass('stop');
-      $('#music-player .equalizer').removeClass('play');
+    $('.youtube-item > .thumbnail, #tracklist > .track').on('click', function() {
+      if (player.playing) {
+        player.pause();
+        $('#music-player .equalizer').addClass('stop');
+        $('#music-player .equalizer').removeClass('play');
+      }
+    });
+    barba.hooks.after(() => {
+      $('.youtube-item > .thumbnail, #tracklist > .track').on('click', function() {
+        if (player.playing) {
+          player.pause();
+          $('#music-player .equalizer').addClass('stop');
+          $('#music-player .equalizer').removeClass('play');
+        }
+      });
     });
   }
 };

@@ -13,9 +13,9 @@ export const album = async (err) => {
   /** Set up album playlist function */
   function albumPlayer() {
     // Run the new album specific player
-    const player = new Plyr('#track-player', {
+    const trackPlayer = new Plyr('#track-player', {
       // Set the options
-      debug: false,
+      debug: true,
       autoplay: false,
       autopause: false,
       clickToPlay: false,
@@ -57,10 +57,10 @@ export const album = async (err) => {
         current = link.parent().index();
 
         if ($(this).hasClass('active')) {
-          if (player.playing) {
+          if (trackPlayer.playing) {
             audio[0].pause();
             link.siblings('.track-play-pause').removeClass('play').addClass('stop');
-          } else if (player.paused) {
+          } else if (trackPlayer.paused) {
             audio[0].play();
             link.siblings('.track-play-pause').addClass('play').removeClass('stop');
           }
@@ -87,13 +87,16 @@ export const album = async (err) => {
       player.src = link.attr('data-audio-link');
       par = link.parent();
       par.addClass('active').siblings().removeClass('active');
+      par.children('.track-play-pause').addClass('play').removeClass('stop');
+      par.siblings().children('.track-play-pause').removeClass('play').addClass('stop');
+      console.log('new track playing');
       audio[0].load();
       audio[0].play();
     }
 
     // Pause on clicks away from page
     $('.cpt-nav > a, .nav-item > a, #music-player .equalizer').on('click', function() {
-      player.stop();
+      trackPlayer.stop();
     });
   }
 };

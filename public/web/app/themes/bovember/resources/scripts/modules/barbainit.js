@@ -25,7 +25,7 @@ export const barbainit = async (err) => {
     isotopeinit();
 
     // Init albumJs
-    album(); 
+    album();
   });
 
   barba.init({

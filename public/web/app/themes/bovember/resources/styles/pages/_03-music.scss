@@ -69,6 +69,11 @@
                                 font-size: 1.5rem;
                                 text-transform: uppercase;
                                 color: $white;
+                                transition: all ease-in-out .2s;
+
+                                &:hover {
+                                    transition: all ease-in-out .2s;
+                                }
                             }
                         }
 
@@ -91,11 +96,19 @@
                                     margin-bottom: 2rem;
                                     
                                     .track {
+                                        color: $dark_grey;
                                         display: flex;
                                         align-items: center;
                                         margin-bottom: 0.5rem;
                                         font-size: 1.5rem;
                                         text-transform: uppercase;
+                                        cursor: pointer;
+                                        transition: all ease-in-out .2s;
+
+                                        &:hover {
+                                            color: $white;
+                                            transition: all ease-in-out .2s;
+                                        }
 
                                         &:last-child {
                                             margin-bottom: 0;
@@ -127,21 +140,21 @@
 
                                             &.play {
                                                 .play-btn {
-                                                    display: block;
+                                                    display: none;
                                                 }
 
                                                 .pause-btn {
-                                                    display: none;
+                                                    display: block;
                                                 }
                                             }
 
                                             &.stop {
                                                 .play-btn {
-                                                    display: none;
+                                                    display: block;
                                                 }
 
                                                 .pause-btn {
-                                                    display: block;
+                                                    display: none;
                                                 }
                                             }
 
@@ -149,6 +162,41 @@
                                                 height: 24px;
                                                 margin-bottom: 4px;
                                                 float: right;
+                                            }
+                                        }
+
+                                        &.active {
+                                            color: $red;
+                                            transition: all ease-in-out .2s;
+
+                                            .track-play-pause {
+                                                .play-btn {
+                                                    display: none;
+                                                }
+    
+                                                .pause-btn {
+                                                    display: block;
+                                                }
+
+                                                &.play {
+                                                    .play-btn {
+                                                        display: none;
+                                                    }
+    
+                                                    .pause-btn {
+                                                        display: block;
+                                                    }
+                                                }
+    
+                                                &.stop {
+                                                    .play-btn {
+                                                        display: block;
+                                                    }
+    
+                                                    .pause-btn {
+                                                        display: none;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -168,6 +216,7 @@
                                             color: $black;
                                             min-height: 100%;
                                             border-radius: 0.75rem;
+                                            transition: all ease-in-out .2s;
 
                                             .icon {
                                                 svg {
@@ -191,42 +240,49 @@
                                             &#download {
                                                 a {
                                                     color: $red;
+                                                    transition: all ease-in-out .2s;
                                                 }
                                             }
 
                                             &#alternate {
                                                 a {
                                                     color: $red;
+                                                    transition: all ease-in-out .2s;
                                                 }
                                             }
 
                                             &#itunes {
                                                 a {
                                                     color: $itunes;
+                                                    transition: all ease-in-out .2s;
                                                 }
                                             }
 
                                             &#apple {
                                                 a {
                                                     color: $apple;
+                                                    transition: all ease-in-out .2s;
                                                 }
                                             }
 
                                             &#spotify {
                                                 a {
                                                     color: $spotify;
+                                                    transition: all ease-in-out .2s;
                                                 }
                                             }
 
                                             &#google {
                                                 a {
                                                     color: $google;
+                                                    transition: all ease-in-out .2s;
                                                 }
                                             }
 
                                             &#pandora {
                                                 a {
                                                     color: $last_fm;
+                                                    transition: all ease-in-out .2s;
                                                 }
                                             }
                                         }
