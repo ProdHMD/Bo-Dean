@@ -3,7 +3,7 @@ export const shop = async (err) => {
     console.error(err);
   }
 
-  /** Run shop scroll script */
+  /** Run shop FontAwesome script */
   if ($.inArray($('main').attr('id'), ['shop','single-product']) >= 0) {
     $('.product_type_simple').each(function () {
       if ($(this).hasClass('add_to_cart_button')) {

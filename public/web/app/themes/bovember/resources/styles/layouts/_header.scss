@@ -15,6 +15,10 @@
             line-height: 1;
             color: $white;
             text-decoration: none;
+
+            @include media-breakpoint-down(xxl) {
+                font-size: 3.75rem;
+            }
         }
 
         /** Main navigation */
@@ -45,6 +49,12 @@
                     &.current-menu-item {
                         a {
                             text-decoration: line-through;
+                        }
+
+                        &.new-window {
+                            a {
+                                text-decoration: none;
+                            }
                         }
                     }
                 }
@@ -176,6 +186,11 @@
                 line-height: 1;
             }
         }
+    }
+
+    /** Screen reader */
+    .sr-only {
+        color: $white;
     }
 }
 

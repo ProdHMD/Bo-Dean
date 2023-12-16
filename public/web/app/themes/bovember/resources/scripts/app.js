@@ -39,7 +39,13 @@ domReady(async () => {
   isotopeinit();
 
   // Init barbaInitJS
-  barbainit();
+  const doesItContain = () => {
+    const url = window.location.href;
+    return ['/shop', '/product'].some(el => url.includes(el));
+  };
+  if (!doesItContain()) {
+    barbainit();
+  }
 });
 
 /**

@@ -586,11 +586,30 @@
                     }
 
                     .woocommerce-MyAccount-navigation {
-                        max-width: 25%;
+                        max-width: none;
+                        width: 100%;
+                        float: none;
+
+                        ul {
+                            display: flex;
+                            flex-flow: row wrap;
+
+                            li {
+                                margin: 0 0.5rem;
+
+                                &:first-child {
+                                    margin-left: 0;
+                                }
+                                
+                                &:last-child {
+                                    margin-right: 0;
+                                }
+                            }                            
+                        }
                     }
 
                     .woocommerce-MyAccount-content {
-                        width: 70%;
+                        width: 100%;
                         padding-left: 0;
                         padding-right: 0;
                         border-bottom: none;
@@ -640,6 +659,45 @@
                                 padding-left: 0;
                                 padding-right: 0;
                             }
+                        }
+
+                        .button {
+                            color: $black;
+                            background-color: $red;
+                            border-radius: 1px;
+
+                            &:hover {
+                                color: $black;
+                                background-color: $white;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+
+                    h2 {
+                        font-family: $sf_pro_text;
+                        font-size: 2rem;
+                        text-transform: uppercase;
+                        font-weight: 700;
+                    }
+
+                    .login {
+                        border: none;
+                        padding: 0;
+                        margin: 0;
+                        max-width: 50%;
+
+                        .form-row {
+                            padding: 0;
+                            margin-bottom: 1rem;
+
+                            &:nth-child(2) {
+                                margin-bottom: 2rem;
+                            }
+                        }
+
+                        .show-password-input {
+                            top: 0;
                         }
 
                         .button {

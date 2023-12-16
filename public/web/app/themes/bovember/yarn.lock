@@ -8605,6 +8605,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gsap@npm:^3.12.4":
+  version: 3.12.4
+  resolution: "gsap@npm:3.12.4"
+  checksum: 7b78fb46b3250c09a1856da32109bae16091be41bd3ec3a17ce2b6dea444fbecd2c57b9c677a09c6b4c022d3024e9ae39d377fab5f63302417a88a6b43231381
+  languageName: node
+  linkType: hard
+
 "hard-rejection@npm:^2.1.0":
   version: 2.1.0
   resolution: "hard-rejection@npm:2.1.0"
@@ -13303,6 +13310,7 @@ __metadata:
     "@roots/eslint-config": ^6.12.0
     "@roots/sage": 6.12.0
     bootstrap: ^5.2.3
+    gsap: ^3.12.4
     isotope-layout: ^3.0.6
     jquery-bridget: ^3.0.1
     locomotive-scroll: ^4.1.4

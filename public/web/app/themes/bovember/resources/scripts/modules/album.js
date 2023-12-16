@@ -15,7 +15,7 @@ export const album = async (err) => {
     // Run the new album specific player
     const trackPlayer = new Plyr('#track-player', {
       // Set the options
-      debug: true,
+      debug: false,
       autoplay: false,
       autopause: false,
       clickToPlay: false,

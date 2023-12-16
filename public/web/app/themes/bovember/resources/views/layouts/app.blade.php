@@ -20,7 +20,7 @@
       } else if (is_account_page()) {
         $post_slug = 'my-account';
       } else if (is_single()) {
-        $post_slug = 'blog-post';
+        $post_slug = 'single-post';
       } else {
         $post_slug = $post->post_name; 
       }
@@ -30,12 +30,26 @@
     }
 ?>
 
-<a class="sr-only sr-only-focusable visually-hidden" href="#main">
+<a class="sr-only sr-only-focusable visually-hidden" href="#content">
   {{ __('Skip to content') }}
 </a>
 
 @include('sections.header')
 <div data-scroll-container>
+  <ul class="page-transition">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+  <div class="progress-bar">
+    <div class="pb-outer">
+      <div class="inner-pb"></div>
+    </div>
+  </div>
+  
   <main id="<?php echo $post_slug; ?>" <?php body_class('main'); ?> data-barba="container" data-barba-namespace="<?php echo $post_slug; ?>">
     <div class="container-fluid" id="container">
       <div class="row" id="wrapper">

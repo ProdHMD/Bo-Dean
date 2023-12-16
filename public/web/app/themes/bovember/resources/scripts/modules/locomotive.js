@@ -1,5 +1,6 @@
 import LocomotiveScroll from 'locomotive-scroll';
 import { ResizeObserver } from '@juggle/resize-observer';
+import { gsap } from 'gsap';
 
 export const locomotive = async (err) => {
   if (err) {
@@ -13,6 +14,17 @@ export const locomotive = async (err) => {
     smooth: true,
     scrollFromAnywhere: true,
   });
+
+  /** Set up progress bar for scrolling */
+  const progressBar = document.querySelector('.progress-bar');
+  scroll.on('scroll', (obj) => {
+    let widthToProgress = gsap.utils.mapRange(0, obj.limit.y, 0, 100);
+    let howMuchScrolled = widthToProgress(obj.scroll.y);
+    progressBar.style.width = `${howMuchScrolled}%`;
+  });
+  scroll.update();
+
+  /** Add resize observer */
   new ResizeObserver(() => scroll.update()).observe(el);
 };
 
