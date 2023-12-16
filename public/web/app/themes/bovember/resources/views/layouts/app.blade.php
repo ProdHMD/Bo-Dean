@@ -36,7 +36,7 @@
 
 @include('sections.header')
 <div data-scroll-container>
-  <ul class="page-transition">
+  <ul class="page-transition list-unstyled">
     <li></li>
     <li></li>
     <li></li>
