@@ -63,6 +63,10 @@
                             text-transform: uppercase;
                             line-height: 1;
                             color: $red;
+
+                            @include media-breakpoint-down(xl) {
+                                font-size: 3rem;
+                            }
                         }
 
                         .dt-published {
@@ -86,6 +90,10 @@
 
                             .attachment-post-thumbnail {
                                 transform: translateY(-25%);
+
+                                @include media-breakpoint-down(xl) {
+                                    transform: translateY(0);
+                                }
                             }
                         }
 
@@ -100,6 +108,10 @@
                                 color: $white;
                                 text-transform: uppercase;
                                 margin-bottom: 2rem;
+
+                                @include media-breakpoint-down(xl) {
+                                    font-size: 2rem;
+                                }
                             }
 
                             .related-item {
@@ -110,6 +122,10 @@
                                         font-weight: 700;
                                         color: $red;
                                         text-transform: uppercase;
+
+                                        @include media-breakpoint-down(xl) {
+                                            font-size: 1.5rem;
+                                        }
                                     }
                                 }
 

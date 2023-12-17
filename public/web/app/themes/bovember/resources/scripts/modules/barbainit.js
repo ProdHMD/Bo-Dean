@@ -13,9 +13,16 @@ export const barbainit = async (err) => {
   }
 
   /** Transitions */
+  var tl = gsap.timeline();
   // Basic page transition
   function pageTransition() {
-    var tl = gsap.timeline();
+    tl.to('#canvas .canvas', {
+      display: '',
+      duration: 0.5,
+      opacity: 0,
+      delay: -0.5,
+    });
+
     tl.to('.page-transition li', {
       duration: 0.5,
       scaleY: 1,
@@ -27,14 +34,13 @@ export const barbainit = async (err) => {
       duration: 0.5,
       scaleY: 0,
       transformOrigin: 'bottom left',
-      stagger: 0.1,
+      stagger: 0.2,
       delay: 0.1,
     });
   }
 
   // Basic content animation
   function contentAnimation() {
-    var tl = gsap.timeline();
     if ($('.page-header').length) {
       tl.from('.page-header', {
         duration: 1,
@@ -61,11 +67,35 @@ export const barbainit = async (err) => {
         delay: 0,
       });
     }
+
+    if ($('main').hasClass('home')) {
+      homePageTransition();
+    }
+  }
+
+  // Home page transitions
+  function homePageTransition() {
+    if ($('#home-container h1').length) {
+      tl.to('#home-container h1', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        delay: 0,
+      });
+    }
+
+    if ($('#home-container h1').length) {
+      tl.to('#home-container h2', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        delay: -0.15,
+      });
+    }
   }
 
   // Video background transition
   function videoBGTransition() {
-    var tl = gsap.timeline();
     tl.to('#home-container h1', {
       duration: 0.25,
       translateY: 50,
@@ -77,36 +107,44 @@ export const barbainit = async (err) => {
       duration: 0.25,
       translateY: 50,
       opacity: 0,
-      delay: 0,
+      delay: -0.15,
     });
 
     tl.to('#canvas #home', {
       display: '',
       duration: 0.5,
       opacity: 0.25,
-      delay: 0.1,
+      delay: -0.5,
+    });
+  }
+
+  // Image background transition
+  function imgBGTransition() {
+    tl.to('#canvas #about', {
+      display: '',
+      duration: 0.5,
+      opacity: 0.5,
+      delay: -0.5,
     });
   }
 
   // Reset background transition
   function resetBGTransition() {
-    var tl = gsap.timeline();
     tl.to('#canvas #home', {
       display: '',
       duration: 0.5,
       opacity: 0.5,
-      delay: 0.5,
+      delay: -0.5,
     });
   }
 
-  // Reset background transition
+  // Reset lesser background transition
   function resetLesserBGTransition() {
-    var tl = gsap.timeline();
     tl.to('#canvas #home', {
       display: '',
       duration: 0.5,
       opacity: 0.25,
-      delay: 0.5,
+      delay: -0.5,
     });
   }
 
@@ -165,17 +203,17 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
     }, {
+      // Reset home background opacity
       name: 'reset-background-transition',
-      from: {
+      to: {
         namespace: [
-          'shows',
-          'blog',
+          'home',
         ],
       },
       async leave() {
         const done = this.async();
-        resetBGTransition();
         pageTransition();
+        resetBGTransition();
         await delay(1250);
         done();
       },
@@ -199,8 +237,32 @@ export const barbainit = async (err) => {
       },
       async leave() {
         const done = this.async();
-        resetLesserBGTransition();
         pageTransition();
+        resetLesserBGTransition();
+        await delay(1250);
+        done();
+      },
+      async enter() {
+        contentAnimation();
+      },
+      async once() {
+        contentAnimation();
+      },
+      beforeEnter: ({ next }) => {
+        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
+        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
+      },
+    }, {
+      name: 'image-background-transition',
+      to: {
+        namespace: [
+          'about',
+        ],
+      },
+      async leave() {
+        const done = this.async();
+        pageTransition();
+        imgBGTransition();
         await delay(1250);
         done();
       },

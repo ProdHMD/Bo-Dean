@@ -36,7 +36,7 @@
                             $date = get_field('album_date');
                         ?>
 
-                        <li class="col-md-6 gallery">
+                        <li class="col-xl-6 gallery">
                             <div class="gallery-thumbnail">
                                 <a href="<?php echo $permalink; ?>">
                                     <?php echo $thumbnail; ?>

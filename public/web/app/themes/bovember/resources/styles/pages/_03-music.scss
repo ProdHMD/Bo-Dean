@@ -9,15 +9,34 @@
                 position: relative;
                 z-index: 2;
 
+                @include media-breakpoint-down(xl) {
+                    position: absolute;
+                    left: 0;
+                    padding-left: 0.5rem;
+                }
+
                 .album-types {
                     display: flex;
                     margin-bottom: 3rem;
 
+                    @include media-breakpoint-down(xl) {
+                        flex-direction: column;
+                        margin-left: 0;
+                    }
+
                     .album-type {
                         margin: 0 0.5rem;
 
+                        @include media-breakpoint-down(xl) {
+                            margin-left: 1.125rem;
+                        }
+
                         &:first-child {
                             margin-left: 0;
+
+                            @include media-breakpoint-down(xl) {
+                                margin-left: 1.125rem;
+                            }
                         }
 
                         &:last-child {
@@ -43,8 +62,12 @@
                 #main-content {
                     margin-top: 0;
 
-                    #album-types-container {
-                        margin-bottom: 2rem;
+                    #albums-container {
+                        #album-row {
+                            .album {
+                                margin-bottom: 1rem;
+                            }
+                        }
                     }
                 }
             }

@@ -29,7 +29,7 @@ html {
 
     /** Progress bar */
     .progress-bar {
-        width: 100%;
+        width: 0;
         margin: 0;
         position: absolute;
         top: 0;
@@ -57,6 +57,10 @@ html {
         font-family: $sf_pro_text;
         z-index: 1;
 
+        @include media-breakpoint-down(xl) {
+            padding-top: 9rem;
+        }
+
         /** Container with hidden scrollbar */
         #container {
             max-height: 100%;
@@ -74,6 +78,12 @@ html {
                         padding-top: 3%;
                         position: relative;
                         z-index: 2;
+
+                        @include media-breakpoint-down(xl) {
+                            position: absolute;
+                            left: 0;
+                            padding-left: 2.25rem;
+                        }
 
                         .cpt-nav {
                             margin-bottom: 3rem;
@@ -122,11 +132,11 @@ html {
         height: 100%;
         z-index: 0;
         opacity: 0;
-        display: none;
+        transition: opacity 0.2s ease-in-out;
 
         &.show {
             opacity: 0.5;
-            display: block;
+            transition: opacity 0.2s ease-in-out;
         }
 
         .background-media {
@@ -166,6 +176,26 @@ html {
         > li {
             width: 20%;
             transform: scaleY(0);
+            background: $black;
+        }
+    }
+
+    /** Preloader */
+    #preloader {
+        position: absolute;
+        z-index: 100;
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        pointer-events: none;
+
+        > li {
+            width: 20%;
+            transform: scaleY(1);
             background: $black;
         }
     }

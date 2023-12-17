@@ -2,6 +2,10 @@
 .main {
     /** Photos page */
     &#photos {
+        @include media-breakpoint-down(xl) {
+            padding-top: 9rem;
+        }
+        
         #content {
             #photos-container {
                 #main-content {

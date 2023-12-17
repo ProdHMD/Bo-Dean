@@ -1,6 +1,137 @@
+import gsap from 'gsap';
+
 export const header = async (err) => {
   if (err) {
     console.error(err);
+  }
+
+  /** Function to hide routes on certain URLs */
+  const doesItContain = () => {
+    const url = window.location.href;
+    return ['/shop', '/product'].some(el => url.includes(el));
+  };
+
+  /** Set up preloading animations */
+  var tl = gsap.timeline();
+  if (!doesItContain()) {
+    window.addEventListener('load', function() {
+      var mobileDelay;
+      if (window.innerHeight <= 1200) {
+        mobileDelay = -0.5;
+      } else {
+        mobileDelay = 0;
+      }
+
+      tl.to('#preloader li', {
+        duration: 0.5,
+        scaleY: 0,
+        transformOrigin: 'bottom left',
+        stagger: 0.2,
+        delay: 0.1,
+      });
+
+      if ($('main').hasClass('about')) {
+        tl.to('#canvas #about', {
+          display: '',
+          duration: 0.5,
+          opacity: 0.5,
+          delay: 0,
+        });
+      } else if ($('main').hasClass('blog')) {
+        tl.to('#canvas #home', {
+          display: '',
+          duration: 0.5,
+          opacity: 0.25,
+          delay: 0,
+        });
+      } else if ($('main').hasClass('shows')) {
+        tl.to('#canvas #home', {
+          display: '',
+          duration: 0.5,
+          opacity: 0.25,
+          delay: 0,
+        });
+      } else if ($('main').hasClass('home')) {
+        tl.to('#canvas #home', {
+          display: '',
+          duration: 0.5,
+          opacity: 0.5,
+          delay: 0,
+        });
+      } else {
+        tl.to('#canvas #home', {
+          display: '',
+          duration: 0.5,
+          opacity: 0,
+          delay: 0,
+        });
+
+        tl.to('#canvas #about', {
+          display: '',
+          duration: 0.5,
+          opacity: 0,
+          delay: 0,
+        });
+      }
+
+      tl.to('#header .brand', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.25,
+      });
+
+      tl.to('#header #mobile-menu .navbar-toggler', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.125,
+      });
+
+      tl.to('#header #music-player', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.125,
+      });
+
+      tl.to('#header #desktop-menu #main-navigation .nav .menu-item', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.125,
+        stagger: 0.025,
+      });
+
+      tl.to('#header #desktop-menu #bottom-navigation .credits', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.125,
+      });
+
+      tl.to('#header #desktop-menu #bottom-navigation .socials .social-list .social', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.125,
+        stagger: 0.025,
+      });
+
+      tl.to('#header #music-player', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: mobileDelay,
+      });
+    });
   }
 
   /** Run ifURL function */
@@ -48,6 +179,133 @@ export const header = async (err) => {
     $('#header .brand').on('click', function() {
       $(this).siblings('nav').children().children().children('li').removeClass('current-menu-item current_page_item');
     });
+  }
+
+  /** Add animation to toggler action */
+  if (!doesItContain()) {
+    $('#header #mobile-menu .nav li a').on('click', function() {
+      tl.to('#header #desktop-menu #main-navigation .nav .menu-item', {
+        duration: 0.25,
+        translateY: 50,
+        opacity: 0,
+        ease: 'power3.out',
+        delay: 0,
+        stagger: 0.15,
+      });
+
+      tl.to('#header #desktop-menu #bottom-navigation .credits', {
+        duration: 0.25,
+        translateY: 50,
+        opacity: 0,
+        ease: 'power3.out',
+        delay: 0,
+      });
+
+      tl.to('#header #desktop-menu #bottom-navigation .socials .social-list .social', {
+        duration: 0.25,
+        translateY: 50,
+        opacity: 0,
+        ease: 'power3.out',
+        delay: 0,
+        stagger: 0.15,
+      });
+
+      setTimeout(() => {
+        $('#header #mobile-menu #panel-navbar-collapse').removeClass('show');
+        $('#header #mobile-menu .navbar-toggler').addClass('collapsed').attr('aria-expanded', false);
+      }, 2250);
+    });
+
+    $('#header #mobile-menu .brand').on('click', function() {
+      tl.to('#header #desktop-menu #main-navigation .nav .menu-item', {
+        duration: 0.25,
+        translateY: 50,
+        opacity: 0,
+        ease: 'power3.out',
+        delay: 0,
+        stagger: 0.15,
+      });
+
+      tl.to('#header #desktop-menu #bottom-navigation .credits', {
+        duration: 0.25,
+        translateY: 50,
+        opacity: 0,
+        ease: 'power3.out',
+        delay: 0,
+      });
+
+      tl.to('#header #desktop-menu #bottom-navigation .socials .social-list .social', {
+        duration: 0.25,
+        translateY: 50,
+        opacity: 0,
+        ease: 'power3.out',
+        delay: 0,
+        stagger: 0.15,
+      });
+
+      setTimeout(() => {
+        $('#header #mobile-menu #panel-navbar-collapse').removeClass('show');
+        $('#header #mobile-menu .navbar-toggler').addClass('collapsed').attr('aria-expanded', false);
+      }, 2250);
+    });
+
+    $('#header #mobile-menu .navbar-toggler').on('click', function() {
+      if ($('#header #mobile-menu #panel-navbar-collapse').hasClass('show')) {
+        console.log('menu is closing');
+        tl.to('#header #mobile-menu #main-navigation .nav .menu-item', {
+          duration: 0.25,
+          translateY: 0,
+          opacity: 1,
+          ease: 'power3.out',
+          delay: 0,
+          stagger: 0.15,
+        });
+  
+        tl.to('#header #mobile-menu #bottom-navigation .credits', {
+          duration: 0.25,
+          translateY: 0,
+          opacity: 1,
+          ease: 'power3.out',
+          delay: 0,
+        });
+  
+        tl.to('#header #mobile-menu #bottom-navigation .socials .social-list .social', {
+          duration: 0.25,
+          translateY: 0,
+          opacity: 1,
+          ease: 'power3.out',
+          delay: 0,
+          stagger: 0.15,
+        });
+      } else {
+        console.log('menu is opening');
+        tl.to('#header #mobile-menu #main-navigation .nav .menu-item', {
+          duration: 0.25,
+          translateY: 0,
+          opacity: 1,
+          ease: 'power3.out',
+          delay: 0,
+          stagger: 0.15,
+        });
+  
+        tl.to('#header #mobile-menu #bottom-navigation .credits', {
+          duration: 0.25,
+          translateY: 0,
+          opacity: 1,
+          ease: 'power3.out',
+          delay: 0,
+        });
+  
+        tl.to('#header #mobile-menu #bottom-navigation .socials .social-list .social', {
+          duration: 0.25,
+          translateY: 0,
+          opacity: 1,
+          ease: 'power3.out',
+          delay: 0,
+          stagger: 0.15,
+        });
+      }
+    })
   }
 };
 

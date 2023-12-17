@@ -30,11 +30,24 @@
     }
 ?>
 
+<?php if (is_woocommerce() || is_cart() || is_checkout() || is_account_page()) : ?>
+  <!-- Nothing should be loaded here. -->
+<?php else : ?>
+  <ul class="list-unstyled" id="preloader">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+<?php endif ?>
+
 <a class="sr-only sr-only-focusable visually-hidden" href="#content">
   {{ __('Skip to content') }}
 </a>
 
 @include('sections.header')
+
 <div data-scroll-container>
   <ul class="page-transition list-unstyled">
     <li></li>

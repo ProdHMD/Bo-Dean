@@ -3,6 +3,10 @@
     &#shows {
         padding: 0 2rem;
 
+        @include media-breakpoint-down(xl) {
+            padding-top: 9rem;
+        }
+
         #content {
             #shows-container {
                 #main-content {
@@ -49,6 +53,10 @@
         text-align: center;
         color: $white;
         width: 35vw;
+
+        @include media-breakpoint-down(xl) {
+            width: 60vw;
+        }
 
         .header {
             margin-bottom: 3rem;

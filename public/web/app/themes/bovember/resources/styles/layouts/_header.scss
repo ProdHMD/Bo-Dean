@@ -8,6 +8,11 @@
         width: 15%;
         z-index: 1000;
 
+        @include media-breakpoint-down(xl) {
+            width: 100%;
+            padding: 3.125rem 3.125rem 0;
+        }
+
         /** Main logo */
         .brand {
             font-family: $american_captain;
@@ -15,6 +20,8 @@
             line-height: 1;
             color: $white;
             text-decoration: none;
+            opacity: 0;
+            transform: translateY(50px);
 
             @include media-breakpoint-down(xxl) {
                 font-size: 3.75rem;
@@ -35,6 +42,9 @@
                 flex-direction: column;
 
                 .menu-item {
+                    opacity: 0;
+                    transform: translateY(50px);
+
                     a {
                         color: $white;
                         text-decoration: none;
@@ -71,6 +81,8 @@
 
             .credits {
                 font-size: 1.125rem;
+                opacity: 0;
+                transform: translateY(50px);
 
                 a {
                     color: $white;
@@ -88,6 +100,8 @@
                     .social {
                         display: inline;
                         margin-right: 0.25rem;
+                        opacity: 0;
+                        transform: translateY(50px);
 
                         a {
                             color: $white;
@@ -141,6 +155,13 @@
             text-transform: uppercase;
             font-size: 1.125rem;
             color: $white;
+            opacity: 0;
+            transform: translateY(50px);
+
+            @include media-breakpoint-down(xl) {
+                position: fixed;
+                bottom: 3.125rem;
+            }
 
             .plyr__controls {
                 line-height: 0.9;
@@ -184,6 +205,159 @@
             .song-name {
                 display: inline-block;
                 line-height: 1;
+            }
+        }
+
+        /** Nav toggler */
+        .navbar-toggler {
+            border: 3px solid $white;
+            border-radius: 3rem;
+            padding: 1.5rem 1.125rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            .icon-bar {
+                display: inline-block;
+                border: 2px solid $red;
+                width: 2rem;
+                margin-bottom: 0.25rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                &.top-bar {
+                    margin-top: 0;
+                    transform: translate(0, 0.5rem) rotate(45deg);
+                    z-index: 2;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                &.mid-bar {
+                    transform: translateX(0);
+                    z-index: 1;
+                    border-color: $black;
+                    opacity: 0;
+                    transition: all 0.2s ease-in-out;
+                }
+
+                &.bot-bar {
+                    transform: translate(0, -0.5rem) rotate(-45deg);
+                    z-index: 2;
+                    transition: all 0.2s ease-in-out;
+                }
+            }
+
+            &.collapsed {
+                .icon-bar {
+                    &.top-bar {
+                        transform: rotate(0);
+                        transition: all 0.2s ease-in-out;
+                    }
+
+                    &.mid-bar {
+                        transform: translateX(0);
+                        border-color: $red;
+                        opacity: 1;
+                        transition: all 0.2s ease-in-out;
+                    }
+
+                    &.bot-bar {
+                        transform: rotate(0);
+                        transition: all 0.2s ease-in-out;
+                    }
+                }
+            }
+        }
+
+        /** Mobile menu */
+        #mobile-menu {
+            .navbar {
+                z-index: 50;
+            }
+
+            #panel-navbar-collapse {
+                position: fixed;
+                top: 0;
+                left: 0;
+                background-color: $black;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                visibility: hidden;
+                opacity: 0;
+                z-index: 25;
+                transition: all 0.4s ease-in-out;
+
+                &.show {
+                    display: flex;
+                    min-height: 100vh;
+                    visibility: visible;
+                    opacity: 1;
+                    z-index: 25;
+                    transition: all 0.4s ease-in-out;
+                }
+
+                #main-navigation {
+                    font-size: 3rem;
+                }
+
+                #bottom-navigation {
+                    .credits {
+                        font-size: 2rem;
+                    }
+
+                    .socials {
+                        .social-list {
+                            .social {
+                                a {
+                                    svg {
+                                        max-width: 2rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.shop-nav {
+            .brand {
+                opacity: 1;
+                transform: translate(0);
+            }
+
+            #main-navigation {
+                .nav {
+                    .menu-item {
+                        opacity: 1;
+                        transform: translate(0);
+                    }
+                }
+            }
+
+            #bottom-navigation {
+                .credits {
+                    opacity: 1;
+                    transform: translate(0);
+                }
+
+                .socials {
+                    .social-list {
+                        .social {
+                            opacity: 1;
+                            transform: translate(0);
+                        }
+                    }
+                }
             }
         }
     }

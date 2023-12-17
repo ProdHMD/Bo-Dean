@@ -17,6 +17,12 @@ import { barbainit } from './modules/barbainit.js';
  * Application entrypoint
  */
 domReady(async () => {
+  // Function to hide routes on certain URLs
+  const doesItContain = () => {
+    const url = window.location.href;
+    return ['/shop', '/product'].some(el => url.includes(el));
+  };
+
   // Init headerJS
   header();
 
@@ -39,10 +45,6 @@ domReady(async () => {
   isotopeinit();
 
   // Init barbaInitJS
-  const doesItContain = () => {
-    const url = window.location.href;
-    return ['/shop', '/product'].some(el => url.includes(el));
-  };
   if (!doesItContain()) {
     barbainit();
   }

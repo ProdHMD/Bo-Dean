@@ -9,6 +9,11 @@
                     padding-bottom: 5rem;
                     padding-right: 10%;
 
+                    @include media-breakpoint-down(xl) {
+                        padding-left: 5%;
+                        padding-right: 20%;
+                    }
+
                     h1 {
                         font-size:  3rem;
                         margin-bottom: 1rem;
