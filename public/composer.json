@@ -73,7 +73,8 @@
     "gplvault/gplvault": "^5.0",
     "generoi/sage-woocommerce": "^1.0",
     "wpackagist-plugin/webp-converter-for-media": "^5.8",
-    "acf/acfpro": "^6.2"
+    "acf/acfpro": "^6.2",
+    "wpackagist-plugin/wordpress-importer": "^0.8.1"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
