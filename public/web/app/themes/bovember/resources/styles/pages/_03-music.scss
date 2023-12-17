@@ -61,11 +61,24 @@
             #music-container {
                 #main-content {
                     margin-top: 0;
+                    padding-bottom: 3rem;
 
                     #albums-container {
                         #album-row {
-                            .album {
-                                margin-bottom: 1rem;
+                            .isotope-item {
+                                margin-bottom: calc(var(--bs-gutter-x) * 1);
+
+                                .album-thumbnail {
+                                    a {
+                                        width: 50%;
+
+                                        img {
+                                            width: 100%;
+                                            aspect-ratio: 1 / 1;
+                                            object-fit: cover;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
