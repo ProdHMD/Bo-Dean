@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43d33866a94ae411b6ea6732fbd1029b",
+    "content-hash": "c09b2bcbb999c3f7e3d5a7054c77f5d3",
     "packages": [
         {
             "name": "acf/acfpro",
@@ -5769,6 +5769,15 @@
             "time": "2022-03-08T17:03:00+00:00"
         },
         {
+            "name": "wp-media/wp-rocket",
+            "version": "3.15.6",
+            "dist": {
+                "type": "zip",
+                "url": "gplv-plugins/wp-rocket.zip"
+            },
+            "type": "wordpress-plugin"
+        },
+        {
             "name": "wpackagist-plugin/classic-editor",
             "version": "1.6.3",
             "source": {
@@ -5785,6 +5794,33 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/classic-editor/"
+        },
+        {
+            "name": "wpackagist-plugin/jetpack",
+            "version": "12.9",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/jetpack/",
+                "reference": "tags/12.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/jetpack.12.9.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/jetpack/"
+        },
+        {
+            "name": "wpackagist-plugin/media-file-renamer-pro",
+            "version": "5.7.7",
+            "dist": {
+                "type": "zip",
+                "url": "gplv-plugins/media-file-renamer.zip"
+            },
+            "type": "wordpress-plugin"
         },
         {
             "name": "wpackagist-plugin/webp-converter-for-media",
@@ -5823,6 +5859,42 @@
             "homepage": "https://wordpress.org/plugins/woocommerce/"
         },
         {
+            "name": "wpackagist-plugin/woocommerce-gateway-paypal-powered-by-braintree",
+            "version": "3.1.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/woocommerce-gateway-paypal-powered-by-braintree/",
+                "reference": "tags/3.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/woocommerce-gateway-paypal-powered-by-braintree.3.1.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/woocommerce-gateway-paypal-powered-by-braintree/"
+        },
+        {
+            "name": "wpackagist-plugin/wordfence",
+            "version": "7.11.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordfence/",
+                "reference": "tags/7.11.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordfence.7.11.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wordfence/"
+        },
+        {
             "name": "wpackagist-plugin/wordpress-importer",
             "version": "0.8.1",
             "source": {
@@ -5839,6 +5911,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-importer/"
+        },
+        {
+            "name": "wpackagist-plugin/wordpress-seo",
+            "version": "21.7",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
+                "reference": "tags/21.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.21.7.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wordpress-seo/"
         },
         {
             "name": "wpackagist-theme/twentytwentythree",
@@ -5866,12 +5956,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "f7e64a813ead48a0ed65827f1d792d9fb8375634"
+                "reference": "3c2385497f806decca1e5abeba3cb8fd7caba4e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f7e64a813ead48a0ed65827f1d792d9fb8375634",
-                "reference": "f7e64a813ead48a0ed65827f1d792d9fb8375634",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/3c2385497f806decca1e5abeba3cb8fd7caba4e0",
+                "reference": "3c2385497f806decca1e5abeba3cb8fd7caba4e0",
                 "shasum": ""
             },
             "conflict": {
@@ -6443,7 +6533,7 @@
                 "twig/twig": "<1.44.7|>=2,<2.15.3|>=3,<3.4.3",
                 "typo3/cms": "<9.5.29|>=10,<10.4.35|>=11,<11.5.23|>=12,<12.2",
                 "typo3/cms-backend": ">=7,<=7.6.50|>=8,<=8.7.39|>=9,<=9.5.24|>=10,<=10.4.13|>=11,<=11.1",
-                "typo3/cms-core": "<=8.7.54|>=9,<=9.5.43|>=10,<=10.4.40|>=11,<=11.5.32|>=12,<=12.4.7",
+                "typo3/cms-core": "<8.7.55|>=9,<9.5.44|>=10,<10.4.41|>=11,<11.5.33|>=12,<12.4.8",
                 "typo3/cms-extbase": "<6.2.24|>=7,<7.6.8|==8.1.1",
                 "typo3/cms-form": ">=8,<=8.7.39|>=9,<=9.5.24|>=10,<=10.4.13|>=11,<=11.1",
                 "typo3/cms-install": ">=12.2,<12.4.8",
@@ -6575,7 +6665,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-14T06:04:56+00:00"
+            "time": "2023-12-15T16:04:17+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

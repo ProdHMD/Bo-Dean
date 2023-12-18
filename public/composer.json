@@ -52,6 +52,30 @@
           "type": "zip"
         }
       }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "wp-media/wp-rocket",
+        "version": "3.15.6",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "gplv-plugins/wp-rocket.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "wpackagist-plugin/media-file-renamer-pro",
+        "version": "5.7.7",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "gplv-plugins/media-file-renamer.zip",
+          "type": "zip"
+        }
+      }
     }
   ],
   "require": {
@@ -74,7 +98,13 @@
     "generoi/sage-woocommerce": "^1.0",
     "wpackagist-plugin/webp-converter-for-media": "^5.8",
     "acf/acfpro": "^6.2",
-    "wpackagist-plugin/wordpress-importer": "^0.8.1"
+    "wpackagist-plugin/wordpress-importer": "^0.8.1",
+    "wpackagist-plugin/media-file-renamer-pro": "^5.7",
+    "wpackagist-plugin/wordfence": "^7.11",
+    "wp-media/wp-rocket": "^3.15",
+    "wpackagist-plugin/wordpress-seo": "^21.7",
+    "wpackagist-plugin/woocommerce-gateway-paypal-powered-by-braintree": "^3.1",
+    "wpackagist-plugin/jetpack": "^12.9"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",
