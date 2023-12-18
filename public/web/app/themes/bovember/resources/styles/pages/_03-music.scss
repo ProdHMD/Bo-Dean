@@ -75,7 +75,8 @@
                                     transform: translateY(50px);
 
                                     a {
-                                        width: 50%;
+                                        width: 100%;
+                                        display: inline-block;
 
                                         img {
                                             width: 100%;
@@ -255,6 +256,8 @@
                                     
                                     .link-item {
                                         margin-bottom: calc(var(--bs-gutter-x) * 1);
+                                        opacity: 0;
+                                        transform: translateY(50px);
 
                                         a {
                                             display: flex;

@@ -6,6 +6,9 @@
     $args = array(
         'post_type' => 'album',
         'posts_per_page' => -1,
+        'meta_key' => 'release_date',
+        'orderby' => 'meta_value',
+        'order' => 'DESC',
     );
     $query = new WP_Query($args);
 

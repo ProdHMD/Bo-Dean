@@ -181,7 +181,7 @@ export const barbainit = async (err) => {
     }
   }
 
-  // Transition for canvas pages
+  // Transition for canvases
   function homeToOtherCanvas() {
     tl.to('#canvas #about', {
       duration: 0.25,
@@ -378,6 +378,14 @@ export const barbainit = async (err) => {
       stagger: 0.125,
       delay: 0,
     });
+
+    tl.to('#album-container #main-content #link-list > *', {
+      duration: 0.25,
+      translateY: 50,
+      opacity: 0,
+      stagger: 0.125,
+      delay: 0,
+    });
   }
 
   function toAlbumPage() {
@@ -390,6 +398,14 @@ export const barbainit = async (err) => {
     });
 
     tl.to('#album-container #main-content .track > *', {
+      duration: 0.0625,
+      translateY: 0,
+      opacity: 1,
+      stagger: 0.03125,
+      delay: 0,
+    });
+
+    tl.to('#album-container #main-content #link-list > *', {
       duration: 0.0625,
       translateY: 0,
       opacity: 1,
@@ -733,161 +749,6 @@ export const barbainit = async (err) => {
         toCurrentContent();
       },
     }, {
-      // Turn off all canvases
-      name: 'turn-off-canvases-transition',
-      from: {
-        namespace: [
-          'home',
-          'shows',
-          'blog',
-          'about',
-        ],
-      },
-      to: {
-        namespace: [
-          'music',
-          'videos',
-          'photos',
-          'contact',
-        ],
-      },
-      async leave() {
-        const done = this.async();
-        fromCurrentContent();
-        fromCurrentPage();
-        await delay(0);
-        done();
-      },
-      beforeEnter: ({ next }) => {
-        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
-        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
-      },
-      async enter() {
-        hideAllCanvases();
-        toCurrentPage();
-        toCurrentContent();
-      },
-      async once() {
-        hideAllCanvases();
-        toCurrentPage();
-        toCurrentContent();
-      },
-    }, {
-      // Turn on home canvas
-      name: 'turn-on-home-transition',
-      from: {
-        namespace: [
-          'music',
-          'videos',
-          'photos',
-          'contact',
-        ],
-      },
-      to: {
-        namespace: [
-          'home',
-        ],
-      },
-      async leave() {
-        const done = this.async();
-        fromCurrentContent();
-        fromCurrentPage();
-        await delay(0);
-        done();
-      },
-      beforeEnter: ({ next }) => {
-        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
-        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
-      },
-      async enter() {
-        turnHomeCanvasBackOn();
-        toCurrentPage();
-        toCurrentContent();
-      },
-      async once() {
-        turnHomeCanvasBackOn();
-        toCurrentPage();
-        toCurrentContent();
-      },
-    }, {
-      // Turn on home canvas
-      name: 'turn-on-about-transition',
-      from: {
-        namespace: [
-          'music',
-          'videos',
-          'photos',
-          'contact',
-        ],
-      },
-      to: {
-        namespace: [
-          'about',
-        ],
-      },
-      async leave() {
-        const done = this.async();
-        fromCurrentContent();
-        fromCurrentPage();
-        await delay(0);
-        done();
-      },
-      beforeEnter: ({ next }) => {
-        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
-        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
-      },
-      async enter() {
-        turnAboutCanvasBackOn();
-        toCurrentPage();
-        toCurrentContent();
-      },
-      async once() {
-        turnAboutCanvasBackOn();
-        toCurrentPage();
-        toCurrentContent();
-      },
-    }, {
-      // Stay black and turn off page transition
-      name: 'turn-off-page-transition',
-      from: {
-        namespace: [
-          'music',
-          'album',
-          'videos',
-          'photos',
-          'gallery',
-          'contact',
-        ],
-      },
-      to: {
-        namespace: [
-          'music',
-          'album',
-          'videos',
-          'photos',
-          'gallery',
-          'contact',
-        ],
-      },
-      async leave() {
-        const done = this.async();
-        fromCurrentContent();
-        await delay(0);
-        done();
-      },
-      beforeEnter: ({ next }) => {
-        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
-        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
-      },
-      async enter() {
-        hideAllCanvases();
-        toCurrentContent();
-      },
-      async once() {
-        hideAllCanvases();
-        toCurrentContent();
-      },
-    }, {
       // About to home canvas page
       name: 'about-to-home-transition',
       from: {
@@ -1023,6 +884,166 @@ export const barbainit = async (err) => {
       async once() {
         otherHomeToAboutCanvas();
         toCurrentPage();
+        toCurrentContent();
+      },
+    }, {
+      // Turn off all canvases
+      name: 'turn-off-canvases-transition',
+      from: {
+        namespace: [
+          'home',
+          'shows',
+          'blog',
+          'about',
+        ],
+      },
+      to: {
+        namespace: [
+          'music',
+          'videos',
+          'photos',
+          'single-post',
+          'contact',
+        ],
+      },
+      async leave() {
+        const done = this.async();
+        fromCurrentContent();
+        fromCurrentPage();
+        await delay(0);
+        done();
+      },
+      beforeEnter: ({ next }) => {
+        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
+        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
+      },
+      async enter() {
+        hideAllCanvases();
+        toCurrentPage();
+        toCurrentContent();
+      },
+      async once() {
+        hideAllCanvases();
+        toCurrentPage();
+        toCurrentContent();
+      },
+    }, {
+      // Turn on home canvas
+      name: 'turn-on-home-transition',
+      from: {
+        namespace: [
+          'music',
+          'videos',
+          'photos',
+          'single-post',
+          'contact',
+        ],
+      },
+      to: {
+        namespace: [
+          'home',
+        ],
+      },
+      async leave() {
+        const done = this.async();
+        fromCurrentContent();
+        fromCurrentPage();
+        await delay(0);
+        done();
+      },
+      beforeEnter: ({ next }) => {
+        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
+        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
+      },
+      async enter() {
+        turnHomeCanvasBackOn();
+        toCurrentPage();
+        toCurrentContent();
+      },
+      async once() {
+        turnHomeCanvasBackOn();
+        toCurrentPage();
+        toCurrentContent();
+      },
+    }, {
+      // Turn on home canvas
+      name: 'turn-on-about-transition',
+      from: {
+        namespace: [
+          'music',
+          'videos',
+          'photos',
+          'single-post',
+          'contact',
+        ],
+      },
+      to: {
+        namespace: [
+          'about',
+        ],
+      },
+      async leave() {
+        const done = this.async();
+        fromCurrentContent();
+        fromCurrentPage();
+        await delay(0);
+        done();
+      },
+      beforeEnter: ({ next }) => {
+        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
+        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
+      },
+      async enter() {
+        turnAboutCanvasBackOn();
+        toCurrentPage();
+        toCurrentContent();
+      },
+      async once() {
+        turnAboutCanvasBackOn();
+        toCurrentPage();
+        toCurrentContent();
+      },
+    }, {
+      // Stay black and turn off page transition
+      name: 'turn-off-page-transition',
+      from: {
+        namespace: [
+          'music',
+          'album',
+          'videos',
+          'photos',
+          'gallery',
+          'single-post',
+          'contact',
+        ],
+      },
+      to: {
+        namespace: [
+          'music',
+          'album',
+          'videos',
+          'photos',
+          'gallery',
+          'single-post',
+          'contact',
+        ],
+      },
+      async leave() {
+        const done = this.async();
+        fromCurrentContent();
+        await delay(0);
+        done();
+      },
+      beforeEnter: ({ next }) => {
+        const matches = next.html.match(/<main.+?class='([^""]*)'/i);
+        document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
+      },
+      async enter() {
+        hideAllCanvases();
+        toCurrentContent();
+      },
+      async once() {
+        hideAllCanvases();
         toCurrentContent();
       },
     }],

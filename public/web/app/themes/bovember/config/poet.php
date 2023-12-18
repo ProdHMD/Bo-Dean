@@ -19,6 +19,20 @@ return [
             'supports' => ['title', 'editor', 'thumbnail'],
             'show_in_rest' => true,
             'has_archive' => false,
+            'admin_cols' => [
+                'show_featured_image' => [
+                    'title'          => 'Poster',
+                    'featured_image' => 'thumbnail'
+                ],
+                'show_published' => [
+                    'title_icon'  => 'dashicons-calendar-alt',
+                    'meta_key'    => 'published_date',
+                    'date_format' => 'd/m/Y'
+                ],
+                'show_genre' => [
+                    'taxonomy' => 'venue'
+                ],
+            ],
             'labels' => [
                 'singular' => 'Show',
                 'plural' => 'Shows',
@@ -30,6 +44,9 @@ return [
             'supports' => ['title', 'editor', 'thumbnail'],
             'show_in_rest' => true,
             'has_archive' => false,
+            'admin_cols' => [
+                
+            ],
             'labels' => [
                 'singular' => 'Album',
                 'plural' => 'Albums',

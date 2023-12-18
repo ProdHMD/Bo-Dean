@@ -7,7 +7,7 @@
     $channel_id = 'UCtlIU9DLLzmvti8z-KYfC8w';
     $video_id = 'IVqEx8sl5Sg';
     $playlist_id = 'PL110D4DA154B62487';
-    $max_results = 5;
+    $max_results = 10;
 
     /** Get videos from channel */
     $api_data = @file_get_contents('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&s=true&maxResults=' . $max_results . '&playlistId=' . $playlist_id . '&key=' . $api_key . '');

@@ -140,7 +140,7 @@ export const header = async (err) => {
   /** Add animation to toggler action */
   if (!doesItContain()) {
     $('#header #mobile-menu .nav li a').on('click', function() {
-      tl.to('#header #desktop-menu #main-navigation .nav .menu-item', {
+      tl.to('#header #mobile-menu #main-navigation .nav .menu-item', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,
@@ -149,7 +149,7 @@ export const header = async (err) => {
         stagger: 0.15,
       });
 
-      tl.to('#header #desktop-menu #bottom-navigation .credits', {
+      tl.to('#header #mobile-menu #bottom-navigation .credits', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,
@@ -157,7 +157,7 @@ export const header = async (err) => {
         delay: 0,
       });
 
-      tl.to('#header #desktop-menu #bottom-navigation .socials .social-list .social', {
+      tl.to('#header #mobile-menu #bottom-navigation .socials .social-list .social', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,
@@ -169,7 +169,7 @@ export const header = async (err) => {
       setTimeout(() => {
         $('#header #mobile-menu #panel-navbar-collapse').removeClass('show');
         $('#header #mobile-menu .navbar-toggler').addClass('collapsed').attr('aria-expanded', false);
-      }, 2250);
+      }, 0);
     });
 
     $('#header #mobile-menu .brand').on('click', function() {
@@ -182,7 +182,7 @@ export const header = async (err) => {
         stagger: 0.15,
       });
 
-      tl.to('#header #desktop-menu #bottom-navigation .credits', {
+      tl.to('#header #mobile-menu #bottom-navigation .credits', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,
@@ -190,7 +190,7 @@ export const header = async (err) => {
         delay: 0,
       });
 
-      tl.to('#header #desktop-menu #bottom-navigation .socials .social-list .social', {
+      tl.to('#header #mobile-menu #bottom-navigation .socials .social-list .social', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,
@@ -202,7 +202,7 @@ export const header = async (err) => {
       setTimeout(() => {
         $('#header #mobile-menu #panel-navbar-collapse').removeClass('show');
         $('#header #mobile-menu .navbar-toggler').addClass('collapsed').attr('aria-expanded', false);
-      }, 2250);
+      }, 0);
     });
 
     $('#header #mobile-menu .navbar-toggler').on('click', function() {
