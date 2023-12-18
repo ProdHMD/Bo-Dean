@@ -26,71 +26,28 @@ export const header = async (err) => {
         duration: 0.5,
         scaleY: 0,
         transformOrigin: 'bottom left',
-        stagger: 0.2,
+        stagger: 0.25,
         delay: 0.1,
       });
 
-      if ($('main').hasClass('about')) {
-        tl.to('#canvas #about', {
-          display: '',
-          duration: 0.5,
-          opacity: 0.5,
-          delay: 0,
-        });
-      } else if ($('main').hasClass('blog')) {
-        tl.to('#canvas #home', {
-          display: '',
-          duration: 0.5,
-          opacity: 0.25,
-          delay: 0,
-        });
-      } else if ($('main').hasClass('shows')) {
-        tl.to('#canvas #home', {
-          display: '',
-          duration: 0.5,
-          opacity: 0.25,
-          delay: 0,
-        });
-      } else if ($('main').hasClass('home')) {
-        tl.to('#canvas #home', {
-          display: '',
-          duration: 0.5,
-          opacity: 0.5,
-          delay: 0,
-        });
-      } else {
-        tl.to('#canvas #home', {
-          display: '',
-          duration: 0.5,
-          opacity: 0,
-          delay: 0,
-        });
-
-        tl.to('#canvas #about', {
-          display: '',
-          duration: 0.5,
-          opacity: 0,
-          delay: 0,
-        });
-      }
-
-      tl.to('#header .brand', {
+      tl.to('#header #music-player', {
         duration: 0.25,
         translateY: 0,
         opacity: 1,
         ease: 'power3.out',
-        delay: -0.25,
+        delay: mobileDelay,
       });
 
-      tl.to('#header #mobile-menu .navbar-toggler', {
+      tl.to('#header #desktop-menu #bottom-navigation .socials .social-list .social', {
         duration: 0.25,
         translateY: 0,
         opacity: 1,
         ease: 'power3.out',
         delay: -0.125,
+        stagger: -0.025,
       });
 
-      tl.to('#header #music-player', {
+      tl.to('#header #desktop-menu #bottom-navigation .credits', {
         duration: 0.25,
         translateY: 0,
         opacity: 1,
@@ -104,24 +61,7 @@ export const header = async (err) => {
         opacity: 1,
         ease: 'power3.out',
         delay: -0.125,
-        stagger: 0.025,
-      });
-
-      tl.to('#header #desktop-menu #bottom-navigation .credits', {
-        duration: 0.25,
-        translateY: 0,
-        opacity: 1,
-        ease: 'power3.out',
-        delay: -0.125,
-      });
-
-      tl.to('#header #desktop-menu #bottom-navigation .socials .social-list .social', {
-        duration: 0.25,
-        translateY: 0,
-        opacity: 1,
-        ease: 'power3.out',
-        delay: -0.125,
-        stagger: 0.025,
+        stagger: -0.025,
       });
 
       tl.to('#header #music-player', {
@@ -129,7 +69,23 @@ export const header = async (err) => {
         translateY: 0,
         opacity: 1,
         ease: 'power3.out',
-        delay: mobileDelay,
+        delay: -0.125,
+      });
+
+      tl.to('#header #mobile-menu .navbar-toggler', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.125,
+      });
+
+      tl.to('#header .brand', {
+        duration: 0.25,
+        translateY: 0,
+        opacity: 1,
+        ease: 'power3.out',
+        delay: -0.25,
       });
     });
   }
@@ -251,7 +207,6 @@ export const header = async (err) => {
 
     $('#header #mobile-menu .navbar-toggler').on('click', function() {
       if ($('#header #mobile-menu #panel-navbar-collapse').hasClass('show')) {
-        console.log('menu is closing');
         tl.to('#header #mobile-menu #main-navigation .nav .menu-item', {
           duration: 0.25,
           translateY: 0,
@@ -278,7 +233,6 @@ export const header = async (err) => {
           stagger: 0.15,
         });
       } else {
-        console.log('menu is opening');
         tl.to('#header #mobile-menu #main-navigation .nav .menu-item', {
           duration: 0.25,
           translateY: 0,

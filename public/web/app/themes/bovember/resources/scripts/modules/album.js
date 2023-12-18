@@ -89,7 +89,6 @@ export const album = async (err) => {
       par.addClass('active').siblings().removeClass('active');
       par.children('.track-play-pause').addClass('play').removeClass('stop');
       par.siblings().children('.track-play-pause').removeClass('play').addClass('stop');
-      console.log('new track playing');
       audio[0].load();
       audio[0].play();
     }

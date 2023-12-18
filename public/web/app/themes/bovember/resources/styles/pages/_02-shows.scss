@@ -19,6 +19,8 @@
                         text-transform: uppercase;
                         margin-bottom: 4.375rem;
                         line-height: normal;
+                        opacity: 0;
+                        transform: translateY(50px);
 
                         &:last-child {
                             margin-bottom: 0;

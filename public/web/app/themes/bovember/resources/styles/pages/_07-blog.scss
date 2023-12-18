@@ -15,6 +15,8 @@
                     .post {
                         font-family: $sf_pro_text;
                         margin-bottom: 3rem;
+                        opacity: 0;
+                        transform: translateY(50px);
 
                         .entry-title {
                             font-family: $sf_pro_text;
@@ -56,26 +58,33 @@
                     .post {
                         font-family: $sf_pro_text;
 
-                        .p-name {
-                            font-family: $sf_pro_text;
-                            font-weight: 700;
-                            font-size: 5rem;
-                            text-transform: uppercase;
-                            line-height: 1;
-                            color: $red;
+                        header {
+                            opacity: 0;
+                            transform: translateY(50px);
 
-                            @include media-breakpoint-down(xl) {
-                                font-size: 3rem;
+                            .p-name {
+                                font-family: $sf_pro_text;
+                                font-weight: 700;
+                                font-size: 5rem;
+                                text-transform: uppercase;
+                                line-height: 1;
+                                color: $red;
+
+                                @include media-breakpoint-down(xl) {
+                                    font-size: 3rem;
+                                }
                             }
-                        }
 
-                        .dt-published {
-                            font-size: 1.5rem;
-                            margin-bottom: 0.5rem;
+                            .dt-published {
+                                font-size: 1.5rem;
+                                margin-bottom: 0.5rem;
+                            }
                         }
 
                         .e-content {
                             margin-top: 2rem;
+                            opacity: 0;
+                            transform: translateY(50px);
 
                             p {
                                 font-size: 1.125rem;
@@ -87,6 +96,8 @@
                         .post-thumbnail {
                             overflow: hidden;
                             max-height: 50vh;
+                            opacity: 0;
+                            transform: translateY(50px);
 
                             .attachment-post-thumbnail {
                                 transform: translateY(-25%);
@@ -97,44 +108,49 @@
                             }
                         }
 
-                        #related-posts {
-                            margin-top: 5rem;
-                            padding-bottom: 3rem;
-                            
-                            .section-title {
-                                font-family: $sf_pro_text;
-                                font-size: 3rem;
-                                font-weight: 700;
-                                color: $white;
-                                text-transform: uppercase;
-                                margin-bottom: 2rem;
+                        footer {
+                            opacity: 0;
+                            transform: translateY(50px);
 
-                                @include media-breakpoint-down(xl) {
-                                    font-size: 2rem;
-                                }
-                            }
+                            #related-posts {
+                                margin-top: 5rem;
+                                padding-bottom: 3rem;
+                                
+                                .section-title {
+                                    font-family: $sf_pro_text;
+                                    font-size: 3rem;
+                                    font-weight: 700;
+                                    color: $white;
+                                    text-transform: uppercase;
+                                    margin-bottom: 2rem;
 
-                            .related-item {
-                                .title {
-                                    h3 {
-                                        font-family: $sf_pro_text;
-                                        font-size: 3rem;
-                                        font-weight: 700;
-                                        color: $red;
-                                        text-transform: uppercase;
-
-                                        @include media-breakpoint-down(xl) {
-                                            font-size: 1.5rem;
-                                        }
+                                    @include media-breakpoint-down(xl) {
+                                        font-size: 2rem;
                                     }
                                 }
 
-                                .date {
-                                    font-size: 1.5rem;
-                                }
+                                .related-item {
+                                    .title {
+                                        h3 {
+                                            font-family: $sf_pro_text;
+                                            font-size: 3rem;
+                                            font-weight: 700;
+                                            color: $red;
+                                            text-transform: uppercase;
 
-                                .link {
-                                    font-size: 1.5rem;
+                                            @include media-breakpoint-down(xl) {
+                                                font-size: 1.5rem;
+                                            }
+                                        }
+                                    }
+
+                                    .date {
+                                        font-size: 1.5rem;
+                                    }
+
+                                    .link {
+                                        font-size: 1.5rem;
+                                    }
                                 }
                             }
                         }

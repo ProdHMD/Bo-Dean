@@ -8,6 +8,8 @@
                 padding-top: 3%;
                 position: relative;
                 z-index: 2;
+                opacity: 0;
+                transform: translateY(50px);
 
                 @include media-breakpoint-down(xl) {
                     position: absolute;
@@ -69,6 +71,9 @@
                                 margin-bottom: calc(var(--bs-gutter-x) * 1);
 
                                 .album-thumbnail {
+                                    opacity: 0;
+                                    transform: translateY(50px);
+
                                     a {
                                         width: 50%;
 
@@ -116,6 +121,8 @@
                         .e-content {
                             #title {
                                 margin-bottom: 3rem;
+                                opacity: 0;
+                                transform: translateY(50px);
 
                                 .p-name {
                                     display: none;
@@ -140,6 +147,11 @@
                                         text-transform: uppercase;
                                         cursor: pointer;
                                         transition: all ease-in-out .2s;
+
+                                        > * {
+                                            opacity: 0;
+                                            transform: translateY(50px);
+                                        }
 
                                         &:hover {
                                             color: $white;

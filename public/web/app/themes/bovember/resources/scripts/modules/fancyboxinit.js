@@ -31,7 +31,8 @@ export const fancyboxinit = async (err) => {
       closeButton: true,
       placeFocusBack: false,
       Images: {
-        initialSize: "fit",
+        initialSize: 'fit',
+        zoom: true,
       },
       Thumbs: {
         type: 'classic',
@@ -59,7 +60,8 @@ export const fancyboxinit = async (err) => {
         },
       },
       Images: {
-        initialSize: "fit",
+        initialSize: 'fit',
+        zoom: false,
       },
       Thumbs: false,
       Toolbar: {

@@ -78,6 +78,8 @@ html {
                         padding-top: 3%;
                         position: relative;
                         z-index: 2;
+                        opacity: 0;
+                        transform: translateY(50px);
 
                         @include media-breakpoint-down(xl) {
                             position: absolute;

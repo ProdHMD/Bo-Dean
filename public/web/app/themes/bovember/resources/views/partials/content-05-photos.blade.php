@@ -6,6 +6,9 @@
     $args = array(
         'post_type' => 'gallery',
         'posts_per_page' => -1,
+        'meta_key' => 'album_date',
+        'orderby' => 'meta_value',
+        'order' => 'DESC',
     );
     $query = new WP_Query($args);
 
@@ -25,7 +28,7 @@
         <div class="container-fluid" id="galleries-container">
             <?php if ($query->have_posts()) : ?>
                 <ul class="row list-unstyled" id="gallery-list">
-                    <?php while ($query->have_posts()) : $query->the_post();?>
+                    <?php while ($query->have_posts()) : $query->the_post(); ?>
                         <?php
                             /** CPT ACF data */
                             $id = get_the_id();

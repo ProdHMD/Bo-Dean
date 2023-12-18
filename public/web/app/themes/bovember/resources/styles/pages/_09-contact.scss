@@ -30,11 +30,15 @@
                     font-weight: 700;
                     color: $red;
                     margin-bottom: 0;
+                    opacity: 0;
+                    transform: translateY(50px);
                 }
 
                 p {
                     font-size: 1.5rem;
                     font-weight: 700;
+                    opacity: 0;
+                    transform: translateY(50px);
                 }
             }
         }
