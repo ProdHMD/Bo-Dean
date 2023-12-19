@@ -379,13 +379,15 @@ export const barbainit = async (err) => {
       delay: 0,
     });
 
-    tl.to('#album-container #main-content #link-list > *', {
-      duration: 0.25,
-      translateY: 50,
-      opacity: 0,
-      stagger: 0.125,
-      delay: 0,
-    });
+    if ($('#album-container #main-content #link-list').length) {
+      tl.to('#album-container #main-content #link-list > *', {
+        duration: 0.25,
+        translateY: 50,
+        opacity: 0,
+        stagger: 0.125,
+        delay: 0,
+      });
+    }
   }
 
   function toAlbumPage() {
@@ -405,13 +407,15 @@ export const barbainit = async (err) => {
       delay: 0,
     });
 
-    tl.to('#album-container #main-content #link-list > *', {
-      duration: 0.0625,
-      translateY: 0,
-      opacity: 1,
-      stagger: 0.03125,
-      delay: 0,
-    });
+    if ($('#album-container #main-content #link-list').length) {
+      tl.to('#album-container #main-content #link-list > *', {
+        duration: 0.0625,
+        translateY: 0,
+        opacity: 1,
+        stagger: 0.03125,
+        delay: 0,
+      });
+    }
   }
 
   // Video page transitions

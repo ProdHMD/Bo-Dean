@@ -26,6 +26,14 @@
                                 color: $red;
                                 text-transform: uppercase;
                                 margin-top: 1rem;
+
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1.5rem;
+                                }
+    
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
                             }
 
                             .year {
@@ -33,6 +41,14 @@
                                 font-size: 2.5rem;
                                 font-weight: 400;
                                 margin-bottom: 0;
+
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1.5rem;
+                                }
+    
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
                             }
                         }
                     }

@@ -13,6 +13,10 @@
             padding: 3.125rem 3.125rem 0;
         }
 
+        @include media-breakpoint-down(sm) {
+            padding: 1rem 1rem 0;
+        }
+
         /** Main logo */
         .brand {
             font-family: $american_captain;
@@ -26,6 +30,10 @@
             @include media-breakpoint-down(xxl) {
                 font-size: 3.75rem;
             }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 2.75rem;
+            }
         }
 
         /** Main navigation */
@@ -37,6 +45,14 @@
             color: $white;
             margin-top: 0.25rem;
             margin-bottom: 1rem;
+
+            @include media-breakpoint-down(lg) {
+                font-size: 1.5rem;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 1rem;
+            }
 
             .nav {
                 flex-direction: column;
@@ -83,6 +99,10 @@
                 font-size: 1.125rem;
                 opacity: 0;
                 transform: translateY(50px);
+
+                @include media-breakpoint-down(sm) {
+                    font-size: 1rem;
+                }
 
                 a {
                     color: $white;
@@ -161,6 +181,10 @@
             @include media-breakpoint-down(xl) {
                 position: fixed;
                 bottom: 3.125rem;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 1rem;
             }
 
             .plyr__controls {
@@ -307,11 +331,27 @@
 
                 #main-navigation {
                     font-size: 3rem;
+
+                    @include media-breakpoint-down(lg) {
+                        font-size: 2.5rem;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: 1.5rem;
+                    }
                 }
 
                 #bottom-navigation {
                     .credits {
                         font-size: 2rem;
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 1.5rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1rem;
+                        }
                     }
 
                     .socials {

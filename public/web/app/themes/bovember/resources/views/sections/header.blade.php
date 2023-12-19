@@ -64,7 +64,7 @@
     <div class="navbar-collapse collapse" id="panel-navbar-collapse">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-4 offset-lg-4">
+          <div class="col-lg-4 offset-lg-4 col-md-4 offset-md-4">
             @if (is_woocommerce() || is_cart() || is_checkout() || is_account_page())
               @if (has_nav_menu('shop_navigation'))
                 <nav class="nav-primary shop-navigation" aria-label="{{ wp_get_nav_menu_name('shop_navigation') }}" id="main-navigation">

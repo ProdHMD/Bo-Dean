@@ -28,6 +28,14 @@
 
                         .city-name {
                             font-size: 1.75rem;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 1.25rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1rem;
+                            }
                         }
 
                         .location-name {
@@ -36,10 +44,26 @@
                             font-weight: 700;
                             color: $red;
                             margin-bottom: 0;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 2.5rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1.5rem;
+                            }
                         }
                         
                         .date-time {
                             font-size: 3rem;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 2rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1.5rem;
+                            }
                         }
                     }
                 }
@@ -94,6 +118,14 @@
             font-family: $sf_pro_text;
             font-size: 1.75rem;
             text-transform: uppercase;
+
+            @include media-breakpoint-down(lg) {
+                font-size: 1.25rem;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 1rem;
+            }
         }
 
         .show-name {
@@ -103,6 +135,14 @@
             text-transform: uppercase;
             color: $red;
             margin-bottom: 1rem;
+
+            @include media-breakpoint-down(lg) {
+                font-size: 1.5rem;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 1rem;
+            }
         }
 
         #ticket-providers {
@@ -113,6 +153,10 @@
                 font-size: 1.25rem;
                 text-transform: uppercase;
                 margin-bottom: 1rem;
+
+                @include media-breakpoint-down(lg) {
+                    font-size: 1rem;
+                }
             }
 
             .provider {
@@ -126,6 +170,10 @@
                     font-size: 1rem;
                     padding: 1rem 1.5rem;
                     border-radius: 2px;
+
+                    @include media-breakpoint-down(lg) {
+                        font-size: 1rem;
+                    }
                     
                     &:hover {
                         background-color: $white;

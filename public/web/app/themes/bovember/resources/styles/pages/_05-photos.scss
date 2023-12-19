@@ -60,10 +60,18 @@
                                         font-weight: 700;
                                         color: $red;
                                         margin-bottom: 0;
+
+                                        @include media-breakpoint-down(sm) {
+                                            font-size: 1.5rem;
+                                        }
                                     }
 
                                     .location {
                                         font-size: 1.5rem;
+
+                                        @include media-breakpoint-down(sm) {
+                                            font-size: 1rem;
+                                        }
                                     }
                                 }
                             }

@@ -94,6 +94,10 @@ html {
                                 font-size: 1.5rem;
                                 text-transform: uppercase;
                                 color: $white;
+
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
                             }
                         }
                     }
@@ -135,6 +139,7 @@ html {
             height: 100%;
             z-index: 0;
             opacity: 0;
+            overflow: hidden;
             transition: opacity 0.2s ease-in-out;
 
             &.show {

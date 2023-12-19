@@ -14,11 +14,31 @@
                         padding-right: 20%;
                     }
 
+                    @include media-breakpoint-down(lg) {
+                        padding-left: 5%;
+                        padding-right: 15%;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        margin-left: 0;
+                        padding-left: calc(var(--bs-gutter-x) * .5);
+                        padding-right: calc(var(--bs-gutter-x) * .5);
+                        padding-bottom: 7.5rem;
+                    }
+
                     h1 {
                         font-size:  3rem;
                         margin-bottom: 1rem;
                         opacity: 0;
                         transform: translateY(50px);
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 2rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1.5rem;
+                        }
                     }
 
                     p {
@@ -27,6 +47,14 @@
                         margin-bottom: 1.25rem;
                         opacity: 0;
                         transform: translateY(50px);
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 1rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1rem;
+                        }
                     }
                 }
             }

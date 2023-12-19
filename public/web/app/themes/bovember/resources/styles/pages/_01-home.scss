@@ -31,6 +31,10 @@
                     @include media-breakpoint-down(lg) {
                         font-size: 6rem;
                     }
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: 3.5rem;
+                    }
                 }
 
                 h2 {
@@ -45,6 +49,10 @@
 
                     @include media-breakpoint-down(lg) {
                         font-size: 5rem;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: 2.5rem;
                     }
                 }
             }

@@ -57,7 +57,7 @@
                             $type = get_the_terms($id, 'album_type');
                         ?>
 
-                        <li class="isotope-item transition <?php echo $type[0]->slug; ?> col-xl-6" data-category="transition">
+                        <li class="isotope-item transition <?php echo $type[0]->slug; ?> col-xl-6 col-lg-6 col-md-6" data-category="transition">
                             <div class="album-thumbnail">
                                 <a href="<?php echo $permalink; ?>">
                                     <?php echo $thumbnail; ?>

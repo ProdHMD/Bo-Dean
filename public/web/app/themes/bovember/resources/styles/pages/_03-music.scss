@@ -113,6 +113,14 @@
                                 color: $white;
                                 transition: all ease-in-out .2s;
 
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1.25rem;
+                                }
+    
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
+
                                 &:hover {
                                     transition: all ease-in-out .2s;
                                 }
@@ -148,6 +156,14 @@
                                         text-transform: uppercase;
                                         cursor: pointer;
                                         transition: all ease-in-out .2s;
+
+                                        @include media-breakpoint-down(lg) {
+                                            font-size: 1.25rem;
+                                        }
+            
+                                        @include media-breakpoint-down(sm) {
+                                            font-size: 1rem;
+                                        }
 
                                         > * {
                                             opacity: 0;
@@ -280,6 +296,10 @@
                                                 font-size: 0.75rem;
                                                 text-transform: uppercase;
                                                 padding-left: 1rem;
+
+                                                @include media-breakpoint-down(lg) {
+                                                    font-size: 1rem;
+                                                }
                                             }
 
                                             &:hover {

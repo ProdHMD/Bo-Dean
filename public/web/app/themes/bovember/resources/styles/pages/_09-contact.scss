@@ -32,6 +32,10 @@
                     margin-bottom: 0;
                     opacity: 0;
                     transform: translateY(50px);
+
+                    @include media-breakpoint-down(lg) {
+                        font-size: 2.5rem;
+                    }
                 }
 
                 p {
@@ -39,6 +43,10 @@
                     font-weight: 700;
                     opacity: 0;
                     transform: translateY(50px);
+
+                    @include media-breakpoint-down(lg) {
+                        font-size: 1rem;
+                    }
                 }
             }
         }

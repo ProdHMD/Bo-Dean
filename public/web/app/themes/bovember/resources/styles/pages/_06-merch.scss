@@ -48,6 +48,10 @@
                                             font-weight: 700;
                                             color: $black;
                                             max-width: 75%;
+
+                                            @include media-breakpoint-down(sm) {
+                                                font-size: 1rem;
+                                            }
                                         }
 
                                         .price {
@@ -55,6 +59,10 @@
                                             font-size: 1.5rem;
                                             font-weight: 700;
                                             color: $black;
+
+                                            @include media-breakpoint-down(sm) {
+                                                font-size: 1rem;
+                                            }
                                         }
                                     }
                                 }
@@ -113,6 +121,14 @@
                         font-weight: 700;
                         color: $red;
                         text-transform: uppercase;
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 2rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1.5rem;
+                        }
                     }
 
                     .product {
@@ -122,17 +138,37 @@
                             font-weight: 700;
                             color: $red;
                             text-transform: uppercase;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 2rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1.5rem;
+                            }
                         }
 
                         .price {
                             font-size: 2rem;
                             font-style: italic;
                             color: $white;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 1.5rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1rem;
+                            }
                         }
 
                         .stock {
                             color: $white;
                             font-size: 1.5rem;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 1rem;
+                            }
 
                             &.out-of-stock {
                                 color: $red;
@@ -143,6 +179,10 @@
                         .product {
                             &_meta {
                                 font-size: 1.25rem;
+
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1rem;
+                                }
 
                                 span {
                                     display: block;
@@ -240,6 +280,14 @@
                         font-weight: 700;
                         color: $red;
                         text-transform: uppercase;
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 2rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1.5rem;
+                        }
                     }
 
                     .woocommerce-cart-form {
@@ -309,6 +357,10 @@
                                     font-size: 1.5rem;
                                     font-weight: 700;
                                     text-transform: uppercase;
+
+                                    @include media-breakpoint-down(sm) {
+                                        font-size: 1rem;
+                                    }
 
                                     th,
                                     td {
@@ -431,6 +483,14 @@
                         font-weight: 700;
                         color: $red;
                         text-transform: uppercase;
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 2rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1.5rem;
+                        }
                     }
 
                     .checkout_coupon {
@@ -459,6 +519,14 @@
                         font-family: $sf_pro_text;
                         font-weight: 700;
                         text-transform: uppercase;
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 1.5rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1rem;
+                        }
                     }
 
                     #customer_details {
@@ -491,6 +559,10 @@
                                 font-size: 1.5rem;
                                 font-weight: 700;
                                 text-transform: uppercase;
+
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1rem;
+                                }
 
                                 th,
                                 td {
@@ -583,6 +655,14 @@
                         font-weight: 700;
                         color: $red;
                         text-transform: uppercase;
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 2rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1.5rem;
+                        }
                     }
 
                     .woocommerce-MyAccount-navigation {
@@ -619,6 +699,14 @@
                             font-family: $sf_pro_text;
                             font-weight: 700;
                             text-transform: uppercase;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 1.5rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1rem;
+                            }
                         }
 
                         .woocommerce-error,
@@ -679,6 +767,14 @@
                         font-size: 2rem;
                         text-transform: uppercase;
                         font-weight: 700;
+
+                        @include media-breakpoint-down(lg) {
+                            font-size: 1.5rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            font-size: 1rem;
+                        }
                     }
 
                     .login {
