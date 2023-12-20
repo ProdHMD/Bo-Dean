@@ -99,12 +99,23 @@ export const header = async (err) => {
     var $url = window.location.pathname.replace(/\//g,'');
     var $li = $('#header .nav li');
 
+    // Set it up for mobile devices
+    function mobileSize() {
+      if ($(window).innerWidth() < 1200) {
+        $li = $('#header #mobile-menu .nav li');
+      }
+    }
+    mobileSize();
+    $(window).on('resize', function() {
+      mobileSize();
+    });
+
     // Run each function
     $li.each(function () {
       if ($(this).children().attr('href') == $url) {
         $(this).addClass('current-menu-item current_page_item');
         $(this).siblings().removeClass('current-menu-item current_page_item');
-      } 
+      }
     });
 
     // Run inArray checks
@@ -134,6 +145,10 @@ export const header = async (err) => {
 
     $('#header .brand').on('click', function() {
       $(this).siblings('nav').children().children().children('li').removeClass('current-menu-item current_page_item');
+    });
+
+    $('#header #mobile-menu .brand').on('click', function() {
+      $(this).parent().siblings().children().children().children().children('.nav-primary').children().children().children('li').removeClass('current-menu-item current_page_item');
     });
   }
 
