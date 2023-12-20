@@ -23,20 +23,18 @@
 <div class="row page-header" id="music-header">
     <div class="col-md-9 offset-md-1" id="isotope-content">
         <?php if (!empty($album_types)) : ?>
-            <div class="container-fluid" id="album-types-container">
-                <ul class="album-types list-unstyled">
+            <ul class="album-types list-unstyled">
+                <li class="album-type">
+                    <button class="type-link" data-filter="*">All</button>
+                </li>
+                <?php foreach ($album_types as $album_type) : ?>
                     <li class="album-type">
-                        <button class="type-link" data-filter="*">All</button>
+                        <button class="type-link" data-filter="<?php echo '.' . $album_type->slug ?>">
+                            <?php echo $album_type->name; ?>
+                        </button>
                     </li>
-                    <?php foreach ($album_types as $album_type) : ?>
-                        <li class="album-type">
-                            <button class="type-link" data-filter="<?php echo '.' . $album_type->slug ?>">
-                                <?php echo $album_type->name; ?>
-                            </button>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+                <?php endforeach; ?>
+            </ul>
         <?php endif; ?>
     </div>
 </div>

@@ -17,13 +17,32 @@
                     padding-left: 0.5rem;
                 }
 
+                @include media-breakpoint-down(sm) {
+                    margin-top: -9rem;
+                    padding-top: 5.1875rem;
+                    padding-left: 0;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                }
+
                 .album-types {
                     display: flex;
                     margin-bottom: 3rem;
+                    padding-left: calc(var(--bs-gutter-x) * .5);
+                    padding-right: calc(var(--bs-gutter-x) * .5);
 
                     @include media-breakpoint-down(xl) {
                         flex-direction: column;
                         margin-left: 0;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        flex-direction: row;
+                        justify-content: space-evenly;
+                        padding-left: 0;
+                        padding-right: 0;
+                        margin-bottom: 1rem;
                     }
 
                     .album-type {
@@ -33,11 +52,19 @@
                             margin-left: 1.125rem;
                         }
 
+                        @include media-breakpoint-down(sm) {
+                            margin-left: 0.5;
+                        }
+
                         &:first-child {
                             margin-left: 0;
 
                             @include media-breakpoint-down(xl) {
                                 margin-left: 1.125rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                margin-left: 0;
                             }
                         }
 

@@ -13,6 +13,16 @@ export const locomotive = async (err) => {
     el: el,
     smooth: true,
     scrollFromAnywhere: true,
+    mobile: {
+      smooth: true,
+      scrollFromAnywhere: true,
+      breakpoint: 0,
+    },
+    tablet: {
+      smooth: true,
+      scrollFromAnywhere: true,
+      breakpoint: 0,
+    },
   });
 
   /** Set up progress bar for scrolling */
