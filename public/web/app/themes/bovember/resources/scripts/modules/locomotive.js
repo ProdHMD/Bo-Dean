@@ -29,6 +29,11 @@ export const locomotive = async (err) => {
   /** Set up progress bar for scrolling */
   const progressBar = document.querySelector('.progress-bar');
 
+  /** Set the global looped variables to be called back */
+  let pageToken;
+  let idNum;
+
+  /** Init locomotive scroll object */
   scroll.on('scroll', (obj) => {
     // Progress scroll bar
     let widthToProgress = gsap.utils.mapRange(0, obj.limit.y, 0, 100);
@@ -39,13 +44,22 @@ export const locomotive = async (err) => {
 
     // Append videos at end of the list on videos page
     if ($('main').hasClass('videos')) {
-      if (howMuchScrolled >= 100) {
-        videoLoadMore(function(pageToken) {
-          console.log('Received '+pageToken);
-        });
+      if (pageToken === 'EAAaclBUOkNDZ2lFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWlWcXNycDRyRDhBbEFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbVEwVG5Wa1FtaERTVGhQZG01Qlp5SQ') {
+        if (howMuchScrolled === 100) {
+          return;
+        }
+      } else {
+        if (howMuchScrolled >= 100) {
+          videoLoadMore(function(pageToken, idNum) {
+            pageToken;
+            idNum;
+          });
+        }
       }
     }
   });
+
+  /** Update the scroll */
   scroll.update();
 
   /** Add resize observer */
@@ -53,19 +67,28 @@ export const locomotive = async (err) => {
 
   /** Set up load more YouTube videos on scroll end */
   function videoLoadMore(callback) {
-    var pageToken = 'EAAaclBUOkNBVWlFRUU0TXpJeU16QkRNelEwTXpFMU5URW9BVWlWcXNycDRyRDhBbEFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbVEwVG5Wa1FtaERTVGhQZG01Qlp5SQ';
+    // Set up the page token if it exists, else push it to blank
+    if (pageToken) {
+      pageToken;
+    } else {
+      pageToken = 'EAAaclBUOkNBVWlFRUU0TXpJeU16QkRNelEwTXpFMU5URW9BVWlWcXNycDRyRDhBbEFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbVEwVG5Wa1FtaERTVGhQZG01Qlp5SQ';
+    }
+
+    if (pageToken === 'EAAaclBUOkNDZ2lFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWlWcXNycDRyRDhBbEFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbVEwVG5Wa1FtaERTVGhQZG01Qlp5SQ') {
+      return;
+    }
+
+    // Set the other variables for the ajax url param
     var htmlString = '';
     var apiKey = 'AIzaSyBXYQCuuGAAwi2cJ0SIEv22O5pAHokFK1g';
     var playlistId = 'PL110D4DA154B62487';
     var maxResults = 5;
     var tl = gsap.timeline();
 
-    console.log('Initial '+pageToken);
-
+    // Get the ajax call
     $.ajax({
       'async': false,
-      'global': true,
-      'url': 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&s=true&maxResults='+maxResults+'&playlistId='+playlistId+'&key='+apiKey+'&pageToken='+pageToken,
+      'url': 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,status&s=true&maxResults='+maxResults+'&playlistId='+playlistId+'&key='+apiKey+'&pageToken='+pageToken,
       'dataType': 'json',
       'success': function(data) {
         // Set the initial number of items for id starter value
@@ -85,7 +108,11 @@ export const locomotive = async (err) => {
           var thumbnail = getThumbnail(videoURL, 'mq');
 
           // Output the html string
-          htmlString += '<div class="youtube-item text-center" id="youtube-item-id'+incrNum+'"><a href="'+videoURL+'" class="thumbnail" data-fancybox="videos" id="item'+incrNum+'"><img src="'+thumbnail+'" class="img-fluid"></a><h2 class="title">'+title+'</h2><h3 class="year">'+year.getFullYear()+'</h3></div>';
+          if (item['status']['privacyStatus'] === 'private') {
+            htmlString += '';
+          } else {
+            htmlString += '<div class="youtube-item text-center" id="youtube-item-id'+incrNum+'"><a href="'+videoURL+'" class="thumbnail" data-fancybox="videos" id="item'+incrNum+'"><img src="'+thumbnail+'" class="img-fluid"></a><h2 class="title">'+title+'</h2><h3 class="year">'+year.getFullYear()+'</h3></div>';
+          }
         });
 
         // Append the next five videos found and reset the string to empty
@@ -99,13 +126,14 @@ export const locomotive = async (err) => {
         });
         htmlString = '';
 
-        // Set the page token to the next page token
+        // Set the page token to the next page token from the API call
         pageToken = data['nextPageToken'];
-        console.log('Passed thru '+pageToken);
-      }
+        idNum = idNum + 5;
+      },
     });
 
-    callback(pageToken);
+    // Put the important call back here for passing the page token variable
+    callback(pageToken, idNum);
   }
 };
 
