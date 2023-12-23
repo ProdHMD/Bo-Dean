@@ -5,7 +5,7 @@
         #content {
             #music-header {
                 background-color: $black;
-                padding-top: 3%;
+                padding-top: 3.125rem;
                 position: relative;
                 z-index: 2;
                 opacity: 0;
@@ -47,6 +47,7 @@
 
                     .album-type {
                         margin: 0 0.5rem;
+                        line-height: 1;
 
                         @include media-breakpoint-down(xl) {
                             margin-left: 1.125rem;

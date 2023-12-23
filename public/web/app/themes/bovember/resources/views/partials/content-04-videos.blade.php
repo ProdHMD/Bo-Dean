@@ -7,10 +7,10 @@
     $channel_id = 'UCtlIU9DLLzmvti8z-KYfC8w';
     $video_id = 'IVqEx8sl5Sg';
     $playlist_id = 'PL110D4DA154B62487';
-    $max_results = 10;
+    $max_results = 5;
 
     /** Get videos from channel */
-    $api_data = @file_get_contents('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&s=true&maxResults=' . $max_results . '&playlistId=' . $playlist_id . '&key=' . $api_key . '');
+    $api_data = @file_get_contents('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&s=true&maxResults=' . $max_results . '&playlistId=' . $playlist_id . '&pageToken' . $page_token . '&key=' . $api_key . '');
     $api_error = 'No videos found.';
     if ($api_data) {
         $video_list = json_decode($api_data);

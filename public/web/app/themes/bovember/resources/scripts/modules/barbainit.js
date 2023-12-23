@@ -380,7 +380,7 @@ export const barbainit = async (err) => {
     });
 
     if ($('#album-container #main-content #link-list').length) {
-      tl.to('#album-container #main-content #link-list > *', {
+      tl.to('#album-container #main-content #link-list .list-item', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,
@@ -408,7 +408,7 @@ export const barbainit = async (err) => {
     });
 
     if ($('#album-container #main-content #link-list').length) {
-      tl.to('#album-container #main-content #link-list > *', {
+      tl.to('#album-container #main-content #link-list .list-item', {
         duration: 0.0625,
         translateY: 0,
         opacity: 1,
@@ -610,7 +610,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -642,7 +642,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -674,7 +674,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -707,7 +707,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -735,7 +735,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -769,7 +769,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -804,7 +804,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -838,7 +838,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -873,7 +873,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -914,7 +914,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -952,7 +952,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -990,7 +990,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -1035,7 +1035,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(0);
+        await delay(1500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -1056,17 +1056,9 @@ export const barbainit = async (err) => {
     views: [{
       // Home page view
       namespace: 'home',
-      beforeEnter() {
-        $('#canvas #home.canvas').addClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }, {
       // Show page view
       namespace: 'shows',
-      beforeEnter() {
-        $('#canvas #home.canvas').addClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
       afterEnter() {
         // Run Fancybox
         Fancybox.bind('[data-fancybox]', {
@@ -1076,27 +1068,15 @@ export const barbainit = async (err) => {
     }, {
       // Music page view
       namespace: 'music',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }, {
       // Single album page view
       namespace: 'album',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
       afterEnter() {
         album();
       },
     }, {
       // Videos page view
       namespace: 'videos',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
       afterEnter() {
         // Run Fancybox
         Fancybox.bind('[data-fancybox="videos"]', {
@@ -1123,17 +1103,9 @@ export const barbainit = async (err) => {
     }, {
       // Photos page view
       namespace: 'photos',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }, {
       // Single gallery page view
       namespace: 'gallery',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
       afterEnter() {
         // Run Fancybox
         Fancybox.bind('[data-fancybox="gallery"]', {
@@ -1161,16 +1133,8 @@ export const barbainit = async (err) => {
       },
     }, {
       namespace: 'shop',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }, {
       namespace: 'single-product',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }, {
       namespace: 'blog',
       beforeEnter() {
@@ -1179,10 +1143,6 @@ export const barbainit = async (err) => {
       },
     }, {
       namespace: 'blog-post',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }, {
       namespace: 'about',
       beforeEnter() {
@@ -1191,10 +1151,6 @@ export const barbainit = async (err) => {
       },
     }, {
       namespace: 'contact',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }],
   });
 };
