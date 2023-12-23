@@ -92,7 +92,11 @@ export const locomotive = async (err) => {
       'dataType': 'json',
       'success': function(data) {
         // Set the initial number of items for id starter value
-        let idNum = 6;
+        if (idNum) {
+          idNum;
+        } else {
+          idNum = 6;
+        }
 
         // Run the YouTube item loop
         $.each(data.items, function(i, item) {
@@ -103,9 +107,16 @@ export const locomotive = async (err) => {
           var pub = item['snippet']['publishedAt'];
           const year = new Date(pub);
           var videoURL = 'https://www.youtube.com/watch?v='+videoId;
+          var thumbnail;
 
           // Set thumbnail value
-          var thumbnail = getThumbnail(videoURL, 'mq');
+          if (getThumbnail(videoURL, 'max')) {
+            thumbnail = getThumbnail(videoURL, 'max');
+          } else if (getThumbnail(videoURL, 'mq')) {
+            thumbnail = getThumbnail(videoURL, 'mq');
+          } else {
+            thumbnail = getThumbnail(videoURL, 'hq');
+          }
 
           // Output the html string
           if (item['status']['privacyStatus'] === 'private') {
