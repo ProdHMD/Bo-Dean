@@ -23,6 +23,10 @@ web/.htaccess
 
 # Composer
 /vendor
+/.yarn
 
 # WP-CLI
 wp-cli.local.yml
+
+# Public
+public
