@@ -1,0 +1,243 @@
+/** HTML, body */
+html {
+    overflow: hidden;
+    font-family: $sf_pro_text;
+    user-select: none;
+    line-height: normal;
+
+    /** Hide Locomotive scrollbar */
+    .c-scrollbar {
+        display: none;
+    }
+
+    body {
+        font-size: 18px;
+        font-size: clamp(100%, 1rem + 1vw, 18px);
+    }
+}
+
+/** App container */
+#app {
+    position: relative;
+    background-color: $black;
+
+    /** Scroll container */
+    > [data-scroll-container] {
+        position: relative;
+        z-index: 1;
+    }
+
+    /** Progress bar */
+    .progress-bar {
+        width: 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 5px;
+        z-index: 10;
+
+        .pb-outer {
+            width: 100%;
+
+            .inner-pb {
+                height: 5px;
+                background: $red;
+            }
+        }
+    }
+
+    /** Content container */
+    .main {
+        position: relative;
+        padding: 0;
+        padding-right: 2rem;
+        padding-left: 15%;
+        color: $white;
+        font-family: $sf_pro_text;
+        z-index: 1;
+
+        @include media-breakpoint-down(xl) {
+            padding-top: 9rem;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding: 9rem 1rem 0;
+            min-height: 100vh;
+        }
+
+        /** Container with hidden scrollbar */
+        #container {
+            max-height: 100%;
+
+            &::-webkit-scrollbar,
+            .c-scrollbar {
+                display: none;
+            }
+
+            /** Top nav on CPT pages */
+            #wrapper {
+                #content {
+                    position: relative;
+
+                    .sticky-header {
+                        background-color: $black;
+                        padding-top: 3.125rem;
+                        position: relative;
+                        z-index: 2;
+                        opacity: 0;
+                        transform: translateY(50px);
+
+                        @include media-breakpoint-down(xl) {
+                            position: absolute;
+                            left: 0;
+                            padding-left: 2.25rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            margin-top: -9rem;
+                            padding-top: 5.1875rem;
+                            padding-left: 0;
+                            left: 0;
+                            right: 0;
+                            top: 0;
+                        }
+
+                        .cpt-nav {
+                            margin-bottom: 3rem;
+
+                            @include media-breakpoint-down(sm) {
+                                margin-bottom: 1rem;
+                            }
+
+                            a {
+                                font-size: 1.5rem;
+                                line-height: 1;
+                                text-transform: uppercase;
+                                color: $white;
+
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /** Basic link styling */
+        a {
+            color: $red;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        /** Basic heading styling */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: $american_captain;
+
+            strong {
+                color: $red;
+            }
+        }
+    }
+
+    /** Background media styling */
+    #canvas {
+        .canvas {
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: opacity 0.2s ease-in-out;
+
+            &.show {
+                opacity: 0.5;
+                transition: opacity 0.2s ease-in-out;
+            }
+
+            .background-media {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 100%;
+                transform: translate(-50%,-50%);
+            }
+
+            &#home {
+                @include media-breakpoint-down(xl) {
+                    transform: translate(0);
+                }
+            }
+
+            &#about {
+                .background-media {
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: translate(0, -50%);
+                    height: auto !important;
+                    min-width: 100%;
+                    
+                    
+                    @include media-breakpoint-down(xl) {
+                        transform: translate(-25%,-50%);
+                    }
+                }
+            }
+        }
+    }
+
+    /** Page transitions */
+    .page-transition {
+        position: absolute;
+        z-index: 100;
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        pointer-events: none;
+
+        > li {
+            width: 20%;
+            transform: scaleY(0);
+            background: $black;
+        }
+    }
+
+    /** Preloader */
+    #preloader {
+        position: absolute;
+        z-index: 100;
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        pointer-events: none;
+
+        > li {
+            width: 20%;
+            transform: scaleY(1);
+            background: $black;
+        }
+    }
+}

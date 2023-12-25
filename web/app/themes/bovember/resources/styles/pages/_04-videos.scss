@@ -1,0 +1,101 @@
+/** Videos page */
+.main {
+    &#videos {
+        #content {
+            #videos-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 1rem;
+
+                    #video-gallery-container {
+                        .youtube-item {
+                            margin-bottom: 3rem;
+                            opacity: 0;
+                            transform: translateY(50px);
+
+                            .thumbnail {
+                                img {
+                                    min-width: 100%;
+                                }
+                            }
+
+                            .title {
+                                font-family: $sf_pro_text;
+                                font-size: 2.5rem;
+                                font-weight: 700;
+                                color: $red;
+                                text-transform: uppercase;
+                                margin-top: 1rem;
+
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1.5rem;
+                                }
+    
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
+                            }
+
+                            .year {
+                                font-family: $sf_pro_text;
+                                font-size: 2.5rem;
+                                font-weight: 400;
+                                margin-bottom: 0;
+
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1.5rem;
+                                }
+    
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** Fancybox styling */
+#fancybox-videos {
+    .fancybox__backdrop {
+        background: $black;
+    }
+
+    .f-button {
+        &[data-fancybox-close] {
+            position: fixed;
+            z-index: 5000;
+            right: 0;
+            top: 0;
+            
+            --f-button-width: 46px;
+            --f-button-height: 46px;
+        }
+
+        &.is-next,
+        &.is-prev {
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+
+    .f-thumbs {
+        .f-thumbs__slide {
+            min-width: 10vw;
+            min-height: 10vh;
+
+            .f-thumbs__slide__button {
+                border-radius: 0;
+
+                &::after {
+                    border-radius: 0;
+                    border: none;
+                }
+            }
+        }
+    }
+}

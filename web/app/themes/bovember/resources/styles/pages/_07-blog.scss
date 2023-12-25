@@ -1,0 +1,185 @@
+/** Blog post type */
+.main {
+    /** Blog page */
+    &#blog {
+        #content {
+            #blog-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 1rem;
+
+                    .page-header {
+                        display: none;
+                    }
+
+                    .post {
+                        font-family: $sf_pro_text;
+                        margin-bottom: 3rem;
+                        opacity: 0;
+                        transform: translateY(50px);
+
+                        .entry-title {
+                            font-family: $sf_pro_text;
+                            font-weight: 700;
+                            font-size: 3rem;
+                            text-transform: uppercase;
+                            line-height: 1;
+                            margin-bottom: 0;
+
+                            @include media-breakpoint-down(xl) {
+                                font-size: 2rem;
+                            }
+                        }
+
+                        .dt-published {
+                            font-size: 2rem;
+
+                            @include media-breakpoint-down(xl) {
+                                font-size: 1.5rem;
+                            }
+                        }
+
+                        .entry-summary {
+                            a {
+                                color: $white;
+                                font-size: 2rem;
+                                line-height: 1;
+
+                                @include media-breakpoint-down(xl) {
+                                    font-size: 1.5rem;
+                                }
+                            }
+                        }
+                    }
+
+                    .navigation {
+                        @include media-breakpoint-down(xl) {
+                            padding-bottom: 5rem;
+                        }
+
+                        .nav-links {
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /** Blog post */
+    &#single-post {
+        #content {
+            #blog-container {
+                #main-content {
+                    padding-bottom: 1rem;
+
+                    .page-header {
+                        display: none;
+                    }
+
+                    .post {
+                        font-family: $sf_pro_text;
+
+                        header {
+                            opacity: 0;
+                            transform: translateY(50px);
+
+                            .p-name {
+                                font-family: $sf_pro_text;
+                                font-weight: 700;
+                                font-size: 5rem;
+                                text-transform: uppercase;
+                                line-height: 1;
+                                color: $red;
+
+                                @include media-breakpoint-down(xl) {
+                                    font-size: 3rem;
+                                }
+                            }
+
+                            .dt-published {
+                                font-size: 1.5rem;
+                                margin-bottom: 0.5rem;
+                            }
+                        }
+
+                        .e-content {
+                            margin-top: 2rem;
+                            opacity: 0;
+                            transform: translateY(50px);
+
+                            p {
+                                font-size: 1.125rem;
+                                font-size: 400;
+                                line-height: 1.1;
+                            }
+                        }
+
+                        .post-thumbnail {
+                            overflow: hidden;
+                            max-height: 50vh;
+                            opacity: 0;
+                            transform: translateY(50px);
+
+                            .attachment-post-thumbnail {
+                                transform: translateY(-25%);
+
+                                @include media-breakpoint-down(xl) {
+                                    transform: translateY(0);
+                                }
+                            }
+                        }
+
+                        footer {
+                            opacity: 0;
+                            transform: translateY(50px);
+
+                            #related-posts {
+                                margin-top: 5rem;
+                                padding-bottom: 3rem;
+                                
+                                .section-title {
+                                    font-family: $sf_pro_text;
+                                    font-size: 3rem;
+                                    font-weight: 700;
+                                    color: $white;
+                                    text-transform: uppercase;
+                                    margin-bottom: 2rem;
+
+                                    @include media-breakpoint-down(xl) {
+                                        font-size: 2rem;
+                                    }
+                                }
+
+                                .related-item {
+                                    .title {
+                                        h3 {
+                                            font-family: $sf_pro_text;
+                                            font-size: 3rem;
+                                            font-weight: 700;
+                                            color: $red;
+                                            text-transform: uppercase;
+
+                                            @include media-breakpoint-down(xl) {
+                                                font-size: 1.5rem;
+                                            }
+                                        }
+                                    }
+
+                                    .date {
+                                        font-size: 1.5rem;
+                                    }
+
+                                    .link {
+                                        font-size: 1.5rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

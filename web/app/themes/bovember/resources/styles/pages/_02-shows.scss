@@ -1,0 +1,191 @@
+/** Shows page */
+.main {
+    &#shows {
+        padding: 0 2rem;
+
+        @include media-breakpoint-down(xl) {
+            padding-top: 9rem;
+        }
+
+        @include media-breakpoint-down(md) {
+            min-height: 100vh;
+        }
+
+        #content {
+            #shows-container {
+                #main-content {
+                    margin-top: 10%;
+                    padding-bottom: 1rem;
+
+                    .show-container {
+                        font-family: $sf_pro_text;
+                        font-weight: 400;
+                        text-transform: uppercase;
+                        margin-bottom: 4.375rem;
+                        line-height: normal;
+                        opacity: 0;
+                        transform: translateY(50px);
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        .city-name {
+                            font-size: 1.75rem;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 1.25rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1rem;
+                            }
+                        }
+
+                        .location-name {
+                            font-family: $sf_pro_text;
+                            font-size: 3.5rem;
+                            font-weight: 700;
+                            color: $red;
+                            margin-bottom: 0;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 2.5rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1.5rem;
+                            }
+                        }
+                        
+                        .date-time {
+                            font-size: 3rem;
+
+                            @include media-breakpoint-down(lg) {
+                                font-size: 2rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                font-size: 1.5rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** Fancybox styling */
+.fancybox__container {
+    .show-details {
+        background-color: $black;
+        text-align: center;
+        color: $white;
+        width: 35vw;
+
+        @include media-breakpoint-down(xl) {
+            width: 60vw;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+            align-items: center;
+            
+            .brand {
+                font-family: $american_captain;
+                font-weight: 700;
+                text-align: left;
+
+                h2 {
+                    font-size: 2.5rem;
+                }
+            }
+
+            .go-back {
+                font-family: $sf_pro_text;
+                text-align: right;
+                text-transform: uppercase;
+
+                a {
+                    color: $white;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .location-name {
+            font-family: $sf_pro_text;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+
+            @include media-breakpoint-down(lg) {
+                font-size: 1.25rem;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 1rem;
+            }
+        }
+
+        .show-name {
+            font-family: $sf_pro_text;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: $red;
+            margin-bottom: 1rem;
+
+            @include media-breakpoint-down(lg) {
+                font-size: 1.5rem;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 1rem;
+            }
+        }
+
+        #ticket-providers {
+            font-family: $sf_pro_text;
+            margin-top: 2rem;
+
+            .list-title {
+                font-size: 1.25rem;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+
+                @include media-breakpoint-down(lg) {
+                    font-size: 1rem;
+                }
+            }
+
+            .provider {
+                margin-bottom: 1rem;
+
+                a {
+                    display: inline-block;
+                    background-color: $red;
+                    color: $black;
+                    text-decoration: none;
+                    font-size: 1rem;
+                    padding: 1rem 1.5rem;
+                    border-radius: 2px;
+
+                    @include media-breakpoint-down(lg) {
+                        font-size: 1rem;
+                    }
+                    
+                    &:hover {
+                        background-color: $white;
+                        color: $black;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

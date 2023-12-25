@@ -1,0 +1,397 @@
+/** Album CPT pages */
+.main {
+    /** Music page */
+    &#music {
+        #content {
+            #music-header {
+                background-color: $black;
+                padding-top: 3.125rem;
+                position: relative;
+                z-index: 2;
+                opacity: 0;
+                transform: translateY(50px);
+
+                @include media-breakpoint-down(xl) {
+                    position: absolute;
+                    left: 0;
+                    padding-left: 0.5rem;
+                }
+
+                @include media-breakpoint-down(sm) {
+                    margin-top: -9rem;
+                    padding-top: 5.1875rem;
+                    padding-left: 0;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                }
+
+                .album-types {
+                    display: flex;
+                    margin-bottom: 3rem;
+                    padding-left: calc(var(--bs-gutter-x) * .5);
+                    padding-right: calc(var(--bs-gutter-x) * .5);
+
+                    @include media-breakpoint-down(xl) {
+                        flex-direction: column;
+                        margin-left: 0;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        flex-direction: row;
+                        justify-content: space-evenly;
+                        padding-left: 0;
+                        padding-right: 0;
+                        margin-bottom: 1rem;
+                    }
+
+                    .album-type {
+                        margin: 0 0.5rem;
+                        line-height: 1;
+
+                        @include media-breakpoint-down(xl) {
+                            margin-left: 1.125rem;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            margin-left: 0.5;
+                        }
+
+                        &:first-child {
+                            margin-left: 0;
+
+                            @include media-breakpoint-down(xl) {
+                                margin-left: 1.125rem;
+                            }
+
+                            @include media-breakpoint-down(sm) {
+                                margin-left: 0;
+                            }
+                        }
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        .type-link {
+                            background: none;
+                            border: none;
+                            padding: 0;
+                            color: $white;
+                            text-transform: uppercase;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            #music-container {
+                #main-content {
+                    margin-top: 0;
+                    padding-bottom: 3rem;
+
+                    #albums-container {
+                        #album-row {
+                            .isotope-item {
+                                margin-bottom: calc(var(--bs-gutter-x) * 1);
+
+                                .album-thumbnail {
+                                    opacity: 0;
+                                    transform: translateY(50px);
+
+                                    a {
+                                        width: 100%;
+                                        display: inline-block;
+
+                                        img {
+                                            width: 100%;
+                                            aspect-ratio: 1 / 1;
+                                            object-fit: cover;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /** Album page */
+    &#album {
+        #content {
+            #album-container {
+                #main-content {
+                    padding-bottom: 1rem;
+
+                    .album {
+                        font-family: $sf_pro_text;
+                        padding-bottom: 2rem;
+
+                        .album-nav {
+                            margin-bottom: 3rem;
+
+                            a {
+                                font-size: 1.5rem;
+                                text-transform: uppercase;
+                                color: $white;
+                                transition: all ease-in-out .2s;
+
+                                @include media-breakpoint-down(lg) {
+                                    font-size: 1.25rem;
+                                }
+    
+                                @include media-breakpoint-down(sm) {
+                                    font-size: 1rem;
+                                }
+
+                                &:hover {
+                                    transition: all ease-in-out .2s;
+                                }
+                            }
+                        }
+
+                        .e-content {
+                            #title {
+                                margin-bottom: 3rem;
+                                opacity: 0;
+                                transform: translateY(50px);
+
+                                .p-name {
+                                    display: none;
+                                    margin-bottom: 0;
+                                }
+
+                                .description {
+                                    display: none;
+                                }
+                            }
+
+                            #tracklist-container {
+                                #tracklist {
+                                    margin-bottom: 2rem;
+                                    
+                                    .track {
+                                        color: $dark_grey;
+                                        display: flex;
+                                        align-items: center;
+                                        margin-bottom: 0.5rem;
+                                        font-size: 1.5rem;
+                                        text-transform: uppercase;
+                                        cursor: pointer;
+                                        transition: all ease-in-out .2s;
+
+                                        @include media-breakpoint-down(lg) {
+                                            font-size: 1.25rem;
+                                        }
+            
+                                        @include media-breakpoint-down(sm) {
+                                            font-size: 1rem;
+                                        }
+
+                                        > * {
+                                            opacity: 0;
+                                            transform: translateY(50px);
+                                        }
+
+                                        &:hover {
+                                            color: $white;
+                                            transition: all ease-in-out .2s;
+                                        }
+
+                                        &:last-child {
+                                            margin-bottom: 0;
+                                        }
+
+                                        .track-no {
+                                            width: 7.5%;
+                                        }
+
+                                        .track-name {
+                                            width: 75%;
+                                        }
+
+                                        .track-length {
+                                            width: 12.5%;
+                                            text-align: right;
+                                        }
+
+                                        .track-play-pause {
+                                            width: 5%;
+
+                                            .play-btn {
+                                                display: block;
+                                            }
+
+                                            .pause-btn {
+                                                display: none;
+                                            }
+
+                                            &.play {
+                                                .play-btn {
+                                                    display: none;
+                                                }
+
+                                                .pause-btn {
+                                                    display: block;
+                                                }
+                                            }
+
+                                            &.stop {
+                                                .play-btn {
+                                                    display: block;
+                                                }
+
+                                                .pause-btn {
+                                                    display: none;
+                                                }
+                                            }
+
+                                            svg {
+                                                height: 24px;
+                                                margin-bottom: 4px;
+                                                float: right;
+                                            }
+                                        }
+
+                                        &.active {
+                                            color: $red;
+                                            transition: all ease-in-out .2s;
+
+                                            .track-play-pause {
+                                                .play-btn {
+                                                    display: none;
+                                                }
+    
+                                                .pause-btn {
+                                                    display: block;
+                                                }
+
+                                                &.play {
+                                                    .play-btn {
+                                                        display: none;
+                                                    }
+    
+                                                    .pause-btn {
+                                                        display: block;
+                                                    }
+                                                }
+    
+                                                &.stop {
+                                                    .play-btn {
+                                                        display: block;
+                                                    }
+    
+                                                    .pause-btn {
+                                                        display: none;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                #link-list {
+                                    margin-bottom: 0;
+                                    
+                                    .link-item {
+                                        margin-bottom: calc(var(--bs-gutter-x) * 1);
+                                        opacity: 0;
+                                        transform: translateY(50px);
+
+                                        a {
+                                            display: flex;
+                                            align-items: center;
+                                            background-color: $white;
+                                            padding: 1rem;
+                                            color: $black;
+                                            min-height: 100%;
+                                            border-radius: 0.75rem;
+                                            transition: all ease-in-out .2s;
+
+                                            .icon {
+                                                svg {
+                                                    height: 24px;
+                                                    float: left;
+                                                }
+                                            }
+
+                                            .text {
+                                                font-size: 0.75rem;
+                                                text-transform: uppercase;
+                                                padding-left: 1rem;
+
+                                                @include media-breakpoint-down(lg) {
+                                                    font-size: 1rem;
+                                                }
+                                            }
+
+                                            &:hover {
+                                                text-decoration: none;
+                                            }
+                                        }
+
+                                        &:hover {
+                                            &#download {
+                                                a {
+                                                    color: $red;
+                                                    transition: all ease-in-out .2s;
+                                                }
+                                            }
+
+                                            &#alternate {
+                                                a {
+                                                    color: $red;
+                                                    transition: all ease-in-out .2s;
+                                                }
+                                            }
+
+                                            &#itunes {
+                                                a {
+                                                    color: $itunes;
+                                                    transition: all ease-in-out .2s;
+                                                }
+                                            }
+
+                                            &#apple {
+                                                a {
+                                                    color: $apple;
+                                                    transition: all ease-in-out .2s;
+                                                }
+                                            }
+
+                                            &#spotify {
+                                                a {
+                                                    color: $spotify;
+                                                    transition: all ease-in-out .2s;
+                                                }
+                                            }
+
+                                            &#google {
+                                                a {
+                                                    color: $google;
+                                                    transition: all ease-in-out .2s;
+                                                }
+                                            }
+
+                                            &#pandora {
+                                                a {
+                                                    color: $last_fm;
+                                                    transition: all ease-in-out .2s;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

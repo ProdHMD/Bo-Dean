@@ -1,0 +1,32 @@
+# Application
+web/app/plugins/*
+!web/app/plugins/.gitkeep
+web/app/mu-plugins/*/
+web/app/themes/twentytwentythree/
+web/app/upgrade
+web/app/uploads
+!web/app/uploads/.gitkeep
+web/app/uploads-webpc
+web/app/cache/*
+
+# WordPress
+web/wp
+web/.htaccess
+
+# Logs
+*.log
+
+# Dotenv
+.env
+.env.*
+!.env.example
+
+# Composer
+/vendor
+/.yarn
+
+# WP-CLI
+wp-cli.local.yml
+
+# Public
+public
