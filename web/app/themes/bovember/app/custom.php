@@ -120,3 +120,18 @@ if (function_exists('acf_add_options_page')) {
 		)
 	);
 }
+
+/** Update login logo */
+function my_login_logo() { ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+            width: 100%;
+            height: auto;
+            min-height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-image: url('/app/themes/bovember/resources/images/bodean-login-logo.png') !important;
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );
