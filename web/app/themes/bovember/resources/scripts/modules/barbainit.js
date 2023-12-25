@@ -5,6 +5,7 @@ import { locomotive } from './locomotive.js';
 import { shop } from './shop.js';
 import { isotopeinit } from './isotopeinit.js';
 import { album } from './album.js';
+import { video } from './video.js';
 import gsap from 'gsap';
 
 export const barbainit = async (err) => {
@@ -610,7 +611,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -642,7 +643,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -674,7 +675,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -707,7 +708,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -735,7 +736,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -769,7 +770,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -804,7 +805,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -838,7 +839,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -873,7 +874,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -914,7 +915,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -952,7 +953,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -990,7 +991,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         fromCurrentContent();
         fromCurrentPage();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -1035,7 +1036,7 @@ export const barbainit = async (err) => {
       async leave() {
         const done = this.async();
         fromCurrentContent();
-        await delay(1500);
+        await delay(500);
         done();
       },
       beforeEnter: ({ next }) => {
@@ -1078,6 +1079,7 @@ export const barbainit = async (err) => {
       // Videos page view
       namespace: 'videos',
       afterEnter() {
+        video();
         // Run Fancybox
         Fancybox.bind('[data-fancybox="videos"]', {
           animated: true,
@@ -1137,18 +1139,10 @@ export const barbainit = async (err) => {
       namespace: 'single-product',
     }, {
       namespace: 'blog',
-      beforeEnter() {
-        $('#canvas #home.canvas').show('show');
-        $('#canvas #about.canvas').removeClass('show');
-      },
     }, {
       namespace: 'blog-post',
     }, {
       namespace: 'about',
-      beforeEnter() {
-        $('#canvas #home.canvas').removeClass('show');
-        $('#canvas #about.canvas').addClass('show');
-      },
     }, {
       namespace: 'contact',
     }],

@@ -188,7 +188,7 @@ export const header = async (err) => {
     });
 
     $('#header #mobile-menu .brand').on('click', function() {
-      tl.to('#header #desktop-menu #main-navigation .nav .menu-item', {
+      tl.to('#header #mobile-menu #main-navigation .nav .menu-item', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,

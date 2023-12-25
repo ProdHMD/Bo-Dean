@@ -65,10 +65,29 @@
                         color: $white;
                         text-decoration: none;
                         text-transform: uppercase;
+                        position: relative;
+                        transition: 0.2s ease-in-out all;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: calc(50% - 1px);
+                            left: 0;
+                            width: 0;
+                            height: 2px;
+                            color: $white;
+                            transition: 0.2s ease-in-out all;
+                        }
 
                         &:hover,
                         &:active {
                             text-decoration: line-through;
+                            transition: 0.2s ease-in-out all;
+
+                            &::before {
+                                width: 100%;
+                                transition: 0.2s ease-in-out all;
+                            }
                         }
                     }
 
@@ -107,10 +126,19 @@
                 a {
                     color: $white;
                     text-decoration: none;
+                    text-transform: uppercase;
+                    position: relative;
+                    transition: 0.2s ease-in-out all;
                     
                     &:hover,
                     &:active {
                         text-decoration: line-through;
+                        transition: 0.2s ease-in-out all;
+
+                        &::before {
+                            width: 100%;
+                            transition: 0.2s ease-in-out all;
+                        }
                     }
                 }
             }
@@ -125,6 +153,11 @@
 
                         a {
                             color: $white;
+                            transition: 0.2s ease-in-out all;
+
+                            &:hover {
+                                transition: 0.2s ease-in-out all;
+                            }
 
                             svg {
                                 max-width: 1.5rem;
@@ -216,6 +249,7 @@
                 &.play {
                     .bars {
                         animation: bars 1s infinite linear;
+                        transition: 0.2s ease-in-out all;
                     }
                 }
 
@@ -223,6 +257,7 @@
                     .bars {
                         animation: none;
                         background-size: 0.25rem 25%;
+                        transition: 0.2s ease-in-out all;
                     }
                 }
             }
