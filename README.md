@@ -1,27 +1,35 @@
 # Bo Dean
 Website for https://bovember.com built under the Bedrock 1.22.0 and Sage 10.5.1.
 
-Please follow the installation methods at https://roots.io/bedrock/docs/deployment/ if not using Trellis. Please follow the installation methods at https://roots.io/sage/docs/installation/ if reinstalling on another server.
+Please follow the installation methods at https://roots.io/bedrock/docs/deployment/ if not using Trellis.
+Please follow the installation methods at https://roots.io/sage/docs/installation/ if reinstalling on another server.
 
 ## Step 1 - Install Bedrock
+
 1. Globally install composer
-- `sudo apt update`
-- `sudo apt install wget php-cli php-zip unzip`
-- `wget -O composer-setup.php https://getcomposer.org/installer`
-- `sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer`
+  1. `sudo apt update`
+  2. `sudo apt install wget php-cli php-zip unzip`
+  3. `wget -O composer-setup.php https://getcomposer.org/installer`
+  4. `sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer`
 
 2. Run the following in the public directory:
-- composer install
+  1. `composer install`
 
 ## Step 2 - Install Sage
-1. Install the latest node.js LTS release volta install node
-2. Globally install Yarn npm install --global yarn
-3. Direct your terminal path to web/app/themes/bovember and run the following:
-- yarn
-- yarn build
-- wp acorn optimize:clear
+
+1. Install the latest node.js LTS release
+  `volta install node`
+
+2. Globally install Yarn
+  `npm install --global yarn`
+
+3. Direct your terminal path to web/app/themes/fronation and run the following:
+  1. `yarn`
+  2. `yarn build`
+  3. `wp acorn optimize:clear`
 
 ## Step 3 - Change enviornment variables
+
 1. Change the .env: https://roots.io/bedrock/docs/environment-variables/
 
 2. Update the WP_ENV to production, staging, or development
@@ -29,7 +37,9 @@ Please follow the installation methods at https://roots.io/bedrock/docs/deployme
 *Warning: Do not create multiple installations of this on the same server!*
 
 ## Notes
-ACF Pro will need to be manually downloaded to the downloads folder of your local machine, then you can update thru composer Download link: https://www.gplvault.com/files/29102/
+
+ACF Pro will need to be manually downloaded to the downloads folder of your local machine, then you can update thru composer
+Download link: https://www.gplvault.com/files/29102/
 
 **Enjoy!**
 
