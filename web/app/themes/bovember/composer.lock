@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "johnbillion/args",
-            "version": "1.7.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/args.git",
-                "reference": "0bb94c0ef52fcd323714b7f0ce03ac4f6cedec27"
+                "reference": "78dd8408f61960784982fb55efd8b1bc88d4584c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/args/zipball/0bb94c0ef52fcd323714b7f0ce03ac4f6cedec27",
-                "reference": "0bb94c0ef52fcd323714b7f0ce03ac4f6cedec27",
+                "url": "https://api.github.com/repos/johnbillion/args/zipball/78dd8408f61960784982fb55efd8b1bc88d4584c",
+                "reference": "78dd8408f61960784982fb55efd8b1bc88d4584c",
                 "shasum": ""
             },
             "require": {
@@ -34,7 +34,7 @@
                 "phpstan/phpstan-strict-rules": "^1.1",
                 "phpunit/phpunit": "^9.0",
                 "roots/wordpress-core-installer": "^1.0.0",
-                "roots/wordpress-full": "~6.2.0"
+                "roots/wordpress-full": "~6.4.0"
             },
             "type": "library",
             "extra": {
@@ -97,7 +97,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -108,7 +108,7 @@
             "description": "I don't want to get into an argument about this.",
             "support": {
                 "issues": "https://github.com/johnbillion/args/issues",
-                "source": "https://github.com/johnbillion/args/tree/1.7.0"
+                "source": "https://github.com/johnbillion/args/tree/1.9.0"
             },
             "funding": [
                 {
@@ -116,20 +116,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-29T21:14:43+00:00"
+            "time": "2023-11-07T23:51:42+00:00"
         },
         {
             "name": "johnbillion/extended-cpts",
-            "version": "5.0.3",
+            "version": "5.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnbillion/extended-cpts.git",
-                "reference": "4daaaef8acfff72f108e5f69c3f6cddb37b64a38"
+                "reference": "992bf43115fe81a07888bc2537432fb083c4e9f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/4daaaef8acfff72f108e5f69c3f6cddb37b64a38",
-                "reference": "4daaaef8acfff72f108e5f69c3f6cddb37b64a38",
+                "url": "https://api.github.com/repos/johnbillion/extended-cpts/zipball/992bf43115fe81a07888bc2537432fb083c4e9f4",
+                "reference": "992bf43115fe81a07888bc2537432fb083c4e9f4",
                 "shasum": ""
             },
             "require": {
@@ -140,26 +140,19 @@
                 "automattic/phpcs-neutron-standard": "1.7.0",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
                 "johnbillion/falsey-assertequals-detector": "*",
-                "lucatume/wp-browser": "^3.0",
+                "johnbillion/plugin-infrastructure": "dev-trunk",
+                "lucatume/wp-browser": "^3.0.21",
                 "phpcompatibility/phpcompatibility-wp": "^2",
                 "phpstan/phpstan": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^9",
                 "roots/wordpress-core-installer": "^1.0.0",
-                "roots/wordpress-full": "~6.1.0",
+                "roots/wordpress-full": "*",
                 "szepeviktor/phpstan-wordpress": "1.1.6",
-                "vlucas/phpdotenv": "^3",
-                "wp-cli/core-command": "^2",
-                "wp-cli/db-command": "^2",
                 "wp-coding-standards/wpcs": "2.3.0"
-            },
-            "suggest": {
-                "seravo/wp-custom-bulk-actions": "Custom Bulk Actions",
-                "wpackagist-plugin/rewrite-testing": "Rewrite Rule Testing"
             },
             "type": "library",
             "extra": {
-                "wordpress-install-dir": "tests/wordpress"
+                "wordpress-install-dir": "vendor/wordpress/wordpress"
             },
             "autoload": {
                 "files": [
@@ -172,7 +165,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -184,7 +177,7 @@
             "homepage": "https://github.com/johnbillion/extended-cpts/",
             "support": {
                 "issues": "https://github.com/johnbillion/extended-cpts/issues",
-                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.3"
+                "source": "https://github.com/johnbillion/extended-cpts/tree/5.0.6"
             },
             "funding": [
                 {
@@ -192,20 +185,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-14T00:07:21+00:00"
+            "time": "2023-11-17T01:34:02+00:00"
         },
         {
             "name": "log1x/poet",
-            "version": "v2.0.7",
+            "version": "v2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Log1x/poet.git",
-                "reference": "709c535ef9d5e8511045c00c7ccc26ebab83e976"
+                "reference": "9a7c17f441d88d6ace41f9300228bf1f4704878d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Log1x/poet/zipball/709c535ef9d5e8511045c00c7ccc26ebab83e976",
-                "reference": "709c535ef9d5e8511045c00c7ccc26ebab83e976",
+                "url": "https://api.github.com/repos/Log1x/poet/zipball/9a7c17f441d88d6ace41f9300228bf1f4704878d",
+                "reference": "9a7c17f441d88d6ace41f9300228bf1f4704878d",
                 "shasum": ""
             },
             "require": {
@@ -246,7 +239,7 @@
             ],
             "support": {
                 "issues": "https://github.com/log1x/poet/issues",
-                "source": "https://github.com/Log1x/poet/tree/v2.0.7"
+                "source": "https://github.com/Log1x/poet/tree/v2.0.9"
             },
             "funding": [
                 {
@@ -254,7 +247,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-13T07:38:47+00:00"
+            "time": "2023-11-16T23:04:37+00:00"
         }
     ],
     "packages-dev": [
@@ -263,12 +256,12 @@
             "version": "3.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
                 "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
                 "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619",
                 "shasum": ""
             },
@@ -312,6 +305,20 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCSStandards",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                }
+            ],
             "time": "2022-06-18T07:21:10+00:00"
         }
     ],
