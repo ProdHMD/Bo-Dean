@@ -53,8 +53,10 @@
                     }
 
                     .navigation {
+                        padding-bottom: 3rem;
+
                         @include media-breakpoint-down(xl) {
-                            padding-bottom: 5rem;
+                            padding-bottom: 6rem;
                         }
 
                         .nav-links {
