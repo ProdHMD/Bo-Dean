@@ -38,7 +38,7 @@ export const video = async (err) => {
 
   // Append videos at end of the list on videos page
     if ($('main').hasClass('videos')) {
-      if (pageToken === 'EAAaclBUOkNDZ2lFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWlWcXNycDRyRDhBbEFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbVEwVG5Wa1FtaERTVGhQZG01Qlp5SQ') {
+      if (pageToken === 'EAAaclBUOkNDWWlFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWpENTRtbjNiT0RBMUFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ') {
         if (howMuchScrolled === 100) {
           return;
         }
@@ -65,10 +65,10 @@ export const video = async (err) => {
     if (pageToken) {
       pageToken;
     } else {
-      pageToken = 'EAAaclBUOkNBVWlFRUU0TXpJeU16QkRNelEwTXpFMU5URW9BVWlWcXNycDRyRDhBbEFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbVEwVG5Wa1FtaERTVGhQZG01Qlp5SQ';
+      pageToken = 'EAAaclBUOkNBVWlFRUU0TXpJeU16QkRNelEwTXpFMU5URW9BVWpENTRtbjNiT0RBMUFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ';
     }
 
-    if (pageToken === 'EAAaclBUOkNDZ2lFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWlWcXNycDRyRDhBbEFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbVEwVG5Wa1FtaERTVGhQZG01Qlp5SQ') {
+    if (pageToken === 'EAAaclBUOkNDWWlFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWpENTRtbjNiT0RBMUFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ') {
       return;
     }
 
@@ -76,20 +76,20 @@ export const video = async (err) => {
     var htmlString = '';
     var apiKey = 'AIzaSyBXYQCuuGAAwi2cJ0SIEv22O5pAHokFK1g';
     var playlistId = 'PL110D4DA154B62487';
-    var maxResults = 5;
+    var maxResults = 3;
     var tl = gsap.timeline();
 
     // Get the ajax call
     $.ajax({
       'async': false,
-      'url': 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,status&s=true&maxResults='+maxResults+'&playlistId='+playlistId+'&key='+apiKey+'&pageToken='+pageToken,
+      'url': 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,status&maxResults='+maxResults+'&playlistId='+playlistId+'&key='+apiKey+'&pageToken='+pageToken,
       'dataType': 'json',
       'success': function(data) {
         // Set the initial number of items for id starter value
         if (idNum) {
           idNum;
         } else {
-          idNum = 6;
+          idNum = 5;
         }
 
         // Run the YouTube item loop
@@ -132,8 +132,12 @@ export const video = async (err) => {
         htmlString = '';
 
         // Set the page token to the next page token from the API call
-        pageToken = data['nextPageToken'];
-        idNum = idNum + 5;
+        if (data['prevPageToken'] === 'EAEaclBUOkNDWWlFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWpENTRtbjNiT0RBMUFBV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ' && data['nextPageToken'] === undefined) {
+          return;
+        } else {
+          pageToken = data['nextPageToken'];
+        }
+        idNum;
       },
     });
 
