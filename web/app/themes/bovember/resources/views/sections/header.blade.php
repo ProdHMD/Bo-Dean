@@ -28,10 +28,10 @@
       </div>
       <div class="socials">
         <ul class="social-list list-unstyled">
-          <li class="social instagram"><a href="https://instagram.com/bovemberdean"><x-fab-instagram /><span class="d-none">Instagram</span></a></li>
-          <li class="social facebook"><a href="https://facebook.com/bovemberdean"><x-fab-facebook /><span class="d-none">Facebook</span></a></li>
-          <li class="social twitter"><a href="https://twitter.com/realbodean"><x-fab-twitter /><span class="d-none">Twitter</span></a></li>
-          <li class="social youtube"><a href="https://youtube.com/bodeantv"><x-fab-youtube /><span class="d-none">YouTube</span></a></li>
+          <li class="social instagram"><a href="https://instagram.com/bovemberdean" target="_blank"><x-fab-instagram /><span class="d-none">Instagram</span></a></li>
+          <li class="social facebook"><a href="https://facebook.com/bovemberdean" target="_blank"><x-fab-facebook /><span class="d-none">Facebook</span></a></li>
+          <li class="social twitter"><a href="https://twitter.com/realbodean" target="_blank"><x-fab-twitter /><span class="d-none">Twitter</span></a></li>
+          <li class="social youtube"><a href="https://youtube.com/bodeantv" target="_blank"><x-fab-youtube /><span class="d-none">YouTube</span></a></li>
         </ul>
       </div>
     </nav>
