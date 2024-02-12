@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Release
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
     branches: [ "master" ]
 
 permissions:
-  contents: read
+  contents: read, write
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v3
@@ -30,10 +30,14 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Run tests
+      run: composer test
 
-    # - name: Run test suite
-    #   run: composer run-script test
+    - name: Yarn install dependencies
+      working-directory: ./web/app/themes/bovember
+      run: |
+        yarn
+        yarn build
+        wp acorn optimize:clear
