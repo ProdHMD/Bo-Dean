@@ -38,7 +38,7 @@ export const video = async (err) => {
 
   // Append videos at end of the list on videos page
     if ($('main').hasClass('videos')) {
-      if (pageToken === 'EAAaclBUOkNDWWlFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWpENTRtbjNiT0RBMUFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ') {
+      if (pageToken === 'EAAajQFQVDpDQ01pRURsR00wVXdPRVpEUkRaR1FVSkJOelVvQVVqaWhzZlQxc1NFQTFBQldrUWlRMmxLVVZSR1NYbGhWM1J6VTBad1ZrMXJUa3ROTW14Q1ZtczFTRTVzVms1VGFsSjVWVlpXVm1SSVdtRlRlbFYzUldkelNUWm1NMjl5WjFsUk1FeHVWbGhCSWc') {
         if (howMuchScrolled === 100) {
           return;
         }
@@ -65,24 +65,24 @@ export const video = async (err) => {
     if (pageToken) {
       pageToken;
     } else {
-      pageToken = 'EAAaclBUOkNBVWlFRUU0TXpJeU16QkRNelEwTXpFMU5URW9BVWpENTRtbjNiT0RBMUFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ';
+      pageToken = 'EAAajQFQVDpDQVVpRURVMlFqUTBSalpFTVRBMU5UZERRellvQVVqaWhzZlQxc1NFQTFBQldrUWlRMmxLVVZSR1NYbGhWM1J6VTBad1ZrMXJUa3ROTW14Q1ZtczFTRTVzVms1VGFsSjVWVlpXVm1SSVdtRlRlbFYzUldkelNUWm1NMjl5WjFsUk1FeHVWbGhCSWc';
     }
 
-    if (pageToken === 'EAAaclBUOkNDWWlFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWpENTRtbjNiT0RBMUFCV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ') {
+    if (pageToken === 'EAAajQFQVDpDQ01pRURsR00wVXdPRVpEUkRaR1FVSkJOelVvQVVqaWhzZlQxc1NFQTFBQldrUWlRMmxLVVZSR1NYbGhWM1J6VTBad1ZrMXJUa3ROTW14Q1ZtczFTRTVzVms1VGFsSjVWVlpXVm1SSVdtRlRlbFYzUldkelNUWm1NMjl5WjFsUk1FeHVWbGhCSWc') {
       return;
     }
 
     // Set the other variables for the ajax url param
     var htmlString = '';
     var apiKey = 'AIzaSyBXYQCuuGAAwi2cJ0SIEv22O5pAHokFK1g';
-    var playlistId = 'PL110D4DA154B62487';
+    var playlistId = 'PLR2iklHZU2CJ3iAVNG6UMJ4rQUUtvZK50';
     var maxResults = 3;
     var tl = gsap.timeline();
 
     // Get the ajax call
     $.ajax({
       'async': false,
-      'url': 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,status&maxResults='+maxResults+'&playlistId='+playlistId+'&key='+apiKey+'&pageToken='+pageToken,
+      'url': 'https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,status,contentDetails&maxResults='+maxResults+'&playlistId='+playlistId+'&key='+apiKey+'&pageToken='+pageToken,
       'dataType': 'json',
       'success': function(data) {
         // Set the initial number of items for id starter value
@@ -98,7 +98,7 @@ export const video = async (err) => {
           const incrNum = idNum++;
           var videoId = item['snippet']['resourceId']['videoId'];
           var title = item['snippet']['title'];
-          var pub = item['snippet']['publishedAt'];
+          var pub = item['contentDetails']['videoPublishedAt'];
           const year = new Date(pub);
           var videoURL = 'https://www.youtube.com/watch?v='+videoId;
           var thumbnail;
@@ -132,7 +132,7 @@ export const video = async (err) => {
         htmlString = '';
 
         // Set the page token to the next page token from the API call
-        if (data['prevPageToken'] === 'EAEaclBUOkNDWWlFRFZFTVRNNU9FTXpNa0U1UVVGQ05FTW9BVWpENTRtbjNiT0RBMUFBV2pBaVEyaEtVVlJFUlhoTlJWRXdVa1ZGZUU1VVVrTk9ha2t3VDBSalUwUkJhbEZuVEcxelFtaERORzg1VTNSQmR5SQ' && data['nextPageToken'] === undefined) {
+        if (data['prevPageToken'] === 'EAEajQFQVDpDQ01pRURsR00wVXdPRVpEUkRaR1FVSkJOelVvQVVqaWhzZlQxc1NFQTFBQVdrUWlRMmxLVVZSR1NYbGhWM1J6VTBad1ZrMXJUa3ROTW14Q1ZtczFTRTVzVms1VGFsSjVWVlpXVm1SSVdtRlRlbFYzUldkelNUWm1NMjl5WjFsUk1FeHVWbGhCSWc' && data['nextPageToken'] === undefined) {
           return;
         } else {
           pageToken = data['nextPageToken'];
