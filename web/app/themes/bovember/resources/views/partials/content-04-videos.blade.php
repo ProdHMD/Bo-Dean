@@ -6,11 +6,12 @@
     $api_key = 'AIzaSyBXYQCuuGAAwi2cJ0SIEv22O5pAHokFK1g';
     $channel_id = 'UCtlIU9DLLzmvti8z-KYfC8w';
     $video_id = 'IVqEx8sl5Sg';
-    $playlist_id = 'PL110D4DA154B62487';
+    $playlist_id = 'PLR2iklHZU2CJ3iAVNG6UMJ4rQUUtvZK50';
+    $page_token = 'EAEajQFQVDpDQVVpRURVMlFqUTBSalpFTVRBMU5UZERRellvQVVqaWhzZlQxc1NFQTFBQVdrUWlRMmxLVVZSR1NYbGhWM1J6VTBad1ZrMXJUa3ROTW14Q1ZtczFTRTVzVms1VGFsSjVWVlpXVm1SSVdtRlRlbFYzUldkelNUWm1NMjl5WjFsUk1FeHVWbGhCSWc';
     $max_results = 5;
 
     /** Get videos from channel */
-    $api_data = @file_get_contents('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&s=true&maxResults=' . $max_results . '&playlistId=' . $playlist_id . '&pageToken' . $page_token . '&key=' . $api_key . '');
+    $api_data = @file_get_contents('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,status,contentDetails&s=true&maxResults=' . $max_results . '&playlistId=' . $playlist_id . '&pageToken=' . $page_token . '&key=' . $api_key . '');
     $api_error = 'No videos found.';
     if ($api_data) {
         $video_list = json_decode($api_data);
@@ -50,7 +51,7 @@
                                 <img src="<?php echo $thumbnail; ?>" alt="<?php echo $item->snippet->title; ?>" class="img-fluid">
                             </a>
                             <h2 class="title"><?php echo $item->snippet->title; ?></h2>
-                            <h3 class="year"><?php echo date('Y', strtotime($item->snippet->publishedAt)); ?></h3>
+                            <h3 class="year"><?php echo date('Y', strtotime($item->contentDetails->videoPublishedAt)); ?></h3>
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
