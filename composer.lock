@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60914439d603455964f67abd658543fd",
+    "content-hash": "c2e59e22b2140b06baabf3c39dde59e7",
     "packages": [
         {
             "name": "acf/acfpro",
-            "version": "6.2.4",
+            "version": "6.2.9",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/advanced-custom-fields-pro.zip"
@@ -5864,7 +5864,7 @@
         },
         {
             "name": "wpackagist-plugin/media-file-renamer-pro",
-            "version": "5.7.7",
+            "version": "5.9.1",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/media-file-renamer.zip"
