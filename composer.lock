@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2e59e22b2140b06baabf3c39dde59e7",
+    "content-hash": "251872d2311901e2103d558a59bc2880",
     "packages": [
         {
             "name": "acf/acfpro",
@@ -5764,22 +5764,13 @@
             "type": "wordpress-plugin"
         },
         {
-            "name": "wpackagist-plugin/ai-engine",
-            "version": "2.2.93",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/ai-engine/",
-                "reference": "tags/2.2.93"
-            },
+            "name": "wpackagist-plugin/ai-engine-pro",
+            "version": "2.2.94",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ai-engine.2.2.93.zip"
+                "url": "gplv-plugins/ai-engine-pro.zip"
             },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/ai-engine/"
+            "type": "wordpress-plugin"
         },
         {
             "name": "wpackagist-plugin/akismet",
