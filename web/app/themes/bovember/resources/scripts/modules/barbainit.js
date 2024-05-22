@@ -381,7 +381,7 @@ export const barbainit = async (err) => {
     });
 
     if ($('#album-container #main-content #link-list').length) {
-      tl.to('#album-container #main-content #link-list .list-item', {
+      tl.to('#album-container #main-content #link-list .link-item', {
         duration: 0.25,
         translateY: 50,
         opacity: 0,
@@ -409,7 +409,7 @@ export const barbainit = async (err) => {
     });
 
     if ($('#album-container #main-content #link-list').length) {
-      tl.to('#album-container #main-content #link-list .list-item', {
+      tl.to('#album-container #main-content #link-list .link-item', {
         duration: 0.0625,
         translateY: 0,
         opacity: 1,
