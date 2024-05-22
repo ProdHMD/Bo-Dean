@@ -45,7 +45,7 @@
       "type": "package",
       "package": {
         "name": "acf/acfpro",
-        "version": "6.2.9",
+        "version": "6.2.10",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/advanced-custom-fields-pro.zip",
@@ -93,7 +93,7 @@
       "type": "package",
       "package": {
         "name": "wpackagist-plugin/ai-engine-pro",
-        "version": "2.2.95",
+        "version": "2.3.4",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/ai-engine-pro.zip",
