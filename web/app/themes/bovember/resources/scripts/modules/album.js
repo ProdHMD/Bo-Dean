@@ -78,12 +78,12 @@ export const album = async (err) => {
         } else {
           link = playlist.find('.details')[current];    
         }
-        run($(link),audio[0]);
+        run($(link), audio[0]);
       });
     }
 
     // Set up the run playlist function
-    function run(link, player){
+    function run(link, player) {
       player.src = link.attr('data-audio-link');
       par = link.parent();
       par.addClass('active').siblings().removeClass('active');

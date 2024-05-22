@@ -22,9 +22,7 @@
         </div>
 
         <div class="row" id="tracklist-container">
-          <audio id="track-player">
-            <source src="" type="audio/mp3" />
-          </audio>
+          <audio id="track-player"></audio>
           
           <?php if (have_rows('track')) : ?>
             <ol class="col-md-8 offset-md-2 list-unstyled" id="tracklist">
