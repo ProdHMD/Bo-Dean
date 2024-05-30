@@ -45,7 +45,7 @@
       "type": "package",
       "package": {
         "name": "acf/acfpro",
-        "version": "6.2.10",
+        "version": "6.3.0.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/advanced-custom-fields-pro.zip",
@@ -145,7 +145,7 @@
     "wpackagist-plugin/enable-media-replace": "^4.1",
     "ryanhellyer/wordpress-audio-optimizer": "^1.1",
     "wpackagist-plugin/akismet": "^5.3",
-    "wpackagist-plugin/ai-engine-pro": "^2.2",
+    "wpackagist-plugin/ai-engine-pro": "^2.3",
     "wpackagist-plugin/super-light-cache-buster": "^1.4"
   },
   "require-dev": {

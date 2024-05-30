@@ -44,10 +44,13 @@
                   <div class="track-no"><?php echo str_pad($track_no, 2, '0', STR_PAD_LEFT); ?></div>
                   <div class="track-name"><?php echo $track_name; ?></div>
                   <div class="track-length"><?php echo $file_length; ?></div>
-                  <div class="track-play-pause">
-                    <span class="play-btn"><x-fas-play /></span>
-                    <span class="pause-btn"><x-fas-pause /></span>
-                  </div>
+
+                  <?php if (isset($file)) : ?>
+                    <div class="track-play-pause">
+                      <span class="play-btn"><x-fas-play /></span>
+                      <span class="pause-btn"><x-fas-pause /></span>
+                    </div>
+                  <?php endif; ?>
                 </li>
               <?php endwhile; ?>
             </ol>

@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f6c66ad3de7eefc69ecd323301bf8be",
+    "content-hash": "ac3f70050e010280f2b878589f522e4f",
     "packages": [
         {
             "name": "acf/acfpro",
-            "version": "6.2.10",
+            "version": "6.3.0.1",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/advanced-custom-fields-pro.zip"
