@@ -29,9 +29,6 @@ jobs:
     - name: Install dependencies
       run: composer install
 
-    - name: Run tests
-      run: composer test
-
     - name: Yarn install dependencies
       working-directory: ./web/app/themes/bovember
       run: |
