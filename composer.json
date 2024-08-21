@@ -45,7 +45,7 @@
       "type": "package",
       "package": {
         "name": "acf/acfpro",
-        "version": "6.3.0.1",
+        "version": "6.3.5",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/advanced-custom-fields-pro.zip",
@@ -69,7 +69,7 @@
       "type": "package",
       "package": {
         "name": "wpackagist-plugin/media-file-renamer-pro",
-        "version": "5.9.1",
+        "version": "5.9.7",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/media-file-renamer.zip",
@@ -93,7 +93,7 @@
       "type": "package",
       "package": {
         "name": "wpackagist-plugin/ai-engine-pro",
-        "version": "2.3.4",
+        "version": "2.5.6",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/ai-engine-pro.zip",
@@ -129,24 +129,24 @@
     "wpackagist-plugin/classic-editor": "^1.6",
     "blade-ui-kit/blade-icons": "^1.5",
     "owenvoke/blade-fontawesome": "^2.2",
-    "wpackagist-plugin/woocommerce": "^8.1",
+    "wpackagist-plugin/woocommerce": "^9.2",
     "gplvault/gplvault": "^5.0",
     "generoi/sage-woocommerce": "^1.0",
     "wpackagist-plugin/webp-converter-for-media": "^5.8",
-    "acf/acfpro": "^6.2",
     "wpackagist-plugin/wordpress-importer": "^0.8.1",
     "wpackagist-plugin/media-file-renamer-pro": "^5.7",
     "wpackagist-plugin/wordfence": "^7.11",
     "wp-media/wp-rocket": "^3.15",
-    "wpackagist-plugin/wordpress-seo": "^22.0",
+    "wpackagist-plugin/wordpress-seo": "^23.0",
     "wpackagist-plugin/woocommerce-gateway-paypal-powered-by-braintree": "^3.1",
     "wpackagist-plugin/jetpack": "^13.1",
     "wpackagist-plugin/media-cleaner-pro": "^6.6",
     "wpackagist-plugin/enable-media-replace": "^4.1",
     "ryanhellyer/wordpress-audio-optimizer": "^1.1",
     "wpackagist-plugin/akismet": "^5.3",
-    "wpackagist-plugin/ai-engine-pro": "^2.3",
-    "wpackagist-plugin/super-light-cache-buster": "^1.4"
+    "wpackagist-plugin/super-light-cache-buster": "^1.4",
+    "acf/acfpro": "^6.3",
+    "wpackagist-plugin/ai-engine-pro": "^2.5"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

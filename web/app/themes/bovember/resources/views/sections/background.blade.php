@@ -1,6 +1,6 @@
 <div class="canvas-container" id="canvas">
     <div class="canvas<?php if (is_page('home') || is_page('shows') || is_page('blog')) echo ' show'; ?>" id="home">
-        <video src="@asset('images/videos/bodean-home-video01.mp4')" class="background-media" playsinline muted autoplay loop preload="none"></video>
+        <video src="@asset('images/videos/bodean-home-video03.mp4')" class="background-media" playsinline muted autoplay loop preload="none"></video>
     </div>
 
     <div class="canvas<?php if (is_page('about')) echo ' show'; ?>" id="about">
