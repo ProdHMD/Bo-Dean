@@ -54,6 +54,7 @@ export const fancyboxinit = async (err) => {
       animated: true,
       id: 'photos',
       closeButton: false,
+      placeFocusBack: false,
       Carousel: {
         Dots: {
           minCount: 2,

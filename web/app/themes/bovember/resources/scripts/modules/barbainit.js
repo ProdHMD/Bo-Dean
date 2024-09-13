@@ -623,9 +623,11 @@ export const barbainit = async (err) => {
         await delay(500);
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
         const done = this.async();
+        await delay(500);
         toCurrentPage();
         toCurrentContent();
         done();
@@ -1140,6 +1142,7 @@ export const barbainit = async (err) => {
         // Run Fancybox
         Fancybox.bind('[data-fancybox]', {
           closeButton: false,
+          placeFocusBack: false,
         });
       },
     }, {
@@ -1190,6 +1193,7 @@ export const barbainit = async (err) => {
           animated: true,
           id: 'photos',
           closeButton: false,
+          placeFocusBack: false,
           Carousel: {
             Dots: {
               minCount: 2,
