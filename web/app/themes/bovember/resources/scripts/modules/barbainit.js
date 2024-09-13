@@ -619,12 +619,16 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         toCurrentPage();
         toCurrentContent();
       },
       async once() {
+        const done = this.async();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // Home to other home canvas pages
@@ -651,12 +655,18 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         homeToOtherCanvas();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         homeToOtherCanvas();
         toCurrentContent();
+        done();
       },
     }, {
       // Other home to home canvas pages
@@ -683,12 +693,18 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         otherCanvasToHome();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         otherCanvasToHome();
         toCurrentContent();
+        done();
       },
     }, {
       // Stay on other home canvas
@@ -716,12 +732,18 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         stayOnOtherHome();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         stayOnOtherHome();
         toCurrentContent();
+        done();
       },
     }, {
       // Go to other home
@@ -744,14 +766,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         stayOnOtherHome();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         stayOnOtherHome();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // About to home canvas page
@@ -778,14 +806,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         aboutToHomeCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         aboutToHomeCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // About to other home canvas page
@@ -813,14 +847,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         aboutToOtherHomeCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         aboutToOtherHomeCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // Home to about canvas page
@@ -847,14 +887,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         homeToAboutCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         homeToAboutCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // Other home to about canvas page
@@ -882,14 +928,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         otherHomeToAboutCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         otherHomeToAboutCanvas();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // Turn off all canvases
@@ -923,14 +975,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         hideAllCanvases();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         hideAllCanvases();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // Turn on home canvas
@@ -961,14 +1019,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         turnHomeCanvasBackOn();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         turnHomeCanvasBackOn();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // Turn on home canvas
@@ -999,14 +1063,20 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         turnAboutCanvasBackOn();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         turnAboutCanvasBackOn();
         toCurrentPage();
         toCurrentContent();
+        done();
       },
     }, {
       // Stay black and turn off page transition
@@ -1044,12 +1114,18 @@ export const barbainit = async (err) => {
         document.body.setAttribute('class', (matches && matches.at(1)) ?? '');
       },
       async enter() {
+        const done = this.async();
+        await delay(500);
         hideAllCanvases();
         toCurrentContent();
+        done();
       },
       async once() {
+        const done = this.async();
+        await delay(500);
         hideAllCanvases();
         toCurrentContent();
+        done();
       },
     }],
 
