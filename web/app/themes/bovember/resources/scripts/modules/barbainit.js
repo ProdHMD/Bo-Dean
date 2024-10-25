@@ -603,6 +603,9 @@ export const barbainit = async (err) => {
     // Turn on and off debug mode
     debug: false,
 
+    // Prevent barba from running on wpadminbar
+    prevent: ({ el }) => (el.classList && el.classList.contains('ab-item')),
+
     // Set up the main transitions
     transitions: [{
       // The basic transition call
