@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a61c4a98f8dfdc6e7b919a9753116d66",
+    "content-hash": "208063ef4f3e48508018300603648610",
     "packages": [
         {
             "name": "acf/acfpro",
@@ -5770,7 +5770,7 @@
         },
         {
             "name": "wpackagist-plugin/media-file-renamer-pro",
-            "version": "6.0.0",
+            "version": "6.0.1",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/media-file-renamer.zip"
