@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "208063ef4f3e48508018300603648610",
+    "content-hash": "02222c33dd065277662f256945a5fad7",
     "packages": [
         {
             "name": "acf/acfpro",
@@ -5904,22 +5904,22 @@
             "homepage": "https://wordpress.org/plugins/wordpress-seo/"
         },
         {
-            "name": "wpackagist-theme/twentytwentythree",
-            "version": "1.6",
+            "name": "wpackagist-theme/twentytwentyfive",
+            "version": "1.0",
             "source": {
                 "type": "svn",
-                "url": "https://themes.svn.wordpress.org/twentytwentythree/",
-                "reference": "1.6"
+                "url": "https://themes.svn.wordpress.org/twentytwentyfive/",
+                "reference": "1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/twentytwentythree.1.6.zip"
+                "url": "https://downloads.wordpress.org/theme/twentytwentyfive.1.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-theme",
-            "homepage": "https://wordpress.org/themes/twentytwentythree/"
+            "homepage": "https://wordpress.org/themes/twentytwentyfive/"
         }
     ],
     "packages-dev": [
