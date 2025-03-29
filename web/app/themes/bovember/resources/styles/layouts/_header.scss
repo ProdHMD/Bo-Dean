@@ -75,15 +75,12 @@
                             left: 0;
                             width: 0;
                             height: 2px;
-                            color: $white;
+                            background-color: $white;
                             transition: 0.2s ease-in-out all;
                         }
 
                         &:hover,
                         &:active {
-                            text-decoration: line-through;
-                            transition: 0.2s ease-in-out all;
-
                             &::before {
                                 width: 100%;
                                 transition: 0.2s ease-in-out all;
@@ -93,7 +90,10 @@
 
                     &.current-menu-item {
                         a {
-                            text-decoration: line-through;
+                            &::before {
+                                width: 100%;
+                                transition: 0.2s ease-in-out all;
+                            }
                         }
 
                         &.new-window {
@@ -126,15 +126,22 @@
                 a {
                     color: $white;
                     text-decoration: none;
-                    text-transform: uppercase;
                     position: relative;
                     transition: 0.2s ease-in-out all;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: calc(50% - 1px);
+                        left: 0;
+                        width: 0;
+                        height: 2px;
+                        background-color: $white;
+                        transition: 0.2s ease-in-out all;
+                    }
                     
                     &:hover,
                     &:active {
-                        text-decoration: line-through;
-                        transition: 0.2s ease-in-out all;
-
                         &::before {
                             width: 100%;
                             transition: 0.2s ease-in-out all;

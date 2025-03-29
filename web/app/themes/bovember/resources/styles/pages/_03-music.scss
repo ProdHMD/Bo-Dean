@@ -79,9 +79,27 @@
                             padding: 0;
                             color: $white;
                             text-transform: uppercase;
+                            text-decoration: none;
+                            position: relative;
+                            transition: 0.2s ease-in-out all;
 
-                            &:hover {
-                                text-decoration: underline;
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: calc(50% - 1px);
+                                left: 0;
+                                width: 0;
+                                height: 2px;
+                                background-color: $white;
+                                transition: 0.2s ease-in-out all;
+                            }
+
+                            &:hover,
+                            &:active {
+                                &::before {
+                                    width: 100%;
+                                    transition: 0.2s ease-in-out all;
+                                }
                             }
                         }
                     }
@@ -105,6 +123,10 @@
                                     a {
                                         width: 100%;
                                         display: inline-block;
+
+                                        &::before {
+                                            display: none;
+                                        }
 
                                         img {
                                             width: 100%;
@@ -312,6 +334,10 @@
                                             min-height: 100%;
                                             border-radius: 0.75rem;
                                             transition: all ease-in-out .2s;
+
+                                            &::before {
+                                                display: none;
+                                            }
 
                                             .icon {
                                                 svg {

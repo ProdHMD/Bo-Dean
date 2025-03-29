@@ -31,6 +31,10 @@
                                         text-transform: uppercase;
                                         margin-bottom: 1rem;
 
+                                        &::before {
+                                            display: none;
+                                        }
+
                                         &:hover {
                                             text-decoration: none;
                                         }
@@ -80,6 +84,10 @@
                                     margin-left: auto;
                                     text-align: center;
                                     transition: all ease-in-out 0.5s;
+
+                                    &::before {
+                                        display: none;
+                                    }
 
                                     svg {
                                         fill: $white;
@@ -132,6 +140,25 @@
                     }
 
                     .product {
+                        .images {
+                            a {
+                                position: relative;
+                                display: inline-flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                .emoji {
+                                    width: 0.5em !important;
+                                    height: 0.5em !important;    
+                                }
+
+                                &::before,
+                                &::after {
+                                    display: none;
+                                }
+                            }
+                        }
+
                         .entry-title {
                             font-family: $sf_pro_text;
                             font-size: 3rem;
@@ -214,6 +241,11 @@
                                 border-radius: 0;
                                 background-color: $red;
                                 color: $black;
+                                border: none;
+
+                                &::before {
+                                    display: none;
+                                }
 
                                 &:hover {
                                     background-color: $white;
@@ -240,6 +272,11 @@
                                 color: $black;
                                 background-color: $red;
                                 border-radius: 1px;
+                                border: none;
+
+                                &::before {
+                                    display: none;
+                                }
 
                                 &:hover {
                                     color: $black;
@@ -301,6 +338,10 @@
                                         background-color: $red;
                                         color: $black !important;
 
+                                        &::before {
+                                            display: none;
+                                        }
+
                                         &:hover {
                                             background-color: $white;
                                             color: $black !important;
@@ -326,6 +367,11 @@
                                 color: $black;
                                 background-color: $red;
                                 border-radius: 1px;
+                                border: none;
+
+                                &::before {
+                                    display: none;
+                                }
 
                                 &:hover {
                                     color: $black;
@@ -374,6 +420,11 @@
                             color: $black;
                             background-color: $red;
                             border-radius: 1px;
+                            border: none;
+
+                            &::before {
+                                display: none;
+                            }
 
                             &:hover {
                                 color: $black;
@@ -396,6 +447,11 @@
                                 color: $black;
                                 background-color: $red;
                                 border-radius: 1px;
+                                border: none;
+
+                                &::before {
+                                    display: none;
+                                }
 
                                 &:hover {
                                     color: $black;
@@ -429,7 +485,13 @@
                         .button {
                             color: $black;
                             background-color: $red;
+                            padding: 0.5rem;
                             border-radius: 1px;
+                            border: none;
+
+                            &::before {
+                                display: none;
+                            }
 
                             &:hover {
                                 color: $black;
@@ -455,7 +517,13 @@
                         .button {
                             color: $black;
                             background-color: $red;
+                            padding: 0.5rem;
                             border-radius: 1px;
+                            border: none;
+
+                            &::before {
+                                display: none;
+                            }
 
                             &:hover {
                                 color: $black;
@@ -506,6 +574,11 @@
                             background-color: $red;
                             border-radius: 1px;
                             min-height: 2.25rem;
+                            border: none;
+
+                            &::before {
+                                display: none;
+                            }
 
                             &:hover {
                                 color: $black;
@@ -592,7 +665,13 @@
                                 .button {
                                     color: $black;
                                     background-color: $red;
+                                    padding: 0.5rem;
                                     border-radius: 1px;
+                                    border: none;
+
+                                    &::before {
+                                        display: none;
+                                    }
     
                                     &:hover {
                                         color: $black;
@@ -627,6 +706,7 @@
                                 color: $black;
                                 background-color: $red;
                                 border-radius: 1px;
+                                border: none;
     
                                 &:hover {
                                     color: $black;
@@ -720,7 +800,13 @@
                             .button {
                                 color: $black;
                                 background-color: $red;
+                                padding: 0.5rem;
                                 border-radius: 1px;
+                                border: none;
+
+                                &::before {
+                                    display: none;
+                                }
 
                                 &:hover {
                                     color: $black;
@@ -753,6 +839,11 @@
                             color: $black;
                             background-color: $red;
                             border-radius: 1px;
+                            border: none;
+
+                            &::before {
+                                display: none;
+                            }
 
                             &:hover {
                                 color: $black;
@@ -800,6 +891,11 @@
                             color: $black;
                             background-color: $red;
                             border-radius: 1px;
+                            border: none;
+
+                            &::before {
+                                display: none;
+                            }
 
                             &:hover {
                                 color: $black;

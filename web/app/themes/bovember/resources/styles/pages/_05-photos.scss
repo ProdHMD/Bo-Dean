@@ -13,6 +13,12 @@
                     padding-bottom: 1rem;
 
                     #galleries-container {
+                        &:hover {
+                            .gallery {
+                                opacity: 0.5 !important;
+                            }
+                        }
+
                         #gallery-list {
                             .gallery {
                                 margin-bottom: 4rem;
@@ -21,6 +27,11 @@
                                 font-weight: 700;
                                 opacity: 0;
                                 transform: translateY(50px);
+                                transition: opacity .25s ease;
+
+                                &:hover {
+                                    opacity: 1 !important;
+                                }
 
                                 .gallery-thumbnail {
                                     margin-bottom: 1rem;
@@ -36,6 +47,10 @@
                                         right: 0;
                                         transform: translate(0, 0);
                                         height: 100%;
+
+                                        &::before {
+                                            display: none;
+                                        }
 
                                         img {
                                             min-height: 100%;
@@ -86,6 +101,12 @@
     &#gallery {
         #content {
             #gallery-container {
+                &:hover {
+                    .photo {
+                        opacity: 0.5 !important;
+                    }
+                }
+
                 #main-content {
                     padding-bottom: 1rem;
 
@@ -100,6 +121,11 @@
                                     margin-bottom: 2rem;
                                     opacity: 0;
                                     transform: translateY(50px);
+                                    transition: opacity .25s ease;
+
+                                    &:hover {
+                                        opacity: 1 !important;
+                                    }
                                     
                                     .photo-container {
                                         overflow: hidden;
@@ -114,6 +140,10 @@
                                             right: 0;
                                             transform: translate(0, 0);
                                             height: 100%;
+
+                                            &::before {
+                                                display: none;
+                                            }
 
                                             img {
                                                 min-height: 100%;
