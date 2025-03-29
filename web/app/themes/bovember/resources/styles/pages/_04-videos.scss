@@ -3,6 +3,12 @@
     &#videos {
         #content {
             #videos-container {
+                &:hover {
+                    .youtube-item {
+                        opacity: 0.5 !important;
+                    }
+                }
+
                 #main-content {
                     margin-top: 10%;
                     padding-bottom: 1rem;
@@ -12,8 +18,17 @@
                             margin-bottom: 3rem;
                             opacity: 0;
                             transform: translateY(50px);
+                            transition: opacity .25s ease;
+
+                            &:hover {
+                                opacity: 1 !important;
+                            }
 
                             .thumbnail {
+                                &::before {
+                                    display: none;
+                                }
+
                                 img {
                                     min-width: 100%;
                                 }

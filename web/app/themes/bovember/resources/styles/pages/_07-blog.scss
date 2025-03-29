@@ -29,6 +29,12 @@
                             @include media-breakpoint-down(xl) {
                                 font-size: 2rem;
                             }
+
+                            a {
+                                &::before {
+                                    display: none;
+                                }
+                            }
                         }
 
                         .dt-published {
@@ -44,6 +50,10 @@
                                 color: $white;
                                 font-size: 2rem;
                                 line-height: 1;
+
+                                &::before {
+                                    background-color: $white;
+                                }
 
                                 @include media-breakpoint-down(xl) {
                                     font-size: 1.5rem;
@@ -165,6 +175,12 @@
 
                                             @include media-breakpoint-down(xl) {
                                                 font-size: 1.5rem;
+                                            }
+
+                                            a {
+                                                &::before {
+                                                    display: none;
+                                                }
                                             }
                                         }
                                     }

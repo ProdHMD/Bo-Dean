@@ -116,6 +116,10 @@ html {
                                 text-transform: uppercase;
                                 color: $white;
 
+                                &::before {
+                                    background-color: $white;
+                                }
+
                                 @include media-breakpoint-down(sm) {
                                     font-size: 1rem;
                                 }
@@ -130,9 +134,26 @@ html {
         a {
             color: $red;
             text-decoration: none;
+            position: relative;
+            transition: 0.2s ease-in-out all;
 
-            &:hover {
-                text-decoration: underline;
+            &::before {
+                content: '';
+                position: absolute;
+                top: calc(50% - 1px);
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: $red;
+                transition: 0.2s ease-in-out all;
+            }
+
+            &:hover,
+            &:active {
+                &::before {
+                    width: 100%;
+                    transition: 0.2s ease-in-out all;
+                }
             }
         }
 
