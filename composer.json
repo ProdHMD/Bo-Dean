@@ -124,7 +124,6 @@
     "roots/wordpress": "^6.2.2",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
-    "wpackagist-theme/twentytwentythree": "^1.0",
     "roots/acorn": "^3.1",
     "wpackagist-plugin/classic-editor": "^1.6",
     "blade-ui-kit/blade-icons": "^1.5",
@@ -146,7 +145,8 @@
     "wpackagist-plugin/ai-engine-pro": "^2.6",
     "acf/acfpro": "^6.3",
     "wp-media/wp-rocket": "^3.15",
-    "wpackagist-plugin/media-file-renamer-pro": "^6.0"
+    "wpackagist-plugin/media-file-renamer-pro": "^6.0",
+    "wpackagist-theme/twentytwentyfive": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7.1",

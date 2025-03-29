@@ -1,0 +1,52 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH
+        env:
+          DEPLOY_PATH: ${{ github.ref == 'refs/heads/master' && '/srv/users/serverpilot/apps/livebodean/' || '/srv/users/serverpilot/apps/livebodean/' }}
+        run: |
+          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} << EOF
+            # Navigate to the correct Bedrock directory based on the branch
+            cd $DEPLOY_PATH
+            git pull origin $(git rev-parse --abbrev-ref HEAD)
+            composer install --no-dev --optimize-autoloader
+
+            # Navigate to Sage 10 theme directory and build assets
+            cd web/app/themes/bovember/
+            yarn install
+            yarn build
+
+            # Clear caches inside theme directory
+            wp acorn cache:clear
+            wp acorn config:clear
+            wp acorn view:clear
+
+            # Navigate back to Bedrock and optimize Acorn
+            cd $DEPLOY_PATH
+            wp acorn optimize
+
+            # Set correct file ownership and permissions
+            chown -R serverpilot:serverpilot $DEPLOY_PATH
+            find $DEPLOY_PATH -type d -exec chmod 0775 {} \;
+            find $DEPLOY_PATH -type f -exec chmod 0664 {} \;
+          EOF
