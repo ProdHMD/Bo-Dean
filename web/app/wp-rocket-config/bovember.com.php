@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 $rocket_cookie_hash = 'c9726e0ca568d622fbbbea4fcf61a3b4';
 $rocket_logged_in_cookie = 'wordpress_logged_in_c9726e0ca568d622fbbbea4fcf61a3b4';
 $rocket_cache_mobile_files_tablet = 'desktop';
-$rocket_cache_reject_uri = '/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|/shop/checkout/??(.*)|/shop/cart/?|/shop/my-account/??(.*)|/wc-api/v(.*)|/(index.php/)?(.*)wp-json(/.*|$)';
+$rocket_cache_reject_uri = '/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|/shop/checkout/??(.*)|/shop/cart/?|/shop/my-account/??(.*)|/(index.php/)?(.*)wp-json(/.*|$)';
 $rocket_cache_reject_cookies = 'wordpress_logged_in_.+|wp-postpass_|wptouch_switch_toggle|comment_author_|comment_author_email_';
 $rocket_cache_reject_ua = 'facebookexternalhit|WhatsApp';
 $rocket_cache_query_strings = array();
@@ -82,6 +82,10 @@ $rocket_cache_ignored_parameters = array(
   'gad' => 66,
   'vgo_ee' => 67,
   'gad_source' => 68,
+  'onlywprocket' => 69,
+  'srsltid' => 70,
+  'gadid' => 71,
+  'fbadid' => 72,
 );
 $rocket_cache_mandatory_cookies = '';
 $rocket_cache_dynamic_cookies = array();

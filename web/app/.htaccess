@@ -1,0 +1,56 @@
+
+# BEGIN Converter for Media
+# ! --- DO NOT EDIT PREVIOUS LINE --- !
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteOptions Inherit
+
+  RewriteCond %{QUERY_STRING} original$
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule . - [L]
+
+  RewriteCond %{HTTP_ACCEPT} image/avif
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond /srv/users/serverpilot/apps/livebodean/web/app/uploads-webpc/$1.jpg.avif -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/app/uploads-webpc/$1.jpg.avif -f
+  RewriteRule (.+)\.jpg$ /app/uploads-webpc/$1.jpg.avif [NC,T=image/avif,L]
+  RewriteCond %{HTTP_ACCEPT} image/avif
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond /srv/users/serverpilot/apps/livebodean/web/app/uploads-webpc/$1.jpeg.avif -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/app/uploads-webpc/$1.jpeg.avif -f
+  RewriteRule (.+)\.jpeg$ /app/uploads-webpc/$1.jpeg.avif [NC,T=image/avif,L]
+  RewriteCond %{HTTP_ACCEPT} image/avif
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond /srv/users/serverpilot/apps/livebodean/web/app/uploads-webpc/$1.png.avif -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/app/uploads-webpc/$1.png.avif -f
+  RewriteRule (.+)\.png$ /app/uploads-webpc/$1.png.avif [NC,T=image/avif,L]
+  RewriteCond %{HTTP_ACCEPT} image/avif
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond /srv/users/serverpilot/apps/livebodean/web/app/uploads-webpc/$1.webp.avif -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/app/uploads-webpc/$1.webp.avif -f
+  RewriteRule (.+)\.webp$ /app/uploads-webpc/$1.webp.avif [NC,T=image/avif,L]
+
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond /srv/users/serverpilot/apps/livebodean/web/app/uploads-webpc/$1.jpg.webp -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/app/uploads-webpc/$1.jpg.webp -f
+  RewriteRule (.+)\.jpg$ /app/uploads-webpc/$1.jpg.webp [NC,T=image/webp,L]
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond /srv/users/serverpilot/apps/livebodean/web/app/uploads-webpc/$1.jpeg.webp -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/app/uploads-webpc/$1.jpeg.webp -f
+  RewriteRule (.+)\.jpeg$ /app/uploads-webpc/$1.jpeg.webp [NC,T=image/webp,L]
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond /srv/users/serverpilot/apps/livebodean/web/app/uploads-webpc/$1.png.webp -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/app/uploads-webpc/$1.png.webp -f
+  RewriteRule (.+)\.png$ /app/uploads-webpc/$1.png.webp [NC,T=image/webp,L]
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "(?i)\.(jpg|jpeg|png|webp)(\.(webp|avif))?$">
+    Header always set Cache-Control "private"
+    Header append Vary "Accept"
+  </FilesMatch>
+</IfModule>
+# ! --- DO NOT EDIT NEXT LINE --- !
+# END Converter for Media
