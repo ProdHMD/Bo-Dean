@@ -1,17 +1,7 @@
-// Import external dependencies
+// Import external dependencies with dynamic loading
 import domReady from '@roots/sage/client/dom-ready';
 import 'jquery';
 import 'bootstrap';
-
-// Import custom modules
-import { header } from './modules/header.js';
-import { music } from './modules/music.js';
-import { bg } from './modules/bg.js';
-import { locomotive } from './modules/locomotive.js';
-import { shop } from './modules/shop.js';
-import { fancyboxinit } from './modules/fancyboxinit.js';
-import { isotopeinit } from './modules/isotopeinit.js';
-import { barbainit } from './modules/barbainit.js';
 
 /**
  * Application entrypoint
@@ -23,31 +13,60 @@ domReady(async () => {
     return ['/shop', '/product'].some(el => url.includes(el));
   };
 
-  // Init headerJS
-  header();
+  // Function to lazy-load modules only when needed
+  const loadModule = async (module) => {
+    switch (module) {
+      case 'header':
+        const { header } = await import('./modules/header.js');
+        header();
+        break;
+      case 'music':
+        const { music } = await import('./modules/music.js');
+        music();
+        break;
+      case 'bg':
+        const { bg } = await import('./modules/bg.js');
+        bg();
+        break;
+      case 'locomotive':
+        const { locomotive } = await import('./modules/locomotive.js');
+        locomotive();
+        break;
+      case 'shop':
+        const { shop } = await import('./modules/shop.js');
+        shop();
+        break;
+      case 'fancybox':
+        const { fancyboxinit } = await import('./modules/fancyboxinit.js');
+        fancyboxinit();
+        break;
+      case 'isotope':
+        const { isotopeinit } = await import('./modules/isotopeinit.js');
+        isotopeinit();
+        break;
+      case 'barba':
+        const { barbainit } = await import('./modules/barbainit.js');
+        barbainit();
+        break;
+      default:
+        console.warn('Unknown module: ', module);
+    }
+  };
 
-  // Init musicJS
-  music();
+  // Init critical modules immediately
+  await loadModule('header');
+  await loadModule('music');
+  await loadModule('bg');
 
-  // Init bgJS
-  bg();
-
-  // Init locomotiveJS
-  locomotive();
-
-  // Init shopJS
-  shop();
-
-  // Init fancyboxInitJS
-  fancyboxinit();
-
-  // Init isotopeJS
-  isotopeinit();
-
-  // Init barbaInitJS
+  // Lazy-load others based on page conditions
   if (!doesItContain()) {
-    barbainit();
+    await loadModule('barba');
   }
+
+  await loadModule('shop');  // Can be deferred based on page needs
+  await loadModule('fancybox');
+  await loadModule('isotope');
+  await loadModule('locomotive');
 });
 
 /**
