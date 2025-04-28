@@ -49,7 +49,9 @@
                             <div class="gallery-info">
                                 <span class="date"><?php echo $date; ?></span>
                                 <h2 class="title"><a href="<?php echo $permalink; ?>"><?php echo $title; ?></a></h2>
-                                <span class="location"><?php echo $location[0]->name; ?></span>
+                                <?php if ($location && !is_wp_error($location) && isset($location[0])): ?>
+                                    <span class="location"><?php echo $location[0]->name; ?></span>
+                                <?php endif; ?>
                             </div>
                         </li>
                     <?php endwhile; wp_reset_postdata(); ?>

@@ -625,6 +625,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -632,6 +633,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -663,6 +665,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         homeToOtherCanvas();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -670,6 +673,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         homeToOtherCanvas();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -701,6 +705,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         otherCanvasToHome();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -708,6 +713,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         otherCanvasToHome();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -740,6 +746,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         stayOnOtherHome();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -747,6 +754,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         stayOnOtherHome();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -775,6 +783,7 @@ export const barbainit = async (err) => {
         await delay(500);
         stayOnOtherHome();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -783,6 +792,7 @@ export const barbainit = async (err) => {
         await delay(500);
         stayOnOtherHome();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -815,6 +825,7 @@ export const barbainit = async (err) => {
         await delay(500);
         aboutToHomeCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -823,6 +834,7 @@ export const barbainit = async (err) => {
         await delay(500);
         aboutToHomeCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -856,6 +868,7 @@ export const barbainit = async (err) => {
         await delay(500);
         aboutToOtherHomeCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -864,6 +877,7 @@ export const barbainit = async (err) => {
         await delay(500);
         aboutToOtherHomeCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -896,6 +910,7 @@ export const barbainit = async (err) => {
         await delay(500);
         homeToAboutCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -904,6 +919,7 @@ export const barbainit = async (err) => {
         await delay(500);
         homeToAboutCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -937,6 +953,7 @@ export const barbainit = async (err) => {
         await delay(500);
         otherHomeToAboutCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -945,6 +962,7 @@ export const barbainit = async (err) => {
         await delay(500);
         otherHomeToAboutCanvas();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -984,6 +1002,7 @@ export const barbainit = async (err) => {
         await delay(500);
         hideAllCanvases();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -992,6 +1011,7 @@ export const barbainit = async (err) => {
         await delay(500);
         hideAllCanvases();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -1028,6 +1048,7 @@ export const barbainit = async (err) => {
         await delay(500);
         turnHomeCanvasBackOn();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -1036,6 +1057,7 @@ export const barbainit = async (err) => {
         await delay(500);
         turnHomeCanvasBackOn();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -1072,6 +1094,7 @@ export const barbainit = async (err) => {
         await delay(500);
         turnAboutCanvasBackOn();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -1080,6 +1103,7 @@ export const barbainit = async (err) => {
         await delay(500);
         turnAboutCanvasBackOn();
         toCurrentPage();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -1122,6 +1146,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         hideAllCanvases();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -1129,6 +1154,7 @@ export const barbainit = async (err) => {
         const done = this.async();
         await delay(500);
         hideAllCanvases();
+        await delay(250);
         toCurrentContent();
         done();
       },
@@ -1160,8 +1186,12 @@ export const barbainit = async (err) => {
     }, {
       // Videos page view
       namespace: 'videos',
-      afterEnter() {
+      async beforeEnter() {
+        await delay(2500);
         video();
+        done();
+      },
+      afterEnter() {
         // Run Fancybox
         Fancybox.bind('[data-fancybox="videos"]', {
           animated: true,
