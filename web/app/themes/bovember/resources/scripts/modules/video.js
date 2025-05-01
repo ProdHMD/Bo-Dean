@@ -102,8 +102,12 @@ export const video = (err) => {
         // Append all videos after collection
         $('#video-gallery-container').append(htmlString);
 
-        // Trigger GSAP animation after all items have been added
-        gsap.set('.youtube-item', { opacity: 0, translateY: 50 });
+        // Set initial styles (only for initial load)
+        if (isInitialLoad) {
+          gsap.set('.youtube-item', { opacity: 0, y: 50 });
+        } else {
+          gsap.set('.youtube-item', { opacity: 1, y: 0 });
+        }
 
         // Update the pageToken
         pageToken = data.nextPageToken || null; // Update next page token

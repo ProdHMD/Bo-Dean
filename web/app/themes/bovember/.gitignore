@@ -2,6 +2,7 @@
 /vendor
 /public
 /.yarn
+/.yarn/*
 .env
 .budfiles
 npm-debug.log
