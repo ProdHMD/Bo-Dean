@@ -15,7 +15,7 @@
                     #galleries-container {
                         &:hover {
                             .gallery {
-                                opacity: 0.5 !important;
+                                opacity: 0.5;
                             }
                         }
 
@@ -25,12 +25,11 @@
                                 font-family: $sf_pro_text;
                                 text-transform: uppercase;
                                 font-weight: 700;
-                                opacity: 0;
                                 transform: translateY(50px);
                                 transition: opacity .25s ease;
 
                                 &:hover {
-                                    opacity: 1 !important;
+                                    opacity: 1;
                                 }
 
                                 .gallery-thumbnail {
@@ -101,12 +100,6 @@
     &#gallery {
         #content {
             #gallery-container {
-                &:hover {
-                    .photo {
-                        opacity: 0.5 !important;
-                    }
-                }
-
                 #main-content {
                     padding-bottom: 1rem;
 
@@ -116,15 +109,20 @@
                         .e-content {
                             .gallery-container {
                                 padding: 2rem;
+
+                                &:hover {
+                                    .photo {
+                                        opacity: 0.5;
+                                    }
+                                }
                                 
                                 .photo {
                                     margin-bottom: 2rem;
-                                    opacity: 0;
                                     transform: translateY(50px);
                                     transition: opacity .25s ease;
 
                                     &:hover {
-                                        opacity: 1 !important;
+                                        opacity: 1;
                                     }
                                     
                                     .photo-container {

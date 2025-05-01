@@ -7,7 +7,6 @@
     <div class="col-md-9 offset-md-1" id="main-content">
         <h1 class="d-none">{!! $title !!}</h1>
 
-        <div class="container-fluid" id="video-gallery-container" data-scroll-section>
-        </div>
+        <div class="container-fluid" id="video-gallery-container" data-scroll-section></div>
     </div>
 </div>

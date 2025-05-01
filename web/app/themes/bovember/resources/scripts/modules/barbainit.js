@@ -431,12 +431,21 @@ export const barbainit = async (err) => {
   }
 
   function toVideoPage() {
-    tl.to('#videos-container #main-content .youtube-item', {
+    tl.from('#videos-container #main-content .youtube-item', {
+      translateY: 50,
+      opacity: 0,
+      delay: 0,
+    })
+    .to('#videos-container #main-content .youtube-item', {
       duration: 0.25,
       translateY: 0,
       opacity: 1,
       stagger: 0.125,
       delay: 0,
+      onComplete: () => {
+        document.querySelectorAll('#videos-container #main-content .youtube-item')
+          .forEach(el => el.style.removeProperty('opacity')); // Let CSS handle hover now
+      },
     });
   }
 
@@ -452,12 +461,21 @@ export const barbainit = async (err) => {
   }
 
   function toPhotosPage() {
-    tl.to('#photos-container #main-content .gallery', {
+    tl.from('#photos-container #main-content .gallery', {
+      translateY: 50,
+      opacity: 0,
+      delay: 0,
+    })
+    .to('#photos-container #main-content .gallery', {
       duration: 0.25,
       translateY: 0,
       opacity: 1,
       stagger: 0.125,
       delay: 0,
+      onComplete: () => {
+        document.querySelectorAll('#photos-container #main-content .gallery')
+          .forEach(el => el.style.removeProperty('opacity')); // Let CSS handle hover now
+      },
     });
   }
 
@@ -473,12 +491,21 @@ export const barbainit = async (err) => {
   }
 
   function toGalleryPage() {
-    tl.to('#gallery-container #main-content .photo', {
+    tl.from('#gallery-container #main-content .photo', {
+      translateY: 50,
+      opacity: 0,
+      delay: 0,
+    })
+    .to('#gallery-container #main-content .photo', {
       duration: 0.25,
       translateY: 0,
       opacity: 1,
       stagger: 0.125,
       delay: 0,
+      onComplete: () => {
+        document.querySelectorAll('#gallery-container #main-content .photo')
+          .forEach(el => el.style.removeProperty('opacity')); // Let CSS handle hover now
+      },
     });
   }
 
@@ -982,6 +1009,7 @@ export const barbainit = async (err) => {
           'music',
           'videos',
           'photos',
+          'gallery',
           'single-post',
           'contact',
         ],
@@ -1023,6 +1051,7 @@ export const barbainit = async (err) => {
           'music',
           'videos',
           'photos',
+          'gallery',
           'single-post',
           'contact',
         ],
@@ -1187,7 +1216,6 @@ export const barbainit = async (err) => {
       // Videos page view
       namespace: 'videos',
       async beforeEnter() {
-        await delay(2500);
         video();
       },
       afterEnter() {
@@ -1216,9 +1244,23 @@ export const barbainit = async (err) => {
     }, {
       // Photos page view
       namespace: 'photos',
+      async beforeEnter() {
+        await delay(250);
+        gsap.set('#photos-container #main-content .gallery', {
+          opacity: 0,
+          translateY: 50,
+        });
+      },
     }, {
       // Single gallery page view
       namespace: 'gallery',
+      async beforeEnter() {
+        await delay(250);
+        gsap.set('#gallery-container #main-content .photo', {
+          opacity: 0,
+          translateY: 50,
+        });
+      },
       afterEnter() {
         // Run Fancybox
         Fancybox.bind('[data-fancybox="gallery"]', {

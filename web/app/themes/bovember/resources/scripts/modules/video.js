@@ -103,7 +103,7 @@ export const video = (err) => {
         $('#video-gallery-container').append(htmlString);
 
         // Trigger GSAP animation after all items have been added
-        gsap.to('.youtube-item', { duration: 0.25, translateY: 0, opacity: 1, stagger: 0.125 });
+        gsap.set('.youtube-item', { opacity: 0, translateY: 50 });
 
         // Update the pageToken
         pageToken = data.nextPageToken || null; // Update next page token
