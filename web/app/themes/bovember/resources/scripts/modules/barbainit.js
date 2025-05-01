@@ -1189,7 +1189,6 @@ export const barbainit = async (err) => {
       async beforeEnter() {
         await delay(2500);
         video();
-        done();
       },
       afterEnter() {
         // Run Fancybox

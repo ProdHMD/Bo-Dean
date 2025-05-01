@@ -16,38 +16,46 @@ domReady(async () => {
   // Function to lazy-load modules only when needed
   const loadModule = async (module) => {
     switch (module) {
-      case 'header':
+      case 'header': {
         const { header } = await import('./modules/header.js');
         header();
         break;
-      case 'music':
+      }
+      case 'music': {
         const { music } = await import('./modules/music.js');
         music();
         break;
-      case 'bg':
+      }
+      case 'bg': {
         const { bg } = await import('./modules/bg.js');
         bg();
         break;
-      case 'locomotive':
+      }
+      case 'locomotive': {
         const { locomotive } = await import('./modules/locomotive.js');
         locomotive();
         break;
-      case 'shop':
+      }
+      case 'shop': {
         const { shop } = await import('./modules/shop.js');
         shop();
         break;
-      case 'fancybox':
+      }
+      case 'fancybox': {
         const { fancyboxinit } = await import('./modules/fancyboxinit.js');
         fancyboxinit();
         break;
-      case 'isotope':
+      }
+      case 'isotope': {
         const { isotopeinit } = await import('./modules/isotopeinit.js');
         isotopeinit();
         break;
-      case 'barba':
+      }
+      case 'barba': {
         const { barbainit } = await import('./modules/barbainit.js');
         barbainit();
         break;
+      }
       default:
         console.warn('Unknown module: ', module);
     }
