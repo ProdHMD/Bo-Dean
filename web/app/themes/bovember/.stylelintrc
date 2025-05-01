@@ -4,10 +4,10 @@
     "@roots/bud-sass/stylelint-config"
   ],
   "rules": {
-    "import-notation": false,
-    "color-hex-length": false,
-    "no-descending-specificity": false,
-    "selector-class-pattern": false,
-    "selector-id-pattern": false
+    "import-notation": null,
+    "color-hex-length": null,
+    "no-descending-specificity": null,
+    "selector-class-pattern": null,
+    "selector-id-pattern": null
   }
 }
