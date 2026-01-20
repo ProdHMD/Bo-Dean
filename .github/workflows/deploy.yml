@@ -14,7 +14,6 @@ on:
         default: ""
 
 env:
-  # Only these need to exist as repo variables
   APP_NAME: ${{ vars.APP_NAME }}
   THEME_NAME: ${{ vars.THEME_NAME }}
 
@@ -25,7 +24,8 @@ jobs:
     outputs:
       app_env: ${{ steps.outvars.outputs.app_env }}
       deploy_path: ${{ steps.outvars.outputs.deploy_path }}
-      theme_path: ${{ steps.outvars.outputs.theme_path }}
+      theme_local_path: ${{ steps.outvars.outputs.theme_local_path }}
+      theme_remote_path: ${{ steps.outvars.outputs.theme_remote_path }}
     steps:
       - name: Compute APP_ENV from branch (with optional override)
         id: outvars
@@ -52,11 +52,21 @@ jobs:
           fi
 
           DEPLOY_PATH="/srv/users/serverpilot/apps/${APP_ENV}${{ env.APP_NAME }}"
-          THEME_PATH="web/app/themes/${{ env.THEME_NAME }}"
 
-          echo "Branch=$BRANCH  ;  APP_ENV=$APP_ENV"
+          # Local (build) path is relative to repo; Remote (deploy) path is absolute
+          THEME_LOCAL_PATH="web/app/themes/${{ env.THEME_NAME }}"
+          THEME_REMOTE_PATH="${DEPLOY_PATH}/web/app/themes/${{ env.THEME_NAME }}"
+
+          # Guard: theme must live inside web/app/themes/
+          case "$THEME_LOCAL_PATH" in
+            web/app/themes/*) : ;;  # ok
+            *) echo "::error ::THEME_LOCAL_PATH must be inside web/app/themes/. Got: $THEME_LOCAL_PATH" >&2; exit 1 ;;
+          esac
+
+          echo "Branch=$BRANCH ; APP_ENV=$APP_ENV"
           echo "deploy_path=$DEPLOY_PATH" >> "$GITHUB_OUTPUT"
-          echo "theme_path=$THEME_PATH" >> "$GITHUB_OUTPUT"
+          echo "theme_local_path=$THEME_LOCAL_PATH" >> "$GITHUB_OUTPUT"
+          echo "theme_remote_path=$THEME_REMOTE_PATH" >> "$GITHUB_OUTPUT"
           echo "app_env=$APP_ENV" >> "$GITHUB_OUTPUT"
 
   build-bedrock:
@@ -121,9 +131,8 @@ jobs:
         with:
           node-version: '20.20.0'
           cache: 'yarn'
-          cache-dependency-path: ${{ needs.sanity-and-derive.outputs.theme_path }}/yarn.lock
+          cache-dependency-path: ${{ needs.sanity-and-derive.outputs.theme_local_path }}/yarn.lock
 
-      # 🔒 Enforce Yarn 4.12.0 (prevents fallback to classic Yarn 1.x)
       - name: Use Yarn 4.12.0 via Corepack
         run: |
           corepack enable
@@ -135,28 +144,38 @@ jobs:
         with:
           path: |
             ~/.composer/cache
-            ${{ needs.sanity-and-derive.outputs.theme_path }}/vendor
-          key: composer-theme-${{ hashFiles(format('{0}/composer.lock', needs.sanity-and-derive.outputs.theme_path)) }}
+            ${{ needs.sanity-and-derive.outputs.theme_local_path }}/vendor
+          key: composer-theme-${{ hashFiles(format('{0}/composer.lock', needs.sanity-and-derive.outputs.theme_local_path)) }}
 
       - name: Install Theme Dependencies + Build
-        working-directory: ${{ needs.sanity-and-derive.outputs.theme_path }}
+        working-directory: ${{ needs.sanity-and-derive.outputs.theme_local_path }}
+        env:
+          NODE_ENV: production
         run: |
-          # Composer for Sage (Acorn, etc.)
           if [ -f composer.json ]; then
             composer install --no-interaction --prefer-dist --no-dev
           fi
           yarn install --immutable || yarn install
-          yarn build
+          # Production build: Bud/Sage emits content-hashed assets
+          yarn build --mode=production
+
+      - name: Verify theme build output (public/)
+        working-directory: ${{ needs.sanity-and-derive.outputs.theme_local_path }}
+        run: |
+          if [ ! -d public ] || [ -z "$(ls -A public || true)" ]; then
+            echo "::error ::No built assets found in theme/public after yarn build."
+            exit 1
+          fi
 
       - name: Upload Sage Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: sage-build
           path: |
-            ${{ needs.sanity-and-derive.outputs.theme_path }}/public/**
-            ${{ needs.sanity-and-derive.outputs.theme_path }}/vendor/**
-            ${{ needs.sanity-and-derive.outputs.theme_path }}/node_modules/**
-            ${{ needs.sanity-and-derive.outputs.theme_path }}/.yarn/**
+            ${{ needs.sanity-and-derive.outputs.theme_local_path }}/public/**
+            ${{ needs.sanity-and-derive.outputs.theme_local_path }}/vendor/**
+            ${{ needs.sanity-and-derive.outputs.theme_local_path }}/node_modules/**
+            ${{ needs.sanity-and-derive.outputs.theme_local_path }}/.yarn/**
           if-no-files-found: ignore
 
   deploy:
@@ -188,7 +207,6 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.SERVER_IP }}" >> ~/.ssh/known_hosts
 
-      # ✅ Option 1: STRICT SKIP if dev path doesn't exist
       - name: Check/flag dev path existence
         id: devpath
         if: needs.sanity-and-derive.outputs.app_env == 'dev'
@@ -205,22 +223,77 @@ jobs:
           echo "Dev path ${{ needs.sanity-and-derive.outputs.deploy_path }} does not exist. Skipping deployment."
           exit 0
 
-      - name: Rsync Bedrock & Theme to Server
+      - name: Detect local theme build source (flattened vs full-path)
+        id: srcdir
+        run: |
+          A="${{ needs.sanity-and-derive.outputs.theme_local_path }}"
+          B="."
+          echo "Looking for theme build output at:"
+          echo "  A: $A/public"
+          echo "  B: $B/public"
+          if [ -d "$A/public" ]; then
+            echo "src=$A" >> "$GITHUB_OUTPUT"
+            echo "Using full theme path as source."
+          elif [ -d "$B/public" ]; then
+            echo "src=$B" >> "$GITHUB_OUTPUT"
+            echo "Using flattened artifact root as source."
+          else
+            echo "::error ::No built theme assets found at either location."
+            exit 1
+          fi
+
+      - name: Guard - Ensure safe remote paths (won't touch app root public/)
+        run: |
+          REMOTE_DEPLOY="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+          REMOTE_THEME="${{ needs.sanity-and-derive.outputs.theme_remote_path }}"
+
+          case "$REMOTE_THEME" in
+            "$REMOTE_DEPLOY"/web/app/themes/*) echo "Remote theme path OK: $REMOTE_THEME" ;;
+            *) echo "::error ::REMOTE_THEME must be inside $REMOTE_DEPLOY/web/app/themes/. Got: $REMOTE_THEME" ; exit 1 ;;
+          esac
+
+          # Optional: warn if remote app-level public isn't a symlink (ServerPilot typically uses a symlink)
+          ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc "
+            if [ -e '$REMOTE_DEPLOY/public' ] && [ ! -L '$REMOTE_DEPLOY/public' ]; then
+              echo '::warning ::Remote app public/ is not a symlink. Verify ServerPilot app layout.'
+            fi
+          "
+
+      - name: Rsync Bedrock & Theme to Server (absolute remote paths)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           set -e
-          REMOTE="serverpilot@${{ secrets.SERVER_IP }}:${{ needs.sanity-and-derive.outputs.deploy_path }}"
+          REMOTE_BASE="serverpilot@${{ secrets.SERVER_IP }}:"
+          REMOTE_DEPLOY="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+          REMOTE_THEME="${{ needs.sanity-and-derive.outputs.theme_remote_path }}"
+          SRC="${{ steps.srcdir.outputs.src }}"
+          APP_ENV="${{ needs.sanity-and-derive.outputs.app_env }}"
 
-          # Sync Bedrock vendor and .env
-          rsync -az --delete vendor/ "$REMOTE/vendor/"
-          [ -f ".env" ] && rsync -az .env "$REMOTE/.env" || true
+          echo "Using theme source directory: $SRC"
+          echo "Deploying to: $REMOTE_DEPLOY"
+          echo "Theme remote path: $REMOTE_THEME"
 
-          # Sync theme artifacts
-          THEME_DIR="${{ needs.sanity-and-derive.outputs.theme_path }}"
-          rsync -az --delete "$THEME_DIR/public/" "$REMOTE/$THEME_DIR/public/"
-          if [ -d "$THEME_DIR/vendor" ]; then rsync -az --delete "$THEME_DIR/vendor/" "$REMOTE/$THEME_DIR/vendor/"; fi
-          if [ -d "$THEME_DIR/node_modules" ]; then rsync -az --delete "$THEME_DIR/node_modules/" "$REMOTE/$THEME_DIR/node_modules/"; fi
-          if [ -d "$THEME_DIR/.yarn" ]; then rsync -az --delete "$THEME_DIR/.yarn/" "$REMOTE/$THEME_DIR/.yarn/"; fi
+          # Bedrock vendor + .env
+          rsync -az --delete vendor/ "${REMOTE_BASE}${REMOTE_DEPLOY}/vendor/"
+          [ -f ".env" ] && rsync -az .env "${REMOTE_BASE}${REMOTE_DEPLOY}/.env" || true
+
+          # Theme public (hashed assets in prod)
+          rsync -az --delete "$SRC/public/" "${REMOTE_BASE}${REMOTE_THEME}/public/"
+
+          # Theme vendor (Acorn runtime), if present
+          if [ -d "$SRC/vendor" ]; then
+            rsync -az --delete "$SRC/vendor/" "${REMOTE_BASE}${REMOTE_THEME}/vendor/"
+          fi
+
+          # Dev-only: include node_modules and .yarn
+          if [ "$APP_ENV" = "dev" ]; then
+            if [ -d "$SRC/node_modules" ]; then
+              rsync -az --delete "$SRC/node_modules/" "${REMOTE_BASE}${REMOTE_THEME}/node_modules/"
+            fi
+            if [ -d "$SRC/.yarn" ]; then
+              rsync -az --delete "$SRC/.yarn/" "${REMOTE_BASE}${REMOTE_THEME}/.yarn/"
+            fi
+          fi
 
       - name: Post-deploy tasks (Acorn optimize, perms)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
