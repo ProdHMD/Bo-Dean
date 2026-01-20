@@ -123,6 +123,13 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: ${{ needs.sanity-and-derive.outputs.theme_path }}/yarn.lock
 
+      # 🔒 Enforce Yarn 4.12.0 (prevents fallback to classic Yarn 1.x)
+      - name: Use Yarn 4.12.0 via Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.12.0 --activate
+          yarn --version
+
       - name: Cache Composer (theme vendor)
         uses: actions/cache@v4
         with:
@@ -134,14 +141,10 @@ jobs:
       - name: Install Theme Dependencies + Build
         working-directory: ${{ needs.sanity-and-derive.outputs.theme_path }}
         run: |
-          # Composer (Acorn etc.)
+          # Composer for Sage (Acorn, etc.)
           if [ -f composer.json ]; then
             composer install --no-interaction --prefer-dist --no-dev
           fi
-
-          # Yarn 4 via Corepack
-          corepack enable
-          yarn --version
           yarn install --immutable || yarn install
           yarn build
 
@@ -185,19 +188,25 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.SERVER_IP }}" >> ~/.ssh/known_hosts
 
-      - name: Ensure dev path exists (for develop)
+      # ✅ Option 1: STRICT SKIP if dev path doesn't exist
+      - name: Check/flag dev path existence
+        id: devpath
         if: needs.sanity-and-derive.outputs.app_env == 'dev'
         run: |
-          ssh serverpilot@${{ secrets.SERVER_IP }} "test -d '${{ needs.sanity-and-derive.outputs.deploy_path }}' || exit 42"
-        continue-on-error: true
+          if ssh serverpilot@${{ secrets.SERVER_IP }} "test -d '${{ needs.sanity-and-derive.outputs.deploy_path }}'"; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Skip deploy if dev path missing
-        if: failure() && needs.sanity-and-derive.outputs.app_env == 'dev'
+        if: needs.sanity-and-derive.outputs.app_env == 'dev' && steps.devpath.outputs.exists != 'true'
         run: |
           echo "Dev path ${{ needs.sanity-and-derive.outputs.deploy_path }} does not exist. Skipping deployment."
           exit 0
 
       - name: Rsync Bedrock & Theme to Server
+        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           set -e
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}:${{ needs.sanity-and-derive.outputs.deploy_path }}"
@@ -214,6 +223,7 @@ jobs:
           if [ -d "$THEME_DIR/.yarn" ]; then rsync -az --delete "$THEME_DIR/.yarn/" "$REMOTE/$THEME_DIR/.yarn/"; fi
 
       - name: Post-deploy tasks (Acorn optimize, perms)
+        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc "
             set -e
