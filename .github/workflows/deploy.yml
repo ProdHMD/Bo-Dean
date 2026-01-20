@@ -24,6 +24,7 @@ jobs:
 # 1. VALIDATE & DERIVE PATHS
 ############################################################
   sanity-and-derive:
+    name: Derive & Validate Environment
     runs-on: ubuntu-latest
     outputs:
       app_env: ${{ steps.v.outputs.app_env }}
@@ -60,6 +61,7 @@ jobs:
 # 2. BUILD BEDROCK (COMPOSER)
 ############################################################
   build-bedrock:
+    name: Build Bedrock (Composer)
     needs: sanity-and-derive
     runs-on: ubuntu-latest
 
@@ -93,6 +95,7 @@ jobs:
 # 3. BUILD SAGE (NODE + COMPOSER + ARTIFACT STRUCTURE FIX)
 ############################################################
   build-sage:
+    name: Build Sage Assets (Node 20.20.0)
     needs: [sanity-and-derive, build-bedrock]
     runs-on: ubuntu-latest
 
@@ -148,6 +151,7 @@ jobs:
 # 4. DEPLOY (SAFE RSYNC + CORRECTED ARTIFACT PATHS)
 ############################################################
   deploy:
+    name: Deploy via SSH + rsync
     needs: [sanity-and-derive, build-sage]
     runs-on: ubuntu-latest
 
