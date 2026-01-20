@@ -1,64 +1,68 @@
-name: Deploy To Server
+
+name: Deploy Bedrock + Sage
 
 on:
   push:
     branches:
       - master
       - develop
+  workflow_dispatch:
+    inputs:
+      app_env:
+        description: "Override APP_ENV (live|dev). Leave empty to auto-detect from branch."
+        required: false
+        default: ""
 
 env:
   PHP_VERSION: '8.4'
   NODE_VERSION: '20.20.0'
-  # Derived universal paths based on your org/repo variables
-  DEPLOY_PATH: /srv/users/serverpilot/apps/${{ vars.APP_ENV }}${{ vars.APP_NAME }}
-  THEME_PATH: web/app/themes/${{ vars.THEME_NAME }}
+  # Keep only these as repo variables
+  THEME_NAME: ${{ vars.THEME_NAME }}
+  APP_NAME: ${{ vars.APP_NAME }}
 
 jobs:
   sanity-and-derive:
     name: Derive & Validate Environment
     runs-on: ubuntu-latest
     outputs:
+      app_env: ${{ steps.outvars.outputs.app_env }}
       deploy_path: ${{ steps.outvars.outputs.deploy_path }}
       theme_path: ${{ steps.outvars.outputs.theme_path }}
-      target_env: ${{ steps.outvars.outputs.target_env }}
       should_deploy: ${{ steps.outvars.outputs.should_deploy }}
     steps:
-      - name: Validate Branch vs APP_ENV
-        id: validate
+      - name: Compute APP_ENV from branch (with optional override)
+        id: outvars
         run: |
           BRANCH="${GITHUB_REF##*/}"
-          APP_ENV="${{ vars.APP_ENV }}"
-
-          echo "Branch=$BRANCH ; APP_ENV=$APP_ENV"
-
-          if [ "$BRANCH" = "master" ]; then
-            # Production branch expects live
-            if [ "$APP_ENV" != "live" ]; then
-              echo "APP_ENV must be 'live' when pushing to master." >&2
-              exit 1
-            fi
-          elif [ "$BRANCH" = "develop" ]; then
-            # Dev branch expects dev
-            if [ "$APP_ENV" != "dev" ]; then
-              echo "APP_ENV must be 'dev' when pushing to develop." >&2
-              exit 1
-            fi
+          OVERRIDE="${{ github.event.inputs.app_env || vars.APP_ENV }}"
+          if [ -n "$OVERRIDE" ]; then
+            APP_ENV="$OVERRIDE"
           else
-            echo "Unsupported branch $BRANCH" >&2
+            case "$BRANCH" in
+              master)  APP_ENV="live" ;;
+              develop) APP_ENV="dev" ;;
+              *) echo "Unsupported branch: $BRANCH"; exit 1 ;;
+            esac
+          fi
+
+          if [ -z "${{ env.APP_NAME }}" ]; then
+            echo "Missing repo variable: APP_NAME" >&2
+            exit 1
+          fi
+          if [ -z "${{ env.THEME_NAME }}" ]; then
+            echo "Missing repo variable: THEME_NAME" >&2
             exit 1
           fi
 
-      - name: Compute Outputs
-        id: outvars
-        run: |
-          DEPLOY_PATH="/srv/users/serverpilot/apps/${{ vars.APP_ENV }}${{ vars.APP_NAME }}"
-          THEME_PATH="web/app/themes/${{ vars.THEME_NAME }}"
-          TARGET_ENV="${{ vars.APP_ENV }}"
+          DEPLOY_PATH="/srv/users/serverpilot/apps/${APP_ENV}${{ env.APP_NAME }}"
+          THEME_PATH="web/app/themes/${{ env.THEME_NAME }}"
 
+          echo "Branch=$BRANCH  ;  APP_ENV=$APP_ENV"
           echo "deploy_path=$DEPLOY_PATH" >> "$GITHUB_OUTPUT"
           echo "theme_path=$THEME_PATH" >> "$GITHUB_OUTPUT"
-          echo "target_env=$TARGET_ENV" >> "$GITHUB_OUTPUT"
-          # Assume deploy unless we later detect a missing dev path
+          echo "app_env=$APP_ENV" >> "$GITHUB_OUTPUT"
+
+          # We attempt to deploy by default; for develop we’ll verify path existence later
           echo "should_deploy=true" >> "$GITHUB_OUTPUT"
 
   build-bedrock:
@@ -71,9 +75,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Show PHP version
-        run: php -v
 
       - name: Cache Composer
         uses: actions/cache@v4
@@ -132,18 +133,11 @@ jobs:
       - name: Install Theme Dependencies + Build
         working-directory: ${{ needs.sanity-and-derive.outputs.theme_path }}
         run: |
-          # Composer for Sage (Acorn, etc.)
+          # Composer for Sage (Acorn)
           if [ -f composer.json ]; then
-            npm --version || true
-            node --version
-            # Install composer deps for theme
-            (command -v composer >/dev/null 2>&1 && composer --version) || true
             composer install --no-interaction --prefer-dist --no-dev
           fi
-
-          # Yarn install + build
           corepack enable
-          yarn --version || true
           yarn install --immutable || yarn install
           yarn build
 
@@ -162,28 +156,11 @@ jobs:
     name: Deploy via SSH + rsync
     needs: [sanity-and-derive, build-sage]
     runs-on: ubuntu-latest
-    if: always()
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Decide if we should deploy
-        id: gates
-        run: |
-          # If earlier jobs failed, skip deployment gracefully
-          if [ "${{ needs.build-bedrock.result }}" != "success" ] || [ "${{ needs.build-sage.result }}" != "success" ]; then
-            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_deploy=${{ needs.sanity-and-derive.outputs.should_deploy }}" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Stop if not deploying
-        if: steps.gates.outputs.should_deploy != 'true'
-        run: |
-          echo "Skipping deployment due to failed builds or environment gate."
-          exit 0
-
-      - name: Download Bedrock + Sage Artifacts
+      - name: Download Bedrock Artifacts
         uses: actions/download-artifact@v4
         with:
           name: bedrock-build
@@ -199,19 +176,19 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Add Server to known_hosts
+      - name: Add server to known_hosts
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.SERVER_IP }}" >> ~/.ssh/known_hosts
 
       - name: Ensure dev path exists (for develop only)
-        if: github.ref_name == 'develop'
+        if: needs.sanity-and-derive.outputs.app_env == 'dev'
         run: |
           ssh serverpilot@${{ secrets.SERVER_IP }} "test -d '${{ needs.sanity-and-derive.outputs.deploy_path }}' || exit 42"
         continue-on-error: true
 
       - name: Skip deploy if dev path missing
-        if: failure() && github.ref_name == 'develop'
+        if: failure() && needs.sanity-and-derive.outputs.app_env == 'dev'
         run: |
           echo "Dev path ${{ needs.sanity-and-derive.outputs.deploy_path }} does not exist. Skipping deployment."
           exit 0
@@ -219,44 +196,23 @@ jobs:
       - name: Rsync Bedrock & Theme to Server
         run: |
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}:${{ needs.sanity-and-derive.outputs.deploy_path }}"
+          rsync -az --delete vendor/ "$REMOTE/vendor/"
+          [ -f ".env" ] && rsync -az .env "$REMOTE/.env" || true
 
-          # Sync Bedrock vendor and .env
-          rsync -az --delete \
-            vendor/ \
-            "$REMOTE/vendor/"
-
-          if [ -f ".env" ]; then
-            rsync -az .env "$REMOTE/.env"
-          fi
-
-          # Sync theme outputs (public, vendor for theme, .yarn, node_modules as needed)
           THEME_DIR="${{ needs.sanity-and-derive.outputs.theme_path }}"
           rsync -az --delete "$THEME_DIR/public/" "$REMOTE/$THEME_DIR/public/"
-          # Optional: sync theme vendor if used at runtime (Acorn, etc.)
-          if [ -d "$THEME_DIR/vendor" ]; then
-            rsync -az --delete "$THEME_DIR/vendor/" "$REMOTE/$THEME_DIR/vendor/"
-          fi
-          # Typically not required in production, but honoring your request
-          if [ -d "$THEME_DIR/node_modules" ]; then
-            rsync -az --delete "$THEME_DIR/node_modules/" "$REMOTE/$THEME_DIR/node_modules/"
-          fi
-          if [ -d "$THEME_DIR/.yarn" ]; then
-            rsync -az --delete "$THEME_DIR/.yarn/" "$REMOTE/$THEME_DIR/.yarn/"
-          fi
+          if [ -d "$THEME_DIR/vendor" ]; then rsync -az --delete "$THEME_DIR/vendor/" "$REMOTE/$THEME_DIR/vendor/"; fi
+          if [ -d "$THEME_DIR/node_modules" ]; then rsync -az --delete "$THEME_DIR/node_modules/" "$REMOTE/$THEME_DIR/node_modules/"; fi
+          if [ -d "$THEME_DIR/.yarn" ]; then rsync -az --delete "$THEME_DIR/.yarn/" "$REMOTE/$THEME_DIR/.yarn/"; fi
 
       - name: Post-deploy tasks (Acorn optimize, perms)
         run: |
           ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc "
             set -e
-            cd ${{ needs.sanity-and-derive.outputs.deploy_path }}
-
-            # Run Acorn optimize (via WP-CLI)
+            cd '${{ needs.sanity-and-derive.outputs.deploy_path }}'
             wp acorn optimize || true
-
-            # Ownership & permissions
             chown -R serverpilot:serverpilot .
             find . -type d -exec chmod 0775 {} \;
             find . -type f -exec chmod 0664 {} \;
-
             echo 'Deployment completed.'
           "
