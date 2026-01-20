@@ -22,12 +22,17 @@ web/.htaccess
 !.env.example
 
 # Composer
-/vendor
-/.yarn
-/.yarn/*
+vendor
+.yarn
+.yarn/*
 
 # WP-CLI
 wp-cli.local.yml
 
 # Public
 public
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.github/instructions/
+.github/instructions/*
+.vscode

@@ -33,7 +33,7 @@
       "type": "package",
       "package": {
         "name": "gplvault/gplvault",
-        "version": "5.2.4.2",
+        "version": "5.3.3",
         "type": "wordpress-plugin",
         "dist": {
           "url" : "gplv-plugins/gplvault-updater.zip",
@@ -45,7 +45,7 @@
       "type": "package",
       "package": {
         "name": "acf/acfpro",
-        "version": "6.4.0.1",
+        "version": "6.7.0.2",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/advanced-custom-fields-pro.zip",
@@ -57,7 +57,7 @@
       "type": "package",
       "package": {
         "name": "wp-media/wp-rocket",
-        "version": "3.15.6",
+        "version": "3.20.3",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/wp-rocket.zip",
@@ -69,10 +69,10 @@
       "type": "package",
       "package": {
         "name": "wpackagist-plugin/media-file-renamer-pro",
-        "version": "6.0.6",
+        "version": "6.1.7",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "gplv-plugins/media-file-renamer.zip",
+          "url": "gplv-plugins/media-file-renamer-pro.zip",
           "type": "zip"
         }
       }
@@ -81,10 +81,10 @@
       "type": "package",
       "package": {
         "name": "wpackagist-plugin/media-cleaner-pro",
-        "version": "6.6.9",
+        "version": "7.0.2",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "gplv-plugins/media-cleaner.zip",
+          "url": "gplv-plugins/media-cleaner-pro.zip",
           "type": "zip"
         }
       }
@@ -93,7 +93,7 @@
       "type": "package",
       "package": {
         "name": "wpackagist-plugin/ai-engine-pro",
-        "version": "2.7.6",
+        "version": "3.3.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/ai-engine-pro.zip",
@@ -124,24 +124,24 @@
     "roots/wordpress": "^6.2.2",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
-    "roots/acorn": "^3.1",
+    "roots/acorn": "^4.3",
     "wpackagist-plugin/classic-editor": "^1.6",
     "blade-ui-kit/blade-icons": "^1.5",
     "owenvoke/blade-fontawesome": "^2.2",
-    "wpackagist-plugin/woocommerce": "^9.2",
+    "wpackagist-plugin/woocommerce": "^10.4",
     "generoi/sage-woocommerce": "^1.0",
     "wpackagist-plugin/webp-converter-for-media": "^6.0",
-    "wpackagist-plugin/wordpress-importer": "^0.8.1",
+    "wpackagist-plugin/wordpress-importer": "^0.9.5",
     "wpackagist-plugin/wordfence": "^8.0",
-    "wpackagist-plugin/wordpress-seo": "^24.0",
+    "wpackagist-plugin/wordpress-seo": "^26.0",
     "wpackagist-plugin/woocommerce-gateway-paypal-powered-by-braintree": "^3.1",
-    "wpackagist-plugin/jetpack": "^14.0",
-    "wpackagist-plugin/media-cleaner-pro": "^6.6",
+    "wpackagist-plugin/jetpack": "^15.0",
+    "wpackagist-plugin/media-cleaner-pro": "^7.0",
     "wpackagist-plugin/enable-media-replace": "^4.1",
     "ryanhellyer/wordpress-audio-optimizer": "^1.1",
     "wpackagist-plugin/akismet": "^5.3",
     "wpackagist-plugin/super-light-cache-buster": "^1.4",
-    "wpackagist-plugin/ai-engine-pro": "^2.6",
+    "wpackagist-plugin/ai-engine-pro": "^3.3",
     "wp-media/wp-rocket": "^3.15",
     "wpackagist-plugin/media-file-renamer-pro": "^6.0",
     "wpackagist-theme/twentytwentyfive": "^1.0",
