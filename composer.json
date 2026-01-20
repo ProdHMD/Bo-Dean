@@ -155,6 +155,9 @@
   "replace": {
     "vlucas/phpdotenv": "5.5.*"
   },
+  "provide": {
+    "vlucas/phpdotenv": "5.5.*"
+  },
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
