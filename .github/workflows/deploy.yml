@@ -153,7 +153,7 @@ jobs:
             web/app/themes/${{ env.THEME_NAME }}/.yarn
 
 ############################################################
-# 4. DEPLOY (SAFE RSYNC + CORRECTED ARTIFACT PATHS)
+# 4. DEPLOY (SYNC WHOLE THEME + BUILDS, THEN FINALIZE)
 ############################################################
   deploy:
     name: Deploy via SSH + rsync
@@ -208,7 +208,9 @@ jobs:
       ############################################################
       # RSYNC (RUN ONLY IF LIVE OR DEV WITH PATH)
       ############################################################
-      - name: Deploy via rsync
+
+      # A) Sync the ENTIRE THEME, excluding build dirs we sync separately
+      - name: Deploy theme sources (everything except build dirs)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
@@ -216,9 +218,32 @@ jobs:
           THEME="$BASE/web/app/themes/${{ env.THEME_NAME }}"
           SRC_THEME="web/app/themes/${{ env.THEME_NAME }}"
 
+          rsync -az --delete \
+            --exclude='public' \
+            --exclude='vendor' \
+            --exclude='node_modules' \
+            --exclude='.yarn' \
+            "$SRC_THEME/" "$REMOTE:$THEME/"
+
+      # B) Bedrock files + root vendor/.env
+      - name: Deploy bedrock core + vendor + env
+        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
+        run: |
+          REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
+          BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+
           rsync -az composer.json composer.lock "$REMOTE:$BASE/"
           rsync -az --delete vendor/ "$REMOTE:$BASE/vendor/"
           [ -f ".env" ] && rsync -az .env "$REMOTE:$BASE/.env"
+
+      # C) Explicitly push built assets and theme dependencies
+      - name: Deploy built assets and theme deps
+        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
+        run: |
+          REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
+          BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+          THEME="$BASE/web/app/themes/${{ env.THEME_NAME }}"
+          SRC_THEME="web/app/themes/${{ env.THEME_NAME }}"
 
           rsync -az --delete "$SRC_THEME/public/" "$REMOTE:$THEME/public/"
           rsync -az --delete "$SRC_THEME/vendor/" "$REMOTE:$THEME/vendor/"
@@ -232,10 +257,18 @@ jobs:
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc "
+            set -euo pipefail
             cd '${{ needs.sanity-and-derive.outputs.deploy_path }}'
+
+            # Clear compiled Blade views and caches so new templates take effect
+            wp acorn view:clear || true
+            wp acorn optimize:clear || true
             wp acorn optimize || true
+
+            # Permissions
             chown -R serverpilot:serverpilot .
             find . -type d -exec chmod 775 {} \;
             find . -type f -exec chmod 664 {} \;
+
             echo 'Deployment complete.'
           "
