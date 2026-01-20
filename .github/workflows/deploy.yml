@@ -14,11 +14,9 @@ on:
         default: ""
 
 env:
-  PHP_VERSION: '8.4'
-  NODE_VERSION: '20.20.0'
-  # Keep only these as repo variables
-  THEME_NAME: ${{ vars.THEME_NAME }}
+  # Only these need to exist as repo variables
   APP_NAME: ${{ vars.APP_NAME }}
+  THEME_NAME: ${{ vars.THEME_NAME }}
 
 jobs:
   sanity-and-derive:
@@ -28,7 +26,6 @@ jobs:
       app_env: ${{ steps.outvars.outputs.app_env }}
       deploy_path: ${{ steps.outvars.outputs.deploy_path }}
       theme_path: ${{ steps.outvars.outputs.theme_path }}
-      should_deploy: ${{ steps.outvars.outputs.should_deploy }}
     steps:
       - name: Compute APP_ENV from branch (with optional override)
         id: outvars
@@ -41,7 +38,7 @@ jobs:
             case "$BRANCH" in
               master)  APP_ENV="live" ;;
               develop) APP_ENV="dev" ;;
-              *) echo "Unsupported branch: $BRANCH"; exit 1 ;;
+              *) echo "Unsupported branch: $BRANCH" >&2; exit 1 ;;
             esac
           fi
 
@@ -62,21 +59,22 @@ jobs:
           echo "theme_path=$THEME_PATH" >> "$GITHUB_OUTPUT"
           echo "app_env=$APP_ENV" >> "$GITHUB_OUTPUT"
 
-          # We attempt to deploy by default; for develop we’ll verify path existence later
-          echo "should_deploy=true" >> "$GITHUB_OUTPUT"
-
   build-bedrock:
     name: Build Bedrock (Composer)
     needs: sanity-and-derive
     runs-on: ubuntu-latest
 
-    container:
-      image: php:8.4-cli
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache Composer
+      - name: Setup PHP 8.4 + Composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - name: Cache Composer (project)
         uses: actions/cache@v4
         with:
           path: |
@@ -86,6 +84,7 @@ jobs:
 
       - name: Install Bedrock Dependencies
         run: |
+          composer --version
           composer install --no-interaction --prefer-dist --no-dev
 
       - name: Upload Bedrock Artifacts
@@ -102,9 +101,6 @@ jobs:
     needs: [sanity-and-derive, build-bedrock]
     runs-on: ubuntu-latest
 
-    container:
-      image: node:20.20.0
-
     steps:
       - uses: actions/checkout@v4
 
@@ -112,6 +108,20 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: bedrock-build
+
+      - name: Setup PHP 8.4 + Composer (for theme/acorn)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node 20.20.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.20.0'
+          cache: 'yarn'
+          cache-dependency-path: ${{ needs.sanity-and-derive.outputs.theme_path }}/yarn.lock
 
       - name: Cache Composer (theme vendor)
         uses: actions/cache@v4
@@ -121,23 +131,17 @@ jobs:
             ${{ needs.sanity-and-derive.outputs.theme_path }}/vendor
           key: composer-theme-${{ hashFiles(format('{0}/composer.lock', needs.sanity-and-derive.outputs.theme_path)) }}
 
-      - name: Cache Yarn
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.yarn
-            ${{ needs.sanity-and-derive.outputs.theme_path }}/.yarn/cache
-            ${{ needs.sanity-and-derive.outputs.theme_path }}/node_modules
-          key: yarn-${{ hashFiles(format('{0}/yarn.lock', needs.sanity-and-derive.outputs.theme_path)) }}
-
       - name: Install Theme Dependencies + Build
         working-directory: ${{ needs.sanity-and-derive.outputs.theme_path }}
         run: |
-          # Composer for Sage (Acorn)
+          # Composer (Acorn etc.)
           if [ -f composer.json ]; then
             composer install --no-interaction --prefer-dist --no-dev
           fi
+
+          # Yarn 4 via Corepack
           corepack enable
+          yarn --version
           yarn install --immutable || yarn install
           yarn build
 
@@ -181,7 +185,7 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.SERVER_IP }}" >> ~/.ssh/known_hosts
 
-      - name: Ensure dev path exists (for develop only)
+      - name: Ensure dev path exists (for develop)
         if: needs.sanity-and-derive.outputs.app_env == 'dev'
         run: |
           ssh serverpilot@${{ secrets.SERVER_IP }} "test -d '${{ needs.sanity-and-derive.outputs.deploy_path }}' || exit 42"
@@ -195,10 +199,14 @@ jobs:
 
       - name: Rsync Bedrock & Theme to Server
         run: |
+          set -e
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}:${{ needs.sanity-and-derive.outputs.deploy_path }}"
+
+          # Sync Bedrock vendor and .env
           rsync -az --delete vendor/ "$REMOTE/vendor/"
           [ -f ".env" ] && rsync -az .env "$REMOTE/.env" || true
 
+          # Sync theme artifacts
           THEME_DIR="${{ needs.sanity-and-derive.outputs.theme_path }}"
           rsync -az --delete "$THEME_DIR/public/" "$REMOTE/$THEME_DIR/public/"
           if [ -d "$THEME_DIR/vendor" ]; then rsync -az --delete "$THEME_DIR/vendor/" "$REMOTE/$THEME_DIR/vendor/"; fi
