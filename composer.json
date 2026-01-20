@@ -152,6 +152,9 @@
     "squizlabs/php_codesniffer": "^3.7.1",
     "roave/security-advisories": "dev-latest"
   },
+  "conflict": {
+    "vlucas/phpdotenv": "<5.5"
+  },
   "config": {
     "optimize-autoloader": true,
     "preferred-install": "dist",
