@@ -213,42 +213,69 @@ jobs:
       - name: Deploy theme sources (everything except build dirs)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
+          set -euxo pipefail
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
           BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
           THEME="$BASE/web/app/themes/${{ env.THEME_NAME }}"
           SRC_THEME="web/app/themes/${{ env.THEME_NAME }}"
 
-          rsync -az --delete \
+          # Ensure remote paths exist
+          ssh "$REMOTE" "mkdir -p '$BASE' '$THEME'"
+
+          rsync -azv --delete \
             --exclude='public' \
             --exclude='vendor' \
             --exclude='node_modules' \
             --exclude='.yarn' \
             "$SRC_THEME/" "$REMOTE:$THEME/"
 
-      # B) Bedrock files + root vendor/.env
+      # B) Bedrock files + root vendor/.env (with sanity checks + mkdir)
       - name: Deploy bedrock core + vendor + env
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
+          set -euxo pipefail
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
           BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
 
-          rsync -az composer.json composer.lock "$REMOTE:$BASE/"
-          rsync -az --delete vendor/ "$REMOTE:$BASE/vendor/"
-          [ -f ".env" ] && rsync -az .env "$REMOTE:$BASE/.env"
+          echo "::group::Sanity check workspace"
+          pwd
+          ls -la
+          echo "::endgroup::"
+
+          # Ensure local artifacts exist (print helpful errors if not)
+          test -f composer.json || (echo "composer.json missing in workspace" >&2; exit 1)
+          test -f composer.lock || (echo "composer.lock missing in workspace" >&2; exit 1)
+          test -d vendor        || (echo "vendor/ missing in workspace" >&2; exit 1)
+
+          # Ensure remote base/vendor exist
+          ssh "$REMOTE" "mkdir -p '$BASE' '$BASE/vendor'"
+
+          # Sync composer manifests
+          rsync -azv composer.json composer.lock "$REMOTE:$BASE/"
+
+          # Sync vendor (delete removed packages)
+          rsync -azv --delete vendor/ "$REMOTE:$BASE/vendor/"
+
+          # Sync .env if present locally
+          [ -f ".env" ] && rsync -azv .env "$REMOTE:$BASE/.env" || true
 
       # C) Explicitly push built assets and theme dependencies
       - name: Deploy built assets and theme deps
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
+          set -euxo pipefail
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
           BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
           THEME="$BASE/web/app/themes/${{ env.THEME_NAME }}"
           SRC_THEME="web/app/themes/${{ env.THEME_NAME }}"
 
-          rsync -az --delete "$SRC_THEME/public/" "$REMOTE:$THEME/public/"
-          rsync -az --delete "$SRC_THEME/vendor/" "$REMOTE:$THEME/vendor/"
-          rsync -az --delete "$SRC_THEME/node_modules/" "$REMOTE:$THEME/node_modules/" || true
-          rsync -az --delete "$SRC_THEME/.yarn/" "$REMOTE:$THEME/.yarn/" || true
+          # Ensure remote dirs exist for asset targets
+          ssh "$REMOTE" "mkdir -p '$THEME/public' '$THEME/vendor' '$THEME/node_modules' '$THEME/.yarn'"
+
+          rsync -azv --delete "$SRC_THEME/public/"       "$REMOTE:$THEME/public/"
+          rsync -azv --delete "$SRC_THEME/vendor/"       "$REMOTE:$THEME/vendor/"
+          rsync -azv --delete "$SRC_THEME/node_modules/" "$REMOTE:$THEME/node_modules/" || true
+          rsync -azv --delete "$SRC_THEME/.yarn/"        "$REMOTE:$THEME/.yarn/" || true
 
       ############################################################
       # FINALIZE — SAME CONDITION AS RSYNC
