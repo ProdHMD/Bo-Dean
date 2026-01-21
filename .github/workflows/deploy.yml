@@ -97,7 +97,7 @@ jobs:
             .env
 
 ############################################################
-# 3. BUILD SAGE (NODE + COMPOSER + ARTIFACT STRUCTURE FIX)
+# 3. BUILD SAGE (NODE + COMPOSER + VERIFY THEME VENDOR)
 ############################################################
   build-sage:
     name: Build Sage Assets (Node 20.20.0)
@@ -123,6 +123,7 @@ jobs:
           cache-dependency-path: ${{ needs.sanity-and-derive.outputs.theme_local_path }}/yarn.lock
 
       - run: |
+        # Pin Yarn v4; adjust if your theme uses Yarn v1
           corepack enable
           corepack prepare yarn@4.12.0 --activate
 
@@ -133,16 +134,29 @@ jobs:
             ${{ needs.sanity-and-derive.outputs.theme_local_path }}/vendor
           key: composer-theme-${{ hashFiles(format('{0}/composer.lock', needs.sanity-and-derive.outputs.theme_local_path)) }}
 
-      - name: Build Sage
+      - name: Build Sage (fail fast)
         working-directory: ${{ needs.sanity-and-derive.outputs.theme_local_path }}
         env:
           NODE_ENV: production
         run: |
-          composer install --prefer-dist --no-interaction || true
+          # Composer must succeed; no silent failures
+          composer install --prefer-dist --no-interaction --no-dev
+          # Node deps and build
           yarn install --immutable || yarn install
           yarn build --mode=production
 
-      # Correct artifact upload preserving directory structure
+      - name: Verify Blade packages exist in THEME vendor
+        working-directory: ${{ needs.sanity-and-derive.outputs.theme_local_path }}
+        run: |
+          set -euo pipefail
+          test -f vendor/autoload.php || (echo "Theme autoload missing" >&2; exit 1)
+          if [ ! -d vendor/blade-ui-kit/blade-icons ] \
+             && [ ! -d vendor/blade-ui-kit/blade-fontawesome ] \
+             && [ ! -d vendor/owenvoke/blade-fontawesome ]; then
+            echo "Blade icon packages not found in THEME vendor. Move dependency from Bedrock to the theme composer.json."; exit 1
+          fi
+
+      # Upload theme builds (we will rsync sources separately)
       - uses: actions/upload-artifact@v4
         with:
           name: sage
@@ -153,7 +167,7 @@ jobs:
             web/app/themes/${{ env.THEME_NAME }}/.yarn
 
 ############################################################
-# 4. DEPLOY (SYNC WHOLE THEME + BUILDS, THEN FINALIZE)
+# 4. DEPLOY (GIT-TRACKED SOURCES + THEME BUILDS, THEN FINALIZE)
 ############################################################
   deploy:
     name: Deploy via SSH + rsync
@@ -172,13 +186,6 @@ jobs:
         with:
           name: sage
           path: web/app/themes/${{ env.THEME_NAME }}
-
-      - name: Validate Dotenv exists
-        run: |
-          if [ ! -f vendor/vlucas/phpdotenv/src/Dotenv.php ]; then
-            echo "::error ::Dotenv is NOT in vendor/"
-            exit 1
-          fi
 
       - uses: webfactory/ssh-agent@v0.9.0
         with:
@@ -209,8 +216,33 @@ jobs:
       # RSYNC (RUN ONLY IF LIVE OR DEV WITH PATH)
       ############################################################
 
-      # A) Sync the ENTIRE THEME, excluding build dirs we sync separately
-      - name: Deploy theme sources (everything except build dirs)
+      # A) Deploy ONLY git-tracked sources (repo-wide), protect excluded dirs
+      - name: Deploy tracked sources (git-aware rsync)
+        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
+        run: |
+          set -euxo pipefail
+          REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
+          BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+
+          # Ensure remote base exists
+          ssh "$REMOTE" "mkdir -p '$BASE'"
+
+          # Build the list of tracked files and rsync them.
+          # Protect commonly excluded dirs so --delete does not remove them.
+          git ls-files -z \
+            | rsync -azv --delete --from0 --files-from=- \
+              --exclude 'vendor' \
+              --exclude '.env' \
+              --exclude 'web/wp' \
+              --exclude 'web/app/uploads' \
+              --exclude "web/app/themes/${{ env.THEME_NAME }}/public" \
+              --exclude "web/app/themes/${{ env.THEME_NAME }}/vendor" \
+              --exclude "web/app/themes/${{ env.THEME_NAME }}/node_modules" \
+              --exclude "web/app/themes/${{ env.THEME_NAME }}/.yarn" \
+              ./ "$REMOTE:$BASE/"
+
+      # B) Deploy THEME builds from artifacts (public/vendor/node_modules/.yarn)
+      - name: Deploy theme builds (public/vendor/node_modules/.yarn)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           set -euxo pipefail
@@ -219,57 +251,6 @@ jobs:
           THEME="$BASE/web/app/themes/${{ env.THEME_NAME }}"
           SRC_THEME="web/app/themes/${{ env.THEME_NAME }}"
 
-          # Ensure remote paths exist
-          ssh "$REMOTE" "mkdir -p '$BASE' '$THEME'"
-
-          rsync -azv --delete \
-            --exclude='public' \
-            --exclude='vendor' \
-            --exclude='node_modules' \
-            --exclude='.yarn' \
-            "$SRC_THEME/" "$REMOTE:$THEME/"
-
-      # B) Bedrock files + root vendor/.env (with sanity checks + mkdir)
-      - name: Deploy bedrock core + vendor + env
-        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
-        run: |
-          set -euxo pipefail
-          REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
-          BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
-
-          echo "::group::Sanity check workspace"
-          pwd
-          ls -la
-          echo "::endgroup::"
-
-          # Ensure local artifacts exist (print helpful errors if not)
-          test -f composer.json || (echo "composer.json missing in workspace" >&2; exit 1)
-          test -f composer.lock || (echo "composer.lock missing in workspace" >&2; exit 1)
-          test -d vendor        || (echo "vendor/ missing in workspace" >&2; exit 1)
-
-          # Ensure remote base/vendor exist
-          ssh "$REMOTE" "mkdir -p '$BASE' '$BASE/vendor'"
-
-          # Sync composer manifests
-          rsync -azv composer.json composer.lock "$REMOTE:$BASE/"
-
-          # Sync vendor (delete removed packages)
-          rsync -azv --delete vendor/ "$REMOTE:$BASE/vendor/"
-
-          # Sync .env if present locally
-          [ -f ".env" ] && rsync -azv .env "$REMOTE:$BASE/.env" || true
-
-      # C) Explicitly push built assets and theme dependencies
-      - name: Deploy built assets and theme deps
-        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
-        run: |
-          set -euxo pipefail
-          REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
-          BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
-          THEME="$BASE/web/app/themes/${{ env.THEME_NAME }}"
-          SRC_THEME="web/app/themes/${{ env.THEME_NAME }}"
-
-          # Ensure remote dirs exist for asset targets
           ssh "$REMOTE" "mkdir -p '$THEME/public' '$THEME/vendor' '$THEME/node_modules' '$THEME/.yarn'"
 
           rsync -azv --delete "$SRC_THEME/public/"       "$REMOTE:$THEME/public/"
@@ -287,10 +268,19 @@ jobs:
             set -euo pipefail
             cd '${{ needs.sanity-and-derive.outputs.deploy_path }}'
 
-            # Clear compiled Blade views and caches so new templates take effect
+            # Ensure Blade packages are in THEME vendor (runtime)
+            THEME='web/app/themes/${{ env.THEME_NAME }}'
+            if [ -d \"\$THEME/vendor/blade-ui-kit/blade-icons\" ] \
+               || [ -d \"\$THEME/vendor/blade-ui-kit/blade-fontawesome\" ] \
+               || [ -d \"\$THEME/vendor/owenvoke/blade-fontawesome\" ]; then
+              echo 'Blade icon packages detected in THEME vendor.'
+            else
+              echo '::error ::Blade icon packages NOT found in THEME vendor. Move dependency from Bedrock to the theme composer.json.'; exit 1
+            fi
+
+            # Clear compiled Blade views/caches so new templates take effect
             wp acorn view:clear || true
             wp acorn optimize:clear || true
-            wp acorn optimize || true
 
             # Permissions
             chown -R serverpilot:serverpilot .
