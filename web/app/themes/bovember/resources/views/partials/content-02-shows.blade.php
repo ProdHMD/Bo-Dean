@@ -81,6 +81,13 @@
                     <li class="provider"><a href="<?php echo ($ticket_url) ? $ticket_url : ''; ?>" target="_blank">Facebook Events</a></li>
                 </ul>
             </div>
-        <?php endwhile; wp_reset_postdata(); endif; ?>
+        <?php endwhile; wp_reset_postdata(); else : ?>
+            <div class="show-container text-center" id="no-shows">
+                <div class="no-shows-inner d-flex flex-wrap flex-column justify-content-center">
+                    <strong class="location-name fs-1">No Shows Right Now</strong>
+                    <p class="city-name">Come back soon.</p>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

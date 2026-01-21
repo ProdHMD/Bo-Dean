@@ -69,6 +69,12 @@
                                 font-size: 1.5rem;
                             }
                         }
+
+                        &#no-shows {
+                            .no-shows-inner {
+                                min-height: 50vh;
+                            }
+                        }
                     }
                 }
             }
