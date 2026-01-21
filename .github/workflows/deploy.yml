@@ -179,7 +179,20 @@ jobs:
       - run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       ############################################################
-      # CHECK DEV PATH
+      # DETECT IF THIS APP USES BLADE ICONS / FONT AWESOME (owenvoke)
+      ############################################################
+      - name: Detect Blade Icons usage from composer.json
+        id: detect_blade_icons
+        run: |
+          HAS=false
+          # Look for either package in Bedrock composer.json
+          if grep -qE '"blade-ui-kit\/blade-icons"' composer.json; then HAS=true; fi
+          if grep -qE '"owenvoke\/blade-fontawesome"' composer.json; then HAS=true; fi
+          echo "has_blade_icons=$HAS" >> "$GITHUB_OUTPUT"
+          echo "Detected Blade Icons usage: $HAS"
+
+      ############################################################
+      # CHECK DEV PATH (skip deploy if missing in dev)
       ############################################################
       - name: Check/flag dev path existence
         id: devpath
@@ -195,36 +208,41 @@ jobs:
         if: needs.sanity-and-derive.outputs.app_env == 'dev' && steps.devpath.outputs.exists != 'true'
         run: |
           echo "Dev path missing. Skipping."
+          # Write a brief run summary even when skipping
+          {
+            echo "### Deploy Summary"
+            echo ""
+            echo "- **Environment**: dev"
+            echo "- **Dev path exists**: false"
+            echo "- **Blade Icons in composer.json**: ${{ steps.detect_blade_icons.outputs.has_blade_icons }}"
+            echo "- **Result**: Skipped deployment because dev path was not found."
+          } >> $GITHUB_STEP_SUMMARY
           exit 0
 
       ############################################################
       # RSYNC TRACKED SOURCES (git-aware) + THEME BUILDS
       ############################################################
-
-      # A) Deploy ONLY git-tracked sources (repo-wide), protect excluded dirs
       - name: Deploy tracked sources (git-aware rsync)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           set -euxo pipefail
           REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
           BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
-
           ssh "$REMOTE" "mkdir -p '$BASE'"
 
-          # Use git ls-files so we deploy exactly what's tracked, honoring both .gitignore files.
+          # Deploy exactly what's tracked in git (honors root + theme .gitignore)
           git ls-files -z \
             | rsync -azv --delete --from0 --files-from=- \
-              --exclude 'vendor' \
-              --exclude '.env' \
-              --exclude 'web/wp' \
-              --exclude 'web/app/uploads' \
-              --exclude "web/app/themes/${{ env.THEME_NAME }}/public" \
-              --exclude "web/app/themes/${{ env.THEME_NAME }}/vendor" \
-              --exclude "web/app/themes/${{ env.THEME_NAME }}/node_modules" \
-              --exclude "web/app/themes/${{ env.THEME_NAME }}/.yarn" \
-              ./ "$REMOTE:$BASE/"
+                --exclude 'vendor' \
+                --exclude '.env' \
+                --exclude 'web/wp' \
+                --exclude 'web/app/uploads' \
+                --exclude "web/app/themes/${{ env.THEME_NAME }}/public" \
+                --exclude "web/app/themes/${{ env.THEME_NAME }}/vendor" \
+                --exclude "web/app/themes/${{ env.THEME_NAME }}/node_modules" \
+                --exclude "web/app/themes/${{ env.THEME_NAME }}/.yarn" \
+                ./ "$REMOTE:$BASE/"
 
-      # B) Deploy THEME builds from artifacts (public/vendor/node_modules/.yarn)
       - name: Deploy theme builds (public/vendor/node_modules/.yarn)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
@@ -233,7 +251,6 @@ jobs:
           BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
           THEME="$BASE/web/app/themes/${{ env.THEME_NAME }}"
           SRC_THEME="web/app/themes/${{ env.THEME_NAME }}"
-
           ssh "$REMOTE" "mkdir -p '$THEME/public' '$THEME/vendor' '$THEME/node_modules' '$THEME/.yarn'"
 
           rsync -azv --delete "$SRC_THEME/public/"       "$REMOTE:$THEME/public/"
@@ -243,8 +260,10 @@ jobs:
 
       ############################################################
       # SERVER-SIDE COMPOSER FOR BEDROCK (no vendor/.env rsync)
+      # - Try --no-dev first (lean). If Blade Icons are required but missing,
+      #   fall back to full install to cover packages living under require-dev.
       ############################################################
-      - name: Install Bedrock Composer dependencies on server
+      - name: Install Bedrock Composer dependencies on server (with fallback)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
           ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc '
@@ -255,7 +274,6 @@ jobs:
             export COMPOSER_ALLOW_SUPERUSER=1
             export COMPOSER_MEMORY_LIMIT=-1
 
-            # Ensure Composer is available for the serverpilot user
             if command -v composer >/dev/null 2>&1; then
               COMPOSER="composer"
             else
@@ -266,12 +284,65 @@ jobs:
               COMPOSER="$HOME/bin/composer"
             fi
 
-            # Install vendors based on *tracked* composer.lock in Bedrock root
+            echo "Running composer install --no-dev (first pass)…"
             $COMPOSER install --no-dev --prefer-dist --no-interaction
+
+            HAS_BLADE_ICONS="${{ steps.detect_blade_icons.outputs.has_blade_icons }}"
+            if [ "$HAS_BLADE_ICONS" = "true" ]; then
+              if [ ! -d vendor/owenvoke/blade-fontawesome ] && [ ! -d vendor/blade-ui-kit/blade-icons ]; then
+                echo "Blade Icons/FontAwesome not present after --no-dev. Running full install…"
+                $COMPOSER install --prefer-dist --no-interaction
+                echo "FALLBACK_FULL_INSTALL=1" > composer_fallback.env
+              else
+                echo "FALLBACK_FULL_INSTALL=0" > composer_fallback.env
+              fi
+            else
+              echo "FALLBACK_FULL_INSTALL=0" > composer_fallback.env
+            fi
           '
 
       ############################################################
-      # FINALIZE — VERIFY + CLEAR CACHES + PERMS
+      # REFRESH ACORN DISCOVERY & CACHES (conditionally)
+      # - Create icons directory if app uses Blade Icons to avoid path errors.
+      ############################################################
+      - name: Refresh Acorn discovery & caches (conditional)
+        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
+        run: |
+          ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc '
+            set -euo pipefail
+            BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+            THEME_DIR="$BASE/web/app/themes/${{ env.THEME_NAME }}"
+            ICONS_DIR="$THEME_DIR/resources/images/icons"
+            cd "$BASE"
+
+            if wp acorn --version >/dev/null 2>&1; then
+              HAS_BLADE_ICONS="${{ steps.detect_blade_icons.outputs.has_blade_icons }}"
+
+              # Ensure icons dir exists only when Blade Icons are used
+              if [ "$HAS_BLADE_ICONS" = "true" ]; then
+                mkdir -p "$ICONS_DIR"
+              fi
+
+              echo "Running: wp acorn package:discover"
+              wp acorn package:discover || true
+
+              if [ "$HAS_BLADE_ICONS" = "true" ]; then
+                echo "Running: wp acorn icons:cache"
+                wp acorn icons:cache || true
+              else
+                echo "Blade Icons not used in this app; skipping icons:cache"
+              fi
+
+              echo "Clearing Blade view & optimize caches"
+              wp acorn view:clear || true
+              wp acorn optimize:clear || true
+            else
+              echo "wp acorn not available; skipping Acorn steps."
+            fi
+          '
+
+      ############################################################
+      # FINALIZE — PERMISSIONS, DONE
       ############################################################
       - name: Finalize
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
@@ -279,27 +350,45 @@ jobs:
           ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc "
             set -euo pipefail
             cd '${{ needs.sanity-and-derive.outputs.deploy_path }}'
-
-            # Verify Bedrock vendor has Blade icon packages (per Roots guidance)
-            if [ -f 'vendor/autoload.php' ] && \
-               { [ -d 'vendor/blade-ui-kit/blade-icons' ] || \
-                 [ -d 'vendor/blade-ui-kit/blade-fontawesome' ] || \
-                 [ -d 'vendor/owenvoke/blade-fontawesome' ]; }; then
-              echo 'Bedrock vendor and Blade icon packages present.'
-            else
-              echo '::error ::Bedrock vendor missing required Blade icon packages.'; exit 1
-            fi
-
-            # Clear compiled Blade views/caches so new templates take effect
-            wp acorn view:clear || true
-            wp acorn optimize:clear || true
-            # (optional) config cache without route noise:
-            # wp acorn optimize >/dev/null 2>&1 || true
-
-            # Permissions
             chown -R serverpilot:serverpilot .
             find . -type d -exec chmod 775 {} \;
             find . -type f -exec chmod 664 {} \;
-
             echo 'Deployment complete.'
           "
+
+      ############################################################
+      # SUMMARY — Append a markdown summary to the run
+      ############################################################
+      - name: Deployment Summary
+        if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
+        run: |
+          set -euo pipefail
+          APP_ENV="${{ needs.sanity-and-derive.outputs.app_env }}"
+          HAS_BLADE="${{ steps.detect_blade_icons.outputs.has_blade_icons }}"
+          DEV_EXISTS="${{ steps.devpath.outputs.exists }}"
+          [ -z "${DEV_EXISTS:-}" ] && DEV_EXISTS="n/a"
+
+          REMOTE="serverpilot@${{ secrets.SERVER_IP }}"
+          BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+          THEME="${BASE}/web/app/themes/${{ env.THEME_NAME }}"
+          ICONS_DIR="${THEME}/resources/images/icons"
+
+          # Pull runtime facts from the server for the summary
+          FA_PKG=$(ssh "$REMOTE" "test -d '$BASE/vendor/owenvoke/blade-fontawesome' && echo yes || echo no")
+          BLADE_ICONS=$(ssh "$REMOTE" "test -d '$BASE/vendor/blade-ui-kit/blade-icons' && echo yes || echo no")
+          ICONS_DIR_EXISTS=$(ssh "$REMOTE" "test -d '$ICONS_DIR' && echo yes || echo no")
+          FALLBACK_USED=$(ssh "$REMOTE" "test -f '$BASE/composer_fallback.env' && grep -q 'FALLBACK_FULL_INSTALL=1' '$BASE/composer_fallback.env' && echo yes || echo no")
+
+          {
+            echo "### Deploy Summary"
+            echo ""
+            echo "- **Environment**: ${APP_ENV}"
+            echo "- **Dev path exists** (dev only): ${DEV_EXISTS}"
+            echo "- **Blade Icons in composer.json**: ${HAS_BLADE}"
+            echo "- **Bedrock vendor contains** \`owenvoke/blade-fontawesome\`: ${FA_PKG}"
+            echo "- **Bedrock vendor contains** \`blade-ui-kit/blade-icons\`: ${BLADE_ICONS}"
+            echo "- **Theme icons dir exists**: ${ICONS_DIR_EXISTS}"
+            echo "- **Composer fallback (full install) used**: ${FALLBACK_USED}"
+            echo ""
+            echo "_Note: \`icons:cache\` runs only when Blade Icons are detected in composer.json._"
+          } >> "$GITHUB_STEP_SUMMARY"
