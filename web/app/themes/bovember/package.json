@@ -23,8 +23,8 @@
     "translate:mo": "wp i18n make-mo ./resources/lang ./resources/lang"
   },
   "devDependencies": {
-    "@barba/core": "^2.9.7",
-    "@popperjs/core": "^2.11.7",
+    "@barba/core": "^2.10.3",
+    "@popperjs/core": "^2.11.8",
     "@roots/bud": "^6.24.0",
     "@roots/bud-eslint": "^6.24.0",
     "@roots/bud-prettier": "^6.24.0",
@@ -32,22 +32,22 @@
     "@roots/bud-stylelint": "^6.24.0",
     "@roots/eslint-config": "^6.24.0",
     "@roots/sage": "^6.24.0",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.8",
     "locomotive-scroll": "^4.1.4",
-    "stylelint": "^16.19.1",
+    "stylelint": "^17.15.0",
     "stylelint-config": "^0.1.1",
-    "stylelint-config-standard": "^38.0.0",
-    "stylelint-config-standard-scss": "^14.0.0",
-    "stylelint-order": "^7.0.0",
-    "stylelint-scss": "^6.11.1"
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-order": "^8.1.1",
+    "stylelint-scss": "^7.3.0"
   },
   "dependencies": {
-    "@fancyapps/ui": "^5.0.17",
+    "@fancyapps/ui": "^6.1.15",
     "@juggle/resize-observer": "^3.4.0",
-    "gsap": "^3.12.4",
+    "gsap": "^3.15.0",
     "isotope-layout": "^3.0.6",
     "jquery-bridget": "^3.0.1",
-    "plyr": "^3.7.8",
+    "plyr": "^3.8.4",
     "youtube-thumbnail-grabber": "^1.0.2"
   },
   "packageManager": "yarn@4.12.0"
