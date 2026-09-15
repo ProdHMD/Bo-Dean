@@ -119,12 +119,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20.20.0"
-          cache: yarn
-          cache-dependency-path: ${{ needs.sanity-and-derive.outputs.theme_local_path }}/yarn.lock
+          package-manager-cache: false
 
-      - run: |
+      - name: Enable Yarn via Corepack
+        run: |
           corepack enable
           corepack prepare yarn@4.12.0 --activate
+          corepack yarn --version
 
       - uses: actions/cache@v4
         with:
@@ -139,8 +140,8 @@ jobs:
           NODE_ENV: production
         run: |
           composer install --prefer-dist --no-interaction --no-dev
-          yarn install --immutable || yarn install
-          yarn build --mode=production
+          corepack yarn install --immutable
+          corepack yarn build --mode=production
 
       - uses: actions/upload-artifact@v4
         with:
@@ -252,6 +253,9 @@ jobs:
           set +e
           git ls-files -z \
             | rsync -azv --delete --from0 --files-from=- \
+                --filter='protect /.user.ini' \
+                --filter='protect /web/.user.ini' \
+                --filter='protect /web/wp/wordfence-waf.php' \
                 --exclude 'vendor' \
                 --exclude '.env' \
                 --exclude 'web/wp' \
@@ -414,17 +418,51 @@ jobs:
       ############################################################
       # FINALIZE — PERMISSIONS, DONE
       ############################################################
+      # Finalize deployment permissions without modifying
+      # server-managed Wordfence/WAF configuration files.
       - name: Finalize
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
-          ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc "
+          ssh serverpilot@${{ secrets.SERVER_IP }} '
             set -euo pipefail
-            cd '${{ needs.sanity-and-derive.outputs.deploy_path }}'
-            chown -R serverpilot:serverpilot .
-            find . -type d -exec chmod 775 {} \;
-            find . -type f -exec chmod 664 {} \;
-            echo 'Deployment complete.'
-          "
+
+            BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+            cd "$BASE"
+
+            # Normalize ownership only for files already owned
+            # by the ServerPilot deployment user.
+            find . -user serverpilot \
+              -exec chown serverpilot:serverpilot {} +
+
+            # Standard Bedrock directory permissions.
+            find . -type d \
+              -exec chmod 775 {} +
+
+            # Standard Bedrock file permissions. Wordfence-managed
+            # files retain the permissions assigned on the server.
+            find . -type f \
+              ! -path "./web/wp/wordfence-waf.php" \
+              ! -path "./.user.ini" \
+              ! -path "./web/.user.ini" \
+              -exec chmod 664 {} +
+
+            echo "Deployment complete."
+          '
+      - name: Verify Wordfence WAF
+        if: needs.sanity-and-derive.outputs.app_env == 'live'
+        run: |
+          ssh serverpilot@${{ secrets.SERVER_IP }} '
+            set -euo pipefail
+
+            BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+
+            if [ ! -f "$BASE/web/wp/wordfence-waf.php" ]; then
+              echo "ERROR: Wordfence WAF bootstrap is missing."
+              exit 1
+            fi
+
+            echo "Wordfence WAF bootstrap preserved."
+          '
 
       ############################################################
       # SUMMARY — Append a markdown summary to the run
