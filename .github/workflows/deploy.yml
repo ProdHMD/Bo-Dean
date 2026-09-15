@@ -139,7 +139,7 @@ jobs:
         run: |
           composer install --prefer-dist --no-interaction --no-dev
 
-          corepack yarn install
+          corepack yarn install --no-immutable
 
           echo "===== Yarn 4 lockfile diff ====="
           git diff -- yarn.lock
