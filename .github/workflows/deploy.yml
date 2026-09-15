@@ -134,11 +134,12 @@ jobs:
             ${{ needs.sanity-and-derive.outputs.theme_local_path }}/vendor
           key: composer-theme-${{ hashFiles(format('{0}/composer.lock', needs.sanity-and-derive.outputs.theme_local_path)) }}
 
-      - name: Upload Yarn 4 lockfile
-        uses: actions/upload-artifact@v4
-        with:
-          name: yarn4-lockfile
-          path: ${{ needs.sanity-and-derive.outputs.theme_local_path }}/yarn.lock
+      - name: Build Sage (fail fast)
+        working-directory: ${{ needs.sanity-and-derive.outputs.theme_local_path }}
+        run: |
+          composer install --prefer-dist --no-interaction --no-dev
+          corepack yarn install --immutable
+          corepack yarn build --mode=production
 
       - uses: actions/upload-artifact@v4
         with:
