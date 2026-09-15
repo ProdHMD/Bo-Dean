@@ -140,7 +140,11 @@ jobs:
           NODE_ENV: production
         run: |
           composer install --prefer-dist --no-interaction --no-dev
-          corepack yarn install --immutable
+          corepack yarn install
+
+          echo "===== Yarn 4 lockfile diff ====="
+          git diff -- yarn.lock
+
           corepack yarn build --mode=production
 
       - uses: actions/upload-artifact@v4
