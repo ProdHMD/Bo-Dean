@@ -230,7 +230,26 @@ jobs:
           BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
           ssh "$REMOTE" "mkdir -p '$BASE'"
 
-          # Deploy exactly what's tracked in git (honors root + theme .gitignore)
+          # Preserve server-generated Wordfence WAF files outside the rsync tree.
+          # This is deterministic and does not rely on rsync protect-filter matching.
+          BACKUP_DIR="/tmp/wordfence-waf-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          ssh "$REMOTE" "set -e
+            rm -rf '$BACKUP_DIR'
+            mkdir -p '$BACKUP_DIR'
+            if [ -f '$BASE/web/wp/wordfence-waf.php' ]; then
+              mv '$BASE/web/wp/wordfence-waf.php' '$BACKUP_DIR/wordfence-waf.php'
+            fi
+            if [ -f '$BASE/.user.ini' ]; then
+              mv '$BASE/.user.ini' '$BACKUP_DIR/root.user.ini'
+            fi
+            if [ -f '$BASE/web/.user.ini' ]; then
+              mv '$BASE/web/.user.ini' '$BACKUP_DIR/web.user.ini'
+            fi
+          "
+
+          # Deploy exactly what's tracked in git (honors root + theme .gitignore).
+          # Capture rsync's status so Wordfence files are restored even if rsync fails.
+          set +e
           git ls-files -z \
             | rsync -azv --delete --from0 --files-from=- \
                 --exclude 'vendor' \
@@ -242,6 +261,28 @@ jobs:
                 --exclude "web/app/themes/${{ env.THEME_NAME }}/node_modules" \
                 --exclude "web/app/themes/${{ env.THEME_NAME }}/.yarn" \
                 ./ "$REMOTE:$BASE/"
+          RSYNC_STATUS=$?
+          set -e
+
+          # Always restore the server-generated Wordfence files after rsync.
+          ssh "$REMOTE" "set -e
+            if [ -f '$BACKUP_DIR/wordfence-waf.php' ]; then
+              mv '$BACKUP_DIR/wordfence-waf.php' '$BASE/web/wp/wordfence-waf.php'
+            fi
+            if [ -f '$BACKUP_DIR/root.user.ini' ]; then
+              mv '$BACKUP_DIR/root.user.ini' '$BASE/.user.ini'
+            fi
+            if [ -f '$BACKUP_DIR/web.user.ini' ]; then
+              mkdir -p '$BASE/web'
+              mv '$BACKUP_DIR/web.user.ini' '$BASE/web/.user.ini'
+            fi
+            rmdir '$BACKUP_DIR' 2>/dev/null || true
+          "
+
+          if [ "$RSYNC_STATUS" -ne 0 ]; then
+            echo "::error ::rsync failed with status $RSYNC_STATUS; Wordfence files were restored."
+            exit "$RSYNC_STATUS"
+          fi
 
       - name: Deploy theme builds (public/vendor/node_modules/.yarn)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
@@ -283,6 +324,9 @@ jobs:
               rm -f composer-setup.php
               COMPOSER="$HOME/bin/composer"
             fi
+
+            echo "Clearing Composer cache before deployment…"
+            $COMPOSER clear-cache
 
             echo "Running composer install --no-dev (first pass)…"
             $COMPOSER install --no-dev --prefer-dist --no-interaction
@@ -342,6 +386,32 @@ jobs:
           '
 
       ############################################################
+      # CLEAR WP ROCKET CACHE (LIVE / MASTER ONLY)
+      ############################################################
+      - name: Clear WP Rocket cache on live site
+        if: needs.sanity-and-derive.outputs.app_env == 'live'
+        run: |
+          ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc '
+            set -euo pipefail
+            BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+            cd "$BASE"
+
+            if ! wp plugin is-active wp-rocket >/dev/null 2>&1; then
+              echo "WP Rocket is not active; skipping cache clear."
+              exit 0
+            fi
+
+            if wp help rocket clean >/dev/null 2>&1; then
+              echo "Clearing WP Rocket cache…"
+              wp rocket clean --confirm
+              echo "WP Rocket cache cleared."
+            else
+              echo "WP Rocket CLI command is unavailable; clearing through rocket_clean_domain()."
+              wp eval "if ( function_exists( \"rocket_clean_domain\" ) ) { rocket_clean_domain(); echo \"WP Rocket cache cleared.\\n\"; } else { fwrite( STDERR, \"WP Rocket cache API is unavailable.\\n\" ); exit( 1 ); }"
+            fi
+          '
+
+      ############################################################
       # FINALIZE — PERMISSIONS, DONE
       ############################################################
       - name: Finalize
@@ -378,6 +448,12 @@ jobs:
           BLADE_ICONS=$(ssh "$REMOTE" "test -d '$BASE/vendor/blade-ui-kit/blade-icons' && echo yes || echo no")
           ICONS_DIR_EXISTS=$(ssh "$REMOTE" "test -d '$ICONS_DIR' && echo yes || echo no")
           FALLBACK_USED=$(ssh "$REMOTE" "test -f '$BASE/composer_fallback.env' && grep -q 'FALLBACK_FULL_INSTALL=1' '$BASE/composer_fallback.env' && echo yes || echo no")
+          WAF_FILE=$(ssh "$REMOTE" "test -f '$BASE/web/wp/wordfence-waf.php' && echo preserved || echo not-present")
+          if [ "$APP_ENV" = "live" ]; then
+            WP_ROCKET_ACTIVE=$(ssh "$REMOTE" "cd '$BASE' && wp plugin is-active wp-rocket >/dev/null 2>&1 && echo yes || echo no")
+          else
+            WP_ROCKET_ACTIVE="not-run-on-dev"
+          fi
 
           {
             echo "### Deploy Summary"
@@ -389,6 +465,8 @@ jobs:
             echo "- **Bedrock vendor contains** \`blade-ui-kit/blade-icons\`: ${BLADE_ICONS}"
             echo "- **Theme icons dir exists**: ${ICONS_DIR_EXISTS}"
             echo "- **Composer fallback (full install) used**: ${FALLBACK_USED}"
+            echo "- **Wordfence WAF bootstrap**: ${WAF_FILE}"
+            echo "- **WP Rocket active / cache-clear target**: ${WP_ROCKET_ACTIVE}"
             echo ""
             echo "_Note: \`icons:cache\` runs only when Blade Icons are detected in composer.json._"
           } >> "$GITHUB_STEP_SUMMARY"
