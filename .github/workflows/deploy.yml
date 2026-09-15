@@ -134,17 +134,11 @@ jobs:
             ${{ needs.sanity-and-derive.outputs.theme_local_path }}/vendor
           key: composer-theme-${{ hashFiles(format('{0}/composer.lock', needs.sanity-and-derive.outputs.theme_local_path)) }}
 
-      - name: Build Sage (diagnostic)
-        working-directory: ${{ needs.sanity-and-derive.outputs.theme_local_path }}
-        run: |
-          composer install --prefer-dist --no-interaction --no-dev
-
-          corepack yarn install --no-immutable
-
-          echo "===== Yarn 4 lockfile diff ====="
-          git diff -- yarn.lock
-
-          corepack yarn build --mode=production
+      - name: Upload Yarn 4 lockfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: yarn4-lockfile
+          path: ${{ needs.sanity-and-derive.outputs.theme_local_path }}/yarn.lock
 
       - uses: actions/upload-artifact@v4
         with:
