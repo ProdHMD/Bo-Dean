@@ -134,12 +134,11 @@ jobs:
             ${{ needs.sanity-and-derive.outputs.theme_local_path }}/vendor
           key: composer-theme-${{ hashFiles(format('{0}/composer.lock', needs.sanity-and-derive.outputs.theme_local_path)) }}
 
-      - name: Build Sage (fail fast)
+      - name: Build Sage (diagnostic)
         working-directory: ${{ needs.sanity-and-derive.outputs.theme_local_path }}
-        env:
-          NODE_ENV: production
         run: |
           composer install --prefer-dist --no-interaction --no-dev
+
           corepack yarn install
 
           echo "===== Yarn 4 lockfile diff ====="
