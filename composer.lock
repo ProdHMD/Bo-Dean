@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb9ac7b050a1bcc83db88a5ce40666e4",
+    "content-hash": "6a5d5c3021d629d8ff676f0ec00bd41f",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -6649,7 +6649,7 @@
         },
         {
             "name": "wpackagist-plugin/ai-engine-pro",
-            "version": "3.7.8",
+            "version": "3.8.0",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/ai-engine-pro.zip"

@@ -93,7 +93,7 @@
       "type": "package",
       "package": {
         "name": "wpackagist-plugin/ai-engine-pro",
-        "version": "3.7.8",
+        "version": "3.8.0",
         "type": "wordpress-plugin",
         "dist": {
           "url": "gplv-plugins/ai-engine-pro.zip",
@@ -139,7 +139,7 @@
     "ryanhellyer/wordpress-audio-optimizer": "^1.1",
     "wpackagist-plugin/akismet": "^5.3",
     "wpackagist-plugin/super-light-cache-buster": "^1.4",
-    "wpackagist-plugin/ai-engine-pro": "^3.7",
+    "wpackagist-plugin/ai-engine-pro": "^3.0",
     "wp-media/wp-rocket": "^3.23",
     "wpackagist-plugin/media-file-renamer-pro": "^6.0",
     "wpackagist-theme/twentytwentyfive": "^1.0",
