@@ -34,7 +34,7 @@
     "@roots/sage": "^6.24.0",
     "bootstrap": "^5.3.8",
     "locomotive-scroll": "^4.1.4",
-    "stylelint": "16.9.0",
+    "stylelint": "17.16.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-order": "^8.1.1",
