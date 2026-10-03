@@ -184,7 +184,6 @@ jobs:
         id: detect_blade_icons
         run: |
           HAS=false
-          # Look for either package in Bedrock composer.json
           if grep -qE '"blade-ui-kit\/blade-icons"' composer.json; then HAS=true; fi
           if grep -qE '"owenvoke\/blade-fontawesome"' composer.json; then HAS=true; fi
           echo "has_blade_icons=$HAS" >> "$GITHUB_OUTPUT"
@@ -207,7 +206,6 @@ jobs:
         if: needs.sanity-and-derive.outputs.app_env == 'dev' && steps.devpath.outputs.exists != 'true'
         run: |
           echo "Dev path missing. Skipping."
-          # Write a brief run summary even when skipping
           {
             echo "### Deploy Summary"
             echo ""
@@ -247,28 +245,6 @@ jobs:
                 --exclude "web/app/themes/${{ env.THEME_NAME }}/node_modules" \
                 --exclude "web/app/themes/${{ env.THEME_NAME }}/.yarn" \
                 ./ "$REMOTE:$BASE/"
-          RSYNC_STATUS=$?
-          set -e
-
-          # Always restore the server-generated Wordfence files after rsync.
-          ssh "$REMOTE" "set -e
-            if [ -f '$BACKUP_DIR/wordfence-waf.php' ]; then
-              mv '$BACKUP_DIR/wordfence-waf.php' '$BASE/web/wp/wordfence-waf.php'
-            fi
-            if [ -f '$BACKUP_DIR/root.user.ini' ]; then
-              mv '$BACKUP_DIR/root.user.ini' '$BASE/.user.ini'
-            fi
-            if [ -f '$BACKUP_DIR/web.user.ini' ]; then
-              mkdir -p '$BASE/web'
-              mv '$BACKUP_DIR/web.user.ini' '$BASE/web/.user.ini'
-            fi
-            rmdir '$BACKUP_DIR' 2>/dev/null || true
-          "
-
-          if [ "$RSYNC_STATUS" -ne 0 ]; then
-            echo "::error ::rsync failed with status $RSYNC_STATUS; Wordfence files were restored."
-            exit "$RSYNC_STATUS"
-          fi
 
       - name: Deploy theme builds (public/vendor/node_modules/.yarn)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
@@ -306,30 +282,21 @@ jobs:
 
             export COMPOSER_ALLOW_SUPERUSER=1
             export COMPOSER_MEMORY_LIMIT=-1
-
-            ########################################################
-            # Preserve Wordfence WAF before Composer touches web/wp
-            ########################################################
             WAF_PRESERVED=0
 
             if [ -f "$WAF" ]; then
               echo "Preserving Wordfence WAF before Composer..."
               cp -p "$WAF" "$WAF_BACKUP"
               WAF_PRESERVED=1
-
               echo "WAF backup created:"
               ls -la "$WAF_BACKUP"
             else
               echo "WARNING: Wordfence WAF was not present before Composer."
             fi
 
-            ########################################################
-            # Restore WAF on every exit path
-            ########################################################
             restore_waf() {
               if [ "$WAF_PRESERVED" -eq 1 ] && [ -f "$WAF_BACKUP" ]; then
                 echo "Restoring Wordfence WAF after Composer..."
-
                 mkdir -p "$(dirname "$WAF")"
                 cp -p "$WAF_BACKUP" "$WAF"
                 rm -f "$WAF_BACKUP"
@@ -346,9 +313,6 @@ jobs:
 
             trap restore_waf EXIT
 
-            ########################################################
-            # Locate Composer
-            ########################################################
             if command -v composer >/dev/null 2>&1; then
               COMPOSER="composer"
             else
@@ -359,9 +323,6 @@ jobs:
               COMPOSER="$HOME/bin/composer"
             fi
 
-            ########################################################
-            # Install Bedrock dependencies
-            ########################################################
             echo "Clearing Composer cache before deployment..."
             "$COMPOSER" clear-cache
 
@@ -383,12 +344,7 @@ jobs:
               echo "FALLBACK_FULL_INSTALL=0" > composer_fallback.env
             fi
 
-            ########################################################
-            # Restore now rather than waiting for shell exit
-            ########################################################
             restore_waf
-
-            # Prevent the EXIT trap from performing a second restore.
             trap - EXIT
 
             echo "Bedrock Composer deployment complete."
@@ -396,7 +352,6 @@ jobs:
 
       ############################################################
       # REFRESH ACORN DISCOVERY & CACHES (conditionally)
-      # - Create icons directory if app uses Blade Icons to avoid path errors.
       ############################################################
       - name: Refresh Acorn discovery & caches (conditional)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
@@ -465,8 +420,6 @@ jobs:
       ############################################################
       # FINALIZE — PERMISSIONS, DONE
       ############################################################
-      # Finalize deployment permissions without modifying
-      # server-managed Wordfence/WAF configuration files.
       - name: Finalize
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
@@ -476,17 +429,12 @@ jobs:
             BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
             cd "$BASE"
 
-            # Normalize ownership only for files already owned
-            # by the ServerPilot deployment user.
             find . -user serverpilot \
               -exec chown serverpilot:serverpilot {} +
 
-            # Standard Bedrock directory permissions.
             find . -type d \
               -exec chmod 775 {} +
 
-            # Standard Bedrock file permissions. Wordfence-managed
-            # files retain the permissions assigned on the server.
             find . -type f \
               ! -path "./web/wp/wordfence-waf.php" \
               ! -path "./.user.ini" \
@@ -495,6 +443,7 @@ jobs:
 
             echo "Deployment complete."
           '
+
       - name: Verify Wordfence WAF
         if: needs.sanity-and-derive.outputs.app_env == 'live'
         run: |
@@ -528,12 +477,12 @@ jobs:
           THEME="${BASE}/web/app/themes/${{ env.THEME_NAME }}"
           ICONS_DIR="${THEME}/resources/images/icons"
 
-          # Pull runtime facts from the server for the summary
           FA_PKG=$(ssh "$REMOTE" "test -d '$BASE/vendor/owenvoke/blade-fontawesome' && echo yes || echo no")
           BLADE_ICONS=$(ssh "$REMOTE" "test -d '$BASE/vendor/blade-ui-kit/blade-icons' && echo yes || echo no")
           ICONS_DIR_EXISTS=$(ssh "$REMOTE" "test -d '$ICONS_DIR' && echo yes || echo no")
           FALLBACK_USED=$(ssh "$REMOTE" "test -f '$BASE/composer_fallback.env' && grep -q 'FALLBACK_FULL_INSTALL=1' '$BASE/composer_fallback.env' && echo yes || echo no")
           WAF_FILE=$(ssh "$REMOTE" "test -f '$BASE/web/wp/wordfence-waf.php' && echo preserved || echo not-present")
+
           if [ "$APP_ENV" = "live" ]; then
             WP_ROCKET_ACTIVE=$(ssh "$REMOTE" "cd '$BASE' && wp plugin is-active wp-rocket >/dev/null 2>&1 && echo yes || echo no")
           else
