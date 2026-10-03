@@ -217,6 +217,35 @@ jobs:
             echo "- **Result**: Skipped deployment because dev path was not found."
           } >> $GITHUB_STEP_SUMMARY
           exit 0
+      
+      # Adding a diagnostic for WAF before deployment
+      - name: Diagnostic — WAF before deployment
+        if: needs.sanity-and-derive.outputs.app_env == 'live'
+        run: |
+          ssh serverpilot@${{ secrets.SERVER_IP }} '
+            BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+            echo "===== WAF BEFORE DEPLOYMENT ====="
+            if [ -f "$BASE/web/wp/wordfence-waf.php" ]; then
+              echo "WAF EXISTS"
+              ls -la "$BASE/web/wp/wordfence-waf.php"
+            else
+              echo "WAF MISSING"
+            fi
+          '
+      # Adding after source rsync diagnostic
+      - name: Diagnostic — WAF after source rsync
+        if: needs.sanity-and-derive.outputs.app_env == 'live'
+        run: |
+          ssh serverpilot@${{ secrets.SERVER_IP }} '
+            BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+            echo "===== WAF AFTER SOURCE RSYNC ====="
+            if [ -f "$BASE/web/wp/wordfence-waf.php" ]; then
+              echo "WAF EXISTS"
+              ls -la "$BASE/web/wp/wordfence-waf.php"
+            else
+              echo "WAF MISSING"
+            fi
+          '
 
       ############################################################
       # RSYNC TRACKED SOURCES (git-aware) + THEME BUILDS
