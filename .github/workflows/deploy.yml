@@ -346,42 +346,95 @@ jobs:
           '
 
       ############################################################
-      # SERVER-SIDE COMPOSER FOR BEDROCK (no vendor/.env rsync)
-      # - Try --no-dev first (lean). If Blade Icons are required but missing,
-      #   fall back to full install to cover packages living under require-dev.
+      # SERVER-SIDE COMPOSER FOR BEDROCK
+      # - Preserve Wordfence WAF bootstrap across Composer installs.
+      # - Composer may replace web/wp when WordPress is installed/upgraded,
+      #   which removes the server-generated wordfence-waf.php file.
+      # - Restore the WAF even if Composer fails.
       ############################################################
-      - name: Install Bedrock Composer dependencies on server (with fallback)
+      - name: Install Bedrock Composer dependencies on server (with WAF preservation)
         if: needs.sanity-and-derive.outputs.app_env == 'live' || steps.devpath.outputs.exists == 'true'
         run: |
-          ssh serverpilot@${{ secrets.SERVER_IP }} bash -lc '
+          ssh serverpilot@${{ secrets.SERVER_IP }} bash -s <<'REMOTE_SCRIPT'
             set -euo pipefail
+
             BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+            WAF="$BASE/web/wp/wordfence-waf.php"
+            WAF_BACKUP="/tmp/wordfence-waf-${{ github.run_id }}-${{ github.run_attempt }}.php"
+
             cd "$BASE"
 
             export COMPOSER_ALLOW_SUPERUSER=1
             export COMPOSER_MEMORY_LIMIT=-1
 
+            ########################################################
+            # Preserve Wordfence WAF before Composer touches web/wp
+            ########################################################
+            WAF_PRESERVED=0
+
+            if [ -f "$WAF" ]; then
+              echo "Preserving Wordfence WAF before Composer..."
+              cp -p "$WAF" "$WAF_BACKUP"
+              WAF_PRESERVED=1
+
+              echo "WAF backup created:"
+              ls -la "$WAF_BACKUP"
+            else
+              echo "WARNING: Wordfence WAF was not present before Composer."
+            fi
+
+            ########################################################
+            # Restore WAF on every exit path
+            ########################################################
+            restore_waf() {
+              if [ "$WAF_PRESERVED" -eq 1 ] && [ -f "$WAF_BACKUP" ]; then
+                echo "Restoring Wordfence WAF after Composer..."
+
+                mkdir -p "$(dirname "$WAF")"
+                cp -p "$WAF_BACKUP" "$WAF"
+                rm -f "$WAF_BACKUP"
+
+                if [ ! -f "$WAF" ]; then
+                  echo "ERROR: Wordfence WAF restoration failed."
+                  return 1
+                fi
+
+                echo "Wordfence WAF restored:"
+                ls -la "$WAF"
+              fi
+            }
+
+            trap restore_waf EXIT
+
+            ########################################################
+            # Locate Composer
+            ########################################################
             if command -v composer >/dev/null 2>&1; then
               COMPOSER="composer"
             else
               mkdir -p "$HOME/bin"
-              php -r "copy(\"https://getcomposer.org/installer\", \"composer-setup.php\");"
+              php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
               php composer-setup.php --install-dir="$HOME/bin" --filename=composer --quiet
               rm -f composer-setup.php
               COMPOSER="$HOME/bin/composer"
             fi
 
-            echo "Clearing Composer cache before deployment…"
-            $COMPOSER clear-cache
+            ########################################################
+            # Install Bedrock dependencies
+            ########################################################
+            echo "Clearing Composer cache before deployment..."
+            "$COMPOSER" clear-cache
 
-            echo "Running composer install --no-dev (first pass)…"
-            $COMPOSER install --no-dev --prefer-dist --no-interaction
+            echo "Running composer install --no-dev (first pass)..."
+            "$COMPOSER" install --no-dev --prefer-dist --no-interaction
 
             HAS_BLADE_ICONS="${{ steps.detect_blade_icons.outputs.has_blade_icons }}"
+
             if [ "$HAS_BLADE_ICONS" = "true" ]; then
-              if [ ! -d vendor/owenvoke/blade-fontawesome ] && [ ! -d vendor/blade-ui-kit/blade-icons ]; then
-                echo "Blade Icons/FontAwesome not present after --no-dev. Running full install…"
-                $COMPOSER install --prefer-dist --no-interaction
+              if [ ! -d vendor/owenvoke/blade-fontawesome ] && \
+                 [ ! -d vendor/blade-ui-kit/blade-icons ]; then
+                echo "Blade Icons/FontAwesome not present after --no-dev. Running full install..."
+                "$COMPOSER" install --prefer-dist --no-interaction
                 echo "FALLBACK_FULL_INSTALL=1" > composer_fallback.env
               else
                 echo "FALLBACK_FULL_INSTALL=0" > composer_fallback.env
@@ -389,7 +442,17 @@ jobs:
             else
               echo "FALLBACK_FULL_INSTALL=0" > composer_fallback.env
             fi
-          '
+
+            ########################################################
+            # Restore now rather than waiting for shell exit
+            ########################################################
+            restore_waf
+
+            # Prevent the EXIT trap from performing a second restore.
+            trap - EXIT
+
+            echo "Bedrock Composer deployment complete."
+          REMOTE_SCRIPT
       
       # Diagnostic #3
       - name: Diagnostic — WAF after Bedrock Composer
