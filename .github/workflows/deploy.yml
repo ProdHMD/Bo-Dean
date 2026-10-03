@@ -100,7 +100,7 @@ jobs:
 # 3. BUILD SAGE (NODE + COMPOSER)
 ############################################################
   build-sage:
-    name: Build Sage Assets (Node 20.20.2)
+    name: Build Sage Assets (Node 24.21.0)
     needs: [sanity-and-derive, build-bedrock]
     runs-on: ubuntu-latest
 
@@ -118,7 +118,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.20.2"
+          node-version: "24.21.0"
           package-manager-cache: false
 
       - name: Enable Yarn via Corepack
@@ -329,6 +329,21 @@ jobs:
           rsync -azv --delete "$SRC_THEME/vendor/"       "$REMOTE:$THEME/vendor/"
           rsync -azv --delete "$SRC_THEME/node_modules/" "$REMOTE:$THEME/node_modules/" || true
           rsync -azv --delete "$SRC_THEME/.yarn/"        "$REMOTE:$THEME/.yarn/" || true
+
+      # Diagnostic #2.5
+      - name: Diagnostic — WAF immediately before Bedrock Composer
+        if: needs.sanity-and-derive.outputs.app_env == 'live'
+        run: |
+          ssh serverpilot@${{ secrets.SERVER_IP }} '
+            BASE="${{ needs.sanity-and-derive.outputs.deploy_path }}"
+            echo "===== WAF IMMEDIATELY BEFORE COMPOSER ====="
+            if [ -f "$BASE/web/wp/wordfence-waf.php" ]; then
+              echo "WAF EXISTS"
+              ls -la "$BASE/web/wp/wordfence-waf.php"
+            else
+              echo "WAF MISSING"
+            fi
+          '
 
       ############################################################
       # SERVER-SIDE COMPOSER FOR BEDROCK (no vendor/.env rsync)
