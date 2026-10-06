@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4ebea1d8078a61e7a6de5b58100b48c",
+    "content-hash": "52b50a45720f17ae12bd2a920d2af1ce",
     "packages": [
         {
             "name": "acf/advanced-custom-fields-pro",
@@ -6640,7 +6640,7 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "3.23.5",
+            "version": "3.23.5.1",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/wp-rocket.zip"
@@ -6730,7 +6730,7 @@
         },
         {
             "name": "wpackagist-plugin/media-cleaner-pro",
-            "version": "7.2.9",
+            "version": "7.3.0",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/media-cleaner-pro.zip"
@@ -6739,7 +6739,7 @@
         },
         {
             "name": "wpackagist-plugin/media-file-renamer-pro",
-            "version": "6.3.2",
+            "version": "6.3.3",
             "dist": {
                 "type": "zip",
                 "url": "gplv-plugins/media-file-renamer-pro.zip"
